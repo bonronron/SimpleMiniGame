@@ -1,4 +1,4 @@
-Texture img/DwarfSpriteSheet.png
+Texture ../img/DwarfSpriteSheet.png
 Size 32 32
 Scale 3.0 3.0
 #|Type|Name|StartFrame|EndFrame|Row|FrameTime|FrameActionStart|End|

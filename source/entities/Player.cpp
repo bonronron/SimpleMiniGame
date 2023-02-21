@@ -35,7 +35,7 @@ void Player::update(Game* game, float elapsed)
 
 	
 	// IV.D (1/2) Call the function update in the base class to do the general update stuff that is common to all entities.
-
+	Entity::update(game, elapsed);
 	// XI.B (2/2):  Reduce the shoot cooldown counter by the elapsed time at every frame. 
 	//              Only do this if shoot cooldown is > 0 (can you guess why?)
 
