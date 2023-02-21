@@ -45,17 +45,17 @@ void Tile::loadDefaultTexture()
 	switch (type)
 	{
 	case TileType::CORRIDOR:
-		if (!texture.loadFromFile("img/floor.png"))
+		if (!texture.loadFromFile("../img/floor.png"))
 			throw std::exception("floor.png image not found");
 		break;
 
 	case TileType::WALL:
-		if (!texture.loadFromFile("img/wall.png"))
+		if (!texture.loadFromFile("../img/wall.png"))
 			throw std::exception("wall.png image not found");
 		break;
 
 	default:
-		if (!texture.loadFromFile("img/mushroom50-50.png"))
+		if (!texture.loadFromFile("../img/mushroom50-50.png"))
 			throw std::exception("mushroom50-50.png image not found");
 		break;
 	}
