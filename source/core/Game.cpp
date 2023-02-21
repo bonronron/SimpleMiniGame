@@ -4,7 +4,7 @@
 #include <iostream>
 
 // III.F Add the initialization (to 0) of the entity counter to the initalizers list of this constructor
-Game::Game() : paused(false)
+Game::Game() : paused(false),entityID(0)
 {
 	// V.B: Create the unique pointer to the Input Handler object.
 
@@ -98,8 +98,9 @@ void Game::init(std::vector<std::string> lines)
 				/// III.A Call the function "buildEntityAt" to create a Log pointer. The parameters are the filename to 
 				///       the file with the sprite ("img/log.png"), the column and the row where the log should be place.
 				///		  Then, uncomment the call to the funcion "addEntity" passing the pointer to the new entity as parameter.
-
-				//addEntity(ent);			/// uncomment this (you may have to change "ent" for the name of the pointer you've just created above).
+				
+				auto ent = buildEntityAt<Log>("../img/log.png", col, row);
+				addEntity(ent);			/// uncomment this (you may have to change "ent" for the name of the pointer you've just created above).
 	
 				//By default, entities stand on corridors
 				// II.C (3/5) Use the function addTile from Board to add a CORRIDOR tile to this position.
@@ -114,8 +115,9 @@ void Game::init(std::vector<std::string> lines)
 				///       the file with the sprite ("img/potion.png"), the column and the row where the potion should be place.
 				///		  Then, uncomment the call to the funcion "addEntity" passing the pointer to the new entity as parameter.
 				
+				auto ent = buildEntityAt<Potion>("../img/potion.png", col, row);
 
-				//addEntity(ent);			/// uncomment this
+				addEntity(ent);			/// uncomment this
 	
 				//By default, entities stand on corridors
 				// II.C (4/5) Use the function addTile from Board to add a CORRIDOR tile to this position.
@@ -158,7 +160,9 @@ void Game::addEntity(std::shared_ptr<Entity> newEntity)
 	// III.I This function adds an entity, received by parameter, to the collection of entities.
 	//       This must: i) Increase the entity counter (note: the very first entity should have a ID = 1).
 	//		 ii) Assign the ID to the entity received by parameter. iii) Add the entity to the vector of entities of this class.
-
+	++entityID;
+	newEntity->setID(entityID);
+	entities.push_back(newEntity);
 }
 
 void Game::handleInput()
@@ -233,7 +237,9 @@ void Game::render(float elapsed)
 
 	// III.J Draw all units. Write a loop that iterates over all entities in this class's vector
 	//       and calls the "draw" method in the entities.
-	
+	for (std::shared_ptr<Entity> e : entities) {
+		e->draw(&window);
+	}
 
 	//Draw FPS
 	window.drawGUI(*this);
@@ -255,15 +261,16 @@ void Game::setFPS(int FPS)
 // III.G Return the current ID counter.
 EntityID Game::getIDCounter()
 {
-	return 0;  //you can delete this once III.G is complete.
+	return entityID;  
 }
 
 std::shared_ptr<Entity> Game::getEntity(unsigned int idx)
 {
 	// III.H Return the pointer to the entity which is in position "idx" of the vector.
 	//       You must verify that the index is within the bounds of the vector.
-
-
-
-	return nullptr;		//you can delete this once III.H is complete.
+	if (idx > entities.size() - 1) {
+		throw std::runtime_error("ID OUT OF RANGE OF ENTITIES VECTOR");
+		return nullptr;
+	}
+	return entities[idx];
 }

@@ -53,11 +53,11 @@ private:
 
 	// III.D Declare a vector from the standard template library that 
 	//       contains shared pointers to Entity classes. Recommended name: entities.
-
+	std::vector<std::shared_ptr<Entity>> entities;
 
 	// III.E Declare a variable of type EntityID (which is declared in Entity.h). This variable will
 	//       be incremented by one every time an entity is added to the game.
-
+	EntityID entityID;
 
 	
 	// IV.A (1/2) Declare a pointer to a player object. The pointer must be shared pointer from the standard library.

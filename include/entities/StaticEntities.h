@@ -11,7 +11,7 @@ public:
 	void init(const std::string& textureFile, float scale) override
 	{
 		// III.C (1/2) Call the init() function in Entity to initalize this object
-
+		Entity::init(textureFile, scale);
 		// VIII.C (1/2) Set the top left and bottom right corners of the bounding box for this entity.
 	}
 
@@ -33,7 +33,7 @@ public:
 	void init(const std::string& textureFile, float scale) override
 	{
 		// III.C (2/2) Call the init() function in Entity to initalize this object
-
+		Entity::init(textureFile, scale);
 		// VIII.C (2/2) Set the top left and bottom right corners of the bounding box for this entity.
 	}
 
