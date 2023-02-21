@@ -10,17 +10,24 @@ void adaptiveLoop(Game& game, float& lastTime, float updateTarget = 0)
 
     // I.A: Three function calls for the game loop: handleInput, update and render.
     //    Update and Render are frame-dependent
-
+    game.handleInput();
+    game.update(elapsedSeconds);
+    game.render(elapsedSeconds);
 
     // I.B: This loop is time-variable, set the game to sleep in order to get a 
     //      constant framerate.
-
-
+    if (updateTarget != 0.f) {
+        sf::sleep(sf::seconds(current + updateTarget - game.getElapsed().asSeconds()));
+    }
     // I.C: Calculate the current frame rate and set it to the game.
 
+    float after = game.getElapsed().asSeconds();
+    int fps = static_cast<int>(1 / (after - current));
 
     // I.D: Call the function game.setFPS(int) to inform the game about the current FPS. Print this value to console as well.
 
+    game.setFPS(fps);
+    std::cout << "FPS: " << fps << "; elapsed: " << elapsedSeconds<<std::endl;
 
     lastTime = current;
 }
@@ -28,7 +35,7 @@ void adaptiveLoop(Game& game, float& lastTime, float updateTarget = 0)
 int main(int argc, char** argv[])
 {
     // Try to load the level:
-    std::ifstream levelRead{ "levels/lvl0.txt" };
+    std::ifstream levelRead{ "../levels/lvl0.txt" };
     if (!levelRead)
     {
         throw std::exception("File not found\n");

@@ -53,7 +53,7 @@ void Game::init(std::vector<std::string> lines)
 	size_t w = -1;
 
 	// Load the font for the window and set its title
-	window.loadFont("font/AmaticSC-Regular.ttf");
+	window.loadFont("../font/AmaticSC-Regular.ttf");
 	window.setTitle("Mini-Game");
 	
 	auto it = lines.cbegin();
