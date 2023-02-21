@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <fstream>
-#include "../core/Game.h"
+#include "include/core/Game.h"
 
 void adaptiveLoop(Game& game, float& lastTime, float updateTarget = 0)
 {

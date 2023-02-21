@@ -5,6 +5,13 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleMiniGame", "SimpleMiniGame.vcxproj", "{5476F3ED-47FC-447C-A70D-030FD539C28E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E2AA5500-9F31-4634-886C-7E5D7456A1DB}"
+	ProjectSection(SolutionItems) = preProject
+		..\include\core\Board.h = ..\include\core\Board.h
+		..\include\core\Game.h = ..\include\core\Game.h
+		..\include\core\Tile.h = ..\include\core\Tile.h
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
