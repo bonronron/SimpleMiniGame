@@ -1,13 +1,14 @@
 #include "../../include/core/Game.h"
 #include "../../include/entities/Fire.h"
 #include "../../include/entities/StaticEntities.h"
+#include "../../include/core/InputHandler.h"
+#include "../../include/core/Command.h"
 #include <iostream>
 
 // III.F Add the initialization (to 0) of the entity counter to the initalizers list of this constructor
-Game::Game() : paused(false),entityID(0)
+Game::Game() : paused(false),entityID(0), inputHandler{ std::make_unique<InputHandler>() }
 {
 	// V.B: Create the unique pointer to the Input Handler object.
-
 }
 
 Game::~Game()
@@ -169,9 +170,10 @@ void Game::handleInput()
 {
 	// V.C: Call the fucntion that handles the input for the game and retrieve the command returned in a variable.
 	//      Then, call the "execute" method of the returned object to run this command.
-			
-	// V.D: Call the function handleInput on the player's object.
-
+	std::shared_ptr<Command> command = inputHandler->handleInput();
+	if(command != nullptr) command->execute(*this);
+	// V.D: Call the function handleInput on the player's object
+	player->handleInput(*this);
 
 }
 
@@ -179,7 +181,7 @@ void Game::handleInput()
 void Game::update(float elapsed)
 {
 	// V.E Only update the game entities if the game is not paused.
-
+	if (!isPaused()) {
 
 		// IV.C Use an STL iterator to run through all entities of the vector of entities of this class. Use a while loop. 
 		//      On each iteration, call the member function update from Entity, passing "this" game instance and the elapsed time.
@@ -188,17 +190,17 @@ void Game::update(float elapsed)
 		//        - end(): returns an iterator pointing at the last element.
 		//		  - (*it): returns the object pointed at by the iterator 'it'
 		//        - iterators override the operators ++ and -- for advancing them to their next and previous element, respectively.
-	auto it = entities.begin();
-	while(it!= entities.end()){
-		(*it)->update(this,elapsed);
-		it++;
-	}
+		auto it = entities.begin();
+		while (it != entities.end()) {
+			(*it)->update(this, elapsed);
+			it++;
+		}
 		// Collisions block:
 
 		// IX.C: Retrieve a reference to the player's bounding box and run through all entities (using an itereator)  
 		//      in the game with a while loop. You don't need to check the player's bounding box to itself, 
 		//      so include a check that skips the player entity while looping through the entities vector.
-		
+
 
 
 				// IX.D: (Inside the loop) Once you have a different entity to player, retrieve it's bounding box
@@ -216,15 +218,15 @@ void Game::update(float elapsed)
 
 
 							// IX.G: This is a log
-							
+
 
 
 		// X.D Write a loop that iterates through all entities and removes them from the vector of entities.
 		//     Use the function erase from std::vector, which receives an iterator. 
 		//     Q? Should you ALWAYS advance the iterator in this loop?
-	
-	
 
+
+	}
 	//Update the window for refreshing the graphics (leave this OUTSIDE the !paused block)
 	window.update();
 }

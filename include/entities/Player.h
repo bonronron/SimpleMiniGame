@@ -4,7 +4,7 @@
 class Fire;
 
 // VI.A (2/2): Add a forward declaration to the class PlayerInputHandler
-
+class PlayerInputHandler;
 class Player :  public Entity
 {
 public:
@@ -53,6 +53,6 @@ private:
 	float shootCooldown;
 
 	// VI.A (1/2): Declare a unique pointer to a player input handler.
-
+	std::unique_ptr<PlayerInputHandler> playerInputHandler;
 };
 

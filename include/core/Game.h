@@ -64,7 +64,7 @@ private:
 	std::shared_ptr<Player> player;
 
 	// V.A Declare a unique pointer to an Input Handler object for this class.
-
+	std::unique_ptr<InputHandler> inputHandler;
 
 };
 

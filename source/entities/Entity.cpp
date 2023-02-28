@@ -34,6 +34,9 @@ void Entity::update(Game* game, float elapsed)
 	//       This movement needs to be per second, so you need to factor in the speed of the entity 
 	//       (which is a member variable of this class) and the elapsed time since the last frame 
 	//       (a parameter in this function).
+	float newX = position.x + velocity.x * elapsed * speed;
+	float newY = position.y + velocity.y * elapsed * speed;
+	setPosition(newX, newY);
 
 
 
