@@ -9,8 +9,9 @@ Entity::Entity() :
 	speed(1),
 	isSpriteSheet(false),
 	id(0),
-	type(EntityType::UNDEFINED)
+	type(EntityType::UNDEFINED),
 	// X.B (1/2) Add the initialization the deleted flag to false
+	deleted(false)
 {}
 
 Entity::Entity(EntityType et) : 
@@ -19,8 +20,9 @@ Entity::Entity(EntityType et) :
 	speed(1), 
 	isSpriteSheet(false),
 	id(0),
-	type (et)
+	type (et),
 	// X.B (2/2) Add the initialization the deleted flag to false
+	deleted(false)
 {}
 
 Entity::~Entity()

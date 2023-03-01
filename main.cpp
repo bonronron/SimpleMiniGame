@@ -27,7 +27,7 @@ void adaptiveLoop(Game& game, float& lastTime, float updateTarget = 0)
     // I.D: Call the function game.setFPS(int) to inform the game about the current FPS. Print this value to console as well.
 
     game.setFPS(fps);
-    std::cout << "FPS: " << fps << "; elapsed: " << elapsedSeconds<<std::endl;
+    //std::cout << "FPS: " << fps << "; elapsed: " << elapsedSeconds<<std::endl;
 
     lastTime = current;
 }

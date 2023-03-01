@@ -48,6 +48,8 @@ public:
 	
 	// X.C  Add two helper functions. One that returns the value of the deleted flag, another one that 
 	//      "deletes" the entity by setting this flag to true. (Q: one of this functions should be "const", which one?).
+	bool isDeleted() const { return deleted; }
+	void deleteEntity() { deleted = true; }
 
 protected:
 
@@ -70,6 +72,6 @@ protected:
 	sf::Sprite sprite;
 
 	// X.A Add a bool member variable "deleted" to this class.
-
+	bool deleted;
 
 };
