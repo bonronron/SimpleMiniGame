@@ -17,20 +17,33 @@ std::shared_ptr<Command> InputHandler::handleInput() {
 
 PlayerInputHandler::PlayerInputHandler() : moveRightCommand{ std::make_shared<MoveRightCommand>() },
 	moveLeftCommand{ std::make_shared<MoveLeftCommand>() }, moveUpCommand{ std::make_shared<MoveUpCommand>() },
-	moveDownCommand{ std::make_shared<MoveDownCommand>() } {};
+	moveDownCommand{ std::make_shared<MoveDownCommand>() }, shoutCommand{ std::make_shared<ShoutCommand>() },
+	attackCommand{ std::make_shared<AttackCommand>() }
+{
+	simultaneousCommands = std::vector<std::shared_ptr<Command>>();
+};
 
-std::shared_ptr<Command> PlayerInputHandler::handleInput() {
+std::vector<std::shared_ptr<Command>>& PlayerInputHandler::handleInput() {
+	
+	simultaneousCommands.clear(); 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-		return moveRightCommand;
+		simultaneousCommands.push_back(moveRightCommand); 
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-		return moveLeftCommand;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+		simultaneousCommands.push_back(moveLeftCommand);
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-		return moveUpCommand;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+		simultaneousCommands.push_back(moveUpCommand);
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-		return moveDownCommand;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+		simultaneousCommands.push_back(moveDownCommand);
 	}
-	return nullptr;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+		simultaneousCommands.push_back(attackCommand);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)) {
+		simultaneousCommands.push_back(shoutCommand);
+	}
+
+	return simultaneousCommands;
 };

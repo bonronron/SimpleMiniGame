@@ -1,4 +1,5 @@
 #include <memory>
+#include <vector>
 class Command;
 class InputHandler {
 public:
@@ -11,10 +12,13 @@ private:
 class PlayerInputHandler {
 public:
 	PlayerInputHandler();
-	std::shared_ptr<Command> handleInput();
+	std::vector<std::shared_ptr<Command>>& handleInput();
 private:
+	std::vector<std::shared_ptr<Command>> simultaneousCommands;
 	std::shared_ptr<Command> moveRightCommand;
 	std::shared_ptr<Command> moveLeftCommand;
 	std::shared_ptr<Command> moveUpCommand;
 	std::shared_ptr<Command> moveDownCommand;
+	std::shared_ptr<Command> shoutCommand;
+	std::shared_ptr<Command> attackCommand;
 };

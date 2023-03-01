@@ -31,12 +31,13 @@ void Player::update(Game* game, float elapsed)
 	//			  animation: if it should start playing and if it should loop.
 	//			  Additionally, you must also set the sprite direction (to Direction::Right) of the spritesheet.
 		
-	if(velocity.x != 0 || velocity.y != 0) spriteSheet.setAnimation("Walk", true, true);
+	if (isAttacking()) spriteSheet.setAnimation("Attack", true, false);
+	else if (isShouting()) spriteSheet.setAnimation("Shout", true, false);
+	else if(velocity.x != 0 || velocity.y != 0) spriteSheet.setAnimation("Walk", true, true);
+	// VI.F (2/2) If the player is not moving, we must get back to playing the "Idle" animation.
 	else spriteSheet.setAnimation("Idle", true, true);
 	if (velocity.x > 0) {spriteSheet.setSpriteDirection(Direction::Right);}
 	else if(velocity.x < 0) spriteSheet.setSpriteDirection(Direction::Left);
-	
-	// VI.F (2/2) If the player is not moving, we must get back to playing the "Idle" animation.
 
 	
 	// IV.D (1/2) Call the function update in the base class to do the general update stuff that is common to all entities.
@@ -57,6 +58,10 @@ void Player::update(Game* game, float elapsed)
 	
 	// VII.B: If we are attacking but the current animation is no longer playing, set the attacking flag to false.
 	//        The same needs to be done for "shouting".
+	if (!spriteSheet.getCurrentAnim()->isPlaying()) {
+		setAttacking(false);
+		setShouting(false);
+	}
 
 }
 
@@ -69,9 +74,12 @@ void Player::handleInput(Game& game)
 
 	// VI.C: Call the fucntion that handles the input for the player and retrieve the command returned in a variable.
 	//       Then, call the "execute" method of the returned object to run this command.
-	std::shared_ptr<Command> command = playerInputHandler->handleInput();
-	if (command != nullptr) command->execute(game);
-
+	std::vector<std::shared_ptr<Command>> commands = playerInputHandler->handleInput();
+	std::vector<std::shared_ptr<Command>>::iterator it = commands.begin();
+	while (it != commands.end()) {
+		if ((*it) != nullptr) (*it)->execute(game);
+		it++;
+	}
 
 	// VII.A Modify the code ABOVE so, instead of calling "execute" in a command pointer, iterates through
 	//       the vector of commands and executes them all.

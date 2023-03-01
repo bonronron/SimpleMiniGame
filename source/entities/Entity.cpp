@@ -61,7 +61,8 @@ void Entity::update(Game* game, float elapsed)
 	//		   Set the top left corner of this rectangle to the position of this entity.
 	//		   Set the bottom right corner of this rectangle to the position+bboxSize coordinates.
 
-
+	boundingBox.setTopLeft(position);
+	boundingBox.setBottomRight(position + bboxSize);
 
 }
 
@@ -79,7 +80,7 @@ void Entity::draw(Window* window)
 		window->draw(sprite); 
 
 	// VIII.B Draw the bounding box by retrieving a drawable rect from the bounding box Rectangle.
-
+	window->draw(boundingBox.getDrawableRect());
 
 }
 

@@ -23,3 +23,9 @@ class MoveUpCommand :public Command {
 class MoveDownCommand :public Command {
 	void execute(Game& game) override;
 };
+class AttackCommand :public Command {
+	void execute(Game& game) override;
+};
+class ShoutCommand :public Command {
+	void execute(Game& game) override;
+};
