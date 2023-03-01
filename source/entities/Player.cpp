@@ -44,10 +44,18 @@ void Player::update(Game* game, float elapsed)
 	Entity::update(game, elapsed);
 	// XI.B (2/2):  Reduce the shoot cooldown counter by the elapsed time at every frame. 
 	//              Only do this if shoot cooldown is > 0 (can you guess why?)
-
-	// XI.A: Create an Fire entity object (using Player::createFire()) and add it to the game (using Game::addEntity).
-	//       Then, remove the shooting cost (Player::shootingCost) from the wood member variable of this class
+	if (shootCooldown > 0) { 
+		shootCooldown = shootCooldown - elapsed; 
+	}
 	//       Finally, wrap the functionality below in an IF statement, so we only spawn fire when:
+	if (spriteSheet.getCurrentAnim()->getName() == "Shout" && spriteSheet.getCurrentAnim()->isInAction() && wood >= shootingCost && shootCooldown <= 0) {
+		shootCooldown = shootCooldownTime;
+		// XI.A: Create an Fire entity object (using Player::createFire()) and add it to the game (using Game::addEntity).
+		game->addEntity(createFire());
+		//       Then, remove the shooting cost (Player::shootingCost) from the wood member variable of this class
+		wood = wood - shootingCost;
+		std::cout << "Wood: "<< wood<<std::endl;
+	}
 	//            1) We are playing the shouting animation
 	//			  2) The animation is in one of the "in action" frames.
 	//			  3) We have enough wood "ammunition" (variable wood and shootingCost)
@@ -90,7 +98,7 @@ std::shared_ptr<Fire> Player::createFire() const
 	auto fireEntity = std::make_shared<Fire>();		
 
 	Vector2f pos { position.x + getTextureSize().x * 0.5f,  position.y + getTextureSize().y * 0.5f };
-	fireEntity->init("img/fire.png", 1.0f);
+	fireEntity->init("../img/fire.png", 1.0f);
 	fireEntity->setPosition(pos.x, pos.y);
 	Vector2f vel(fireSpeed, 0.f);
 	if (spriteSheet.getSpriteDirection() == Direction::Left) vel.x = vel.x * -1.0f;
