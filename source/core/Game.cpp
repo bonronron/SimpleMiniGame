@@ -181,7 +181,7 @@ void Game::handleInput()
 void Game::update(float elapsed)
 {
 	// V.E Only update the game entities if the game is not paused.
-	if (!isPaused()) {
+	if (!isPaused()) { // <FEEDBACK> You don't need to call this function, use the variable paused directly, which is a member variable of this class.
 
 		// IV.C Use an STL iterator to run through all entities of the vector of entities of this class. Use a while loop. 
 		//      On each iteration, call the member function update from Entity, passing "this" game instance and the elapsed time.
@@ -207,6 +207,10 @@ void Game::update(float elapsed)
 				it2++;
 				continue;
 			}
+
+			// <FEEDBACK> In the following switch cases, rather than calling getPlayer() repeatedly, call it
+			// once and store it in a local variable (pointer). Then use that pointer. It's more efficient that calling a function repeatedly.
+
 			// IX.D: (Inside the loop) Once you have a different entity to player, retrieve it's bounding box
 			//       and check if they intersect.
 			if ((*it2)->getBoundingBox().intersects(playerBoundingBox)) {
@@ -246,7 +250,7 @@ void Game::update(float elapsed)
 		// X.D Write a loop that iterates through all entities and removes them from the vector of entities.
 		//     Use the function erase from std::vector, which receives an iterator. 
 		//     Q? Should you ALWAYS advance the iterator in this loop?
-		auto it3 = entities.begin();
+		auto it3 = entities.begin(); // <FEEDBACK> You don't really need to declare a new iterator - you can reuse the one from the previous loop.
 		while (it3 != entities.end()) {
 			if ((*it3)->isDeleted()) {
 				it3 = entities.erase(it3);

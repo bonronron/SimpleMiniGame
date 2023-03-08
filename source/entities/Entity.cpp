@@ -38,7 +38,7 @@ void Entity::update(Game* game, float elapsed)
 	//       (a parameter in this function).
 	float newX = position.x + velocity.x * elapsed * speed;
 	float newY = position.y + velocity.y * elapsed * speed;
-	setPosition(newX, newY);
+	setPosition(newX, newY); // <FEEDBACK> You don't need the two variables nor calling this function. Modify position.x and position.y direclty.
 
 
 

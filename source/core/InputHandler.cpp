@@ -20,6 +20,7 @@ PlayerInputHandler::PlayerInputHandler() : moveRightCommand{ std::make_shared<Mo
 	moveDownCommand{ std::make_shared<MoveDownCommand>() }, shoutCommand{ std::make_shared<ShoutCommand>() },
 	attackCommand{ std::make_shared<AttackCommand>() }
 {
+	// <FEEDBACK> This is not necessary, remove.
 	simultaneousCommands = std::vector<std::shared_ptr<Command>>();
 };
 
