@@ -36,9 +36,9 @@ void Entity::update(Game* game, float elapsed)
 	//       This movement needs to be per second, so you need to factor in the speed of the entity 
 	//       (which is a member variable of this class) and the elapsed time since the last frame 
 	//       (a parameter in this function).
-	float newX = position.x + velocity.x * elapsed * speed;
-	float newY = position.y + velocity.y * elapsed * speed;
-	setPosition(newX, newY); // <FEEDBACK> You don't need the two variables nor calling this function. Modify position.x and position.y direclty.
+	position.x  = position.x + velocity.x * elapsed * speed;
+	position.y  = position.y + velocity.y * elapsed * speed;
+	/*setPosition(newX, newY); */// <FEEDBACK> You don't need the two variables nor calling this function. Modify position.x and position.y direclty.
 
 
 
@@ -49,13 +49,12 @@ void Entity::update(Game* game, float elapsed)
 	//			  If the entity does NOT have a spritesheet ("isSpriteSheet" is false, {else} clause), simply:
 	//			    iii) set the position of the "sprite" variable to the position vector (using sprite.setPosition(...)).
 	if (isSpriteSheet) {
-		sprite.setPosition(position.x, position.y);
+		spriteSheet.getSprite().setPosition(position.x, position.y);
 		spriteSheet.update(elapsed);
 	}
 	else {
 		sprite.setPosition(position.x, position.y);
 	}
-
 	// VIII.A  The bounding box of an entity has the same dimensions as the texture of the sprite
 	//		   or spritesheet. This is calculated in the init() functions (see below in this file)
 	//		   and the size is stored in the variable "bboxSize". 

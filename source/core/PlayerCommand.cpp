@@ -15,12 +15,14 @@ void MoveDownCommand::execute(Game& game) {
 }
 void AttackCommand::execute(Game& game) {
 	// <FEEDBACK> This needs to check if the player isAttacking.
-	game.getPlayer()->setAttacking(true);
+	if (!game.getPlayer()->isAttacking()) {
+		game.getPlayer()->setAttacking(true);
+	}
 }
 void ShoutCommand::execute(Game& game) {
 	// <FEEDBACK> This needs to check if the player isShouting.
 	// And the requirment of having wood is already checked in Player::update(). Remove it from here.
-	if (game.getPlayer()->getWood() >= 0) {
+	if (!game.getPlayer()->isShouting()) {
 		game.getPlayer()->setShouting(true);
 	}
 }
