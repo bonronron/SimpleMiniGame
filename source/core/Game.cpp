@@ -181,7 +181,7 @@ void Game::handleInput()
 void Game::update(float elapsed)
 {
 	// V.E Only update the game entities if the game is not paused.
-	if (!isPaused()) { // <FEEDBACK> You don't need to call this function, use the variable paused directly, which is a member variable of this class.
+	if (!paused) { // <FEEDBACK> You don't need to call this function, use the variable paused directly, which is a member variable of this class.
 
 		// IV.C Use an STL iterator to run through all entities of the vector of entities of this class. Use a while loop. 
 		//      On each iteration, call the member function update from Entity, passing "this" game instance and the elapsed time.
@@ -201,42 +201,42 @@ void Game::update(float elapsed)
 		//      in the game with a while loop. You don't need to check the player's bounding box to itself, 
 		//      so include a check that skips the player entity while looping through the entities vector.
 		auto playerBoundingBox{ getPlayer()->getBoundingBox() };
-		auto it2 = entities.begin();
-		while (it2 != entities.end()) {
-			if ((*it2)->getEntityType() == EntityType::PLAYER) {
-				it2++;
+		it = entities.begin();
+		while (it != entities.end()) {
+			if ((*it)->getEntityType() == EntityType::PLAYER) {
+				it++;
 				continue;
 			}
 
 			// <FEEDBACK> In the following switch cases, rather than calling getPlayer() repeatedly, call it
 			// once and store it in a local variable (pointer). Then use that pointer. It's more efficient that calling a function repeatedly.
-
+			auto player = getPlayer();
 			// IX.D: (Inside the loop) Once you have a different entity to player, retrieve it's bounding box
 			//       and check if they intersect.
-			if ((*it2)->getBoundingBox().intersects(playerBoundingBox)) {
-				switch ((*it2)->getEntityType()) {
+			if ((*it)->getBoundingBox().intersects(playerBoundingBox)) {
+				switch ((*it)->getEntityType()) {
 					// IX.E (if there is an intesection) Write a switch statement that determines the type of the object (which you
 					//      can retrieve with getEntityType()) we are colliding with. For each case, add a console print out that 
 					//      says what are you colliding with.
 				case EntityType::POTION:
 							// IX.F: This is a potion
 					{
-						Potion* potion = dynamic_cast<Potion*>((*it2).get());
-						getPlayer()->addHealth(potion->getHealth());
+						Potion* potion = dynamic_cast<Potion*>((*it).get());
+						player->addHealth(potion->getHealth());
 						std::cout << " Collide with potion " << std::endl;
-						std::cout << " Player health : " << getPlayer()->getHealth() << "\tHealth restored : " << potion->getHealth() << std::endl;
+						std::cout << " Player health : " << player->getHealth() << "\tHealth restored : " << potion->getHealth() << std::endl;
 						potion->deleteEntity();
 						break; 
 					}
 				case EntityType::LOG:
 							// IX.G: This is a log
 					{
-						Log* log = dynamic_cast<Log*>((*it2).get());
+						Log* log = dynamic_cast<Log*>((*it).get());
 						std::cout << " Collide with log " << std::endl;
-						if (getPlayer()->getSpriteSheet()->getCurrentAnim()->isInAction()
-							&& getPlayer()->getSpriteSheet()->getCurrentAnim()->getName() == "Attack") {
-							getPlayer()->addWood(log->getWood());
-							std::cout << " Logs : " << getPlayer()->getWood() << "\Logs collected : " << log->getWood() << std::endl;
+						if (player->getSpriteSheet()->getCurrentAnim()->isInAction()
+							&& player->getSpriteSheet()->getCurrentAnim()->getName() == "Attack") {
+							player->addWood(log->getWood());
+							std::cout << " Logs : " << player->getWood() << "\tLogs collected : " << log->getWood() << std::endl;
 							log->deleteEntity();
 						}
 						break;
@@ -244,19 +244,19 @@ void Game::update(float elapsed)
 
 				}
 			}
-			it2++;
+			it++;
 		}
 
 		// X.D Write a loop that iterates through all entities and removes them from the vector of entities.
 		//     Use the function erase from std::vector, which receives an iterator. 
 		//     Q? Should you ALWAYS advance the iterator in this loop?
-		auto it3 = entities.begin(); // <FEEDBACK> You don't really need to declare a new iterator - you can reuse the one from the previous loop.
-		while (it3 != entities.end()) {
-			if ((*it3)->isDeleted()) {
-				it3 = entities.erase(it3);
+		it = entities.begin(); // <FEEDBACK> You don't really need to declare a new iterator - you can reuse the one from the previous loop.
+		while (it != entities.end()) {
+			if ((*it)->isDeleted()) {
+				it = entities.erase(it);
 			}
 			else
-				it3++;
+				it++;
 		}
 
 
