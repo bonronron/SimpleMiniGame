@@ -6,7 +6,7 @@ bool Rectangle::inside(float x, float y) const
     // IX.A Implement this function, that returns true if the point <x,y> is inside this rectangle.
     
     // <FEEDBACK> Better to check for <= or >= than for > or <
-    return x > topLeft.x && x < bottomRight.x && y > topLeft.y && y < bottomRight.y;
+    return x >= topLeft.x && x <= bottomRight.x && y >= topLeft.y && y <= bottomRight.y;
     //return false; // you can delete this once IX.A is complete.
 }
 

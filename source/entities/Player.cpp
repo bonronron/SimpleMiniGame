@@ -70,10 +70,8 @@ void Player::update(Game* game, float elapsed)
 	// <FEEDBACK> This is not correct, the two cases should be treated separately.
 	//			  Check that we are "attacking" and animation is playing -> then set attacking to False.
 	//			  A separate IF is needd for shouting.
-	if (!spriteSheet.getCurrentAnim()->isPlaying()) {
-		setAttacking(false);
-		setShouting(false);
-	}
+	if (!spriteSheet.getCurrentAnim()->isPlaying() && attacking) setAttacking(false);
+	if(!spriteSheet.getCurrentAnim()->isPlaying() && shouting) setShouting(false);
 
 }
 
@@ -88,10 +86,10 @@ void Player::handleInput(Game& game)
 	//       Then, call the "execute" method of the returned object to run this command.
 
 	// <FEEDBACK> These are good places to use the keyword "auto".
-	std::vector<std::shared_ptr<Command>> commands = playerInputHandler->handleInput();
-	std::vector<std::shared_ptr<Command>>::iterator it = commands.begin();
+	auto commands = playerInputHandler->handleInput();
+	auto it = commands.begin();
 	while (it != commands.end()) {
-		if ((*it) != nullptr) (*it)->execute(game); // <FEEDBACK> Actually, your vector should never contain a nullptr.
+		(*it)->execute(game); // <FEEDBACK> Actually, your vector should never contain a nullptr.
 		it++;
 	}
 
