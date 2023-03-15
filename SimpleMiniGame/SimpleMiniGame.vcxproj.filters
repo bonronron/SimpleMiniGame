@@ -60,6 +60,9 @@
     <ClInclude Include="..\include\core\InputHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\components\TTLComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\levels\lvl0.txt">

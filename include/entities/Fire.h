@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity.h"
+#include "../components/TTLComponent.h"
 
 class Fire : public Entity
 {
@@ -11,11 +12,11 @@ public:
 
 	virtual void update(Game* game, float elapsed = 1.0f) override;
 
-	int getTTL() const { return ttl; }
+	int getTTL() const { return ttl->getTTL(); }
 
 private:
 
-	int ttl;
+	std::unique_ptr<TTLComponent> ttl;
 
 };
 
