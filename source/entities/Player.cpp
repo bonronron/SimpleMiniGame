@@ -7,9 +7,16 @@
 #include <iostream>
 
 
-Player::Player() : Entity(EntityType::PLAYER), attacking(false), shouting(false), health(60), wood(0), shootCooldown(0), playerInputHandler{ std::make_unique<PlayerInputHandler>() }
+Player::Player() : Entity(EntityType::PLAYER), 
+	attacking(false), 
+	shouting(false), 
+	/*health(60),*/ 
+	wood(0), 
+	shootCooldown(0), 
+	playerInputHandler{ std::make_unique<PlayerInputHandler>() },
+	healthComponent {std::make_shared<HealthComponent>(startingHealth,maxHealth) }
 {
-	speed = playerSpeed;
+	speed =playerSpeed;
 
 	// VI.B: Create the unique pointer to the PlayerInputHandler object
 
@@ -111,12 +118,12 @@ std::shared_ptr<Fire> Player::createFire() const
 	return fireEntity;
 }
 
-void Player::addHealth(int h)
-{
-	health += h;
-	if (health > maxHealth) health = maxHealth;
-	if (health < 0) health = 0;
-}
+//void Player::addHealth(int h)
+//{
+//	health += h;
+//	if (health > maxHealth) health = maxHealth;
+//	if (health < 0) health = 0;
+//}
 
 void Player::addWood(int w)
 {

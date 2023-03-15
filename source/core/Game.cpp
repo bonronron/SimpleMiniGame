@@ -222,9 +222,9 @@ void Game::update(float elapsed)
 							// IX.F: This is a potion
 					{
 						Potion* potion = dynamic_cast<Potion*>((*it).get());
-						player->addHealth(potion->getHealth());
+						player->getHealthComp()->changeHealth(potion->getHealth());
 						std::cout << " Collide with potion " << std::endl;
-						std::cout << " Player health : " << player->getHealth() << "\tHealth restored : " << potion->getHealth() << std::endl;
+						std::cout << " Player health : " << player->getHealthComp()->getHealth() << "\tHealth restored : " << potion->getHealth() << std::endl;
 						potion->deleteEntity();
 						break; 
 					}

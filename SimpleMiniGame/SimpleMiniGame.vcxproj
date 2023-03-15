@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\components\HealthComponent.h" />
     <ClInclude Include="..\include\components\TTLComponent.h" />
     <ClInclude Include="..\include\core\Board.h" />
     <ClInclude Include="..\include\core\Command.h" />
