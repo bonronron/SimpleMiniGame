@@ -1,4 +1,3 @@
-#pragma once
 #include "../../include/core/InputHandler.h"
 #include "../../include/core/Command.h"
 

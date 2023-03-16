@@ -16,10 +16,10 @@ Player::Player() : Entity(EntityType::PLAYER),
 	wood(0), 
 	shootCooldown(0), 
 	// playerInputHandler{ std::make_unique<PlayerInputHandler>() },
-	healthComponent {std::make_shared<HealthComponent>(startingHealth,maxHealth) }
+	healthComponent {std::make_shared<HealthComponent>(startingHealth,maxHealth) },
 	input{ std::make_unique<PlayerInputComponent>() }
 {
-	// speed =playerSpeed;
+	 speed = playerSpeed;
 
 	// VI.B: Create the unique pointer to the PlayerInputHandler object
 
