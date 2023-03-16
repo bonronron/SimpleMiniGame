@@ -7,7 +7,7 @@ PlayerInputComponent::PlayerInputComponent() :input{ std::make_unique<PlayerInpu
 
 void PlayerInputComponent::update(Game& game){
 
-	game.getPlayer()->setVelocity(Vector2f(0.0f, 0.0f));
+	game.getPlayer()->getVelocityComp()->setVelocity(0.f, 0.f);
 	auto commands = input->handleInput();
 	auto it = commands.begin();
 	while (it != commands.end()) {

@@ -6,8 +6,8 @@
 
 Entity::Entity() :
 	/*position(0, 0),*/ position(std::make_unique<PositionComponent>()),
-	velocity(0, 0),
-	speed(1),
+	//velocity(0, 0),
+	//speed(1),
 	isSpriteSheet(false),
 	id(0),
 	type(EntityType::UNDEFINED),
@@ -17,8 +17,8 @@ Entity::Entity() :
 
 Entity::Entity(EntityType et) : 
 	/*position(0,0), */ position(std::make_unique<PositionComponent>()),
-	velocity(0, 0), 
-	speed(1), 
+	//velocity(0, 0), 
+	//speed(1), 
 	isSpriteSheet(false),
 	id(0),
 	type (et),
@@ -39,7 +39,7 @@ void Entity::update(Game* game, float elapsed)
 	//       (a parameter in this function).
 	//position.x  = position.x + velocity.x * elapsed * speed;
 	//position.y  = position.y + velocity.y * elapsed * speed;
-	position->setPosition(position->getPosition().x + velocity.x * elapsed * speed, position->getPosition().y + velocity.y * elapsed * speed);
+	//position->setPosition(position->getPosition().x + velocity.x * elapsed * speed, position->getPosition().y + velocity.y * elapsed * speed);
 	/*setPosition(newX, newY); */// <FEEDBACK> You don't need the two variables nor calling this function. Modify position.x and position.y direclty.
 
 

@@ -24,7 +24,7 @@ std::shared_ptr<T> Game::buildEntityAt(const std::string& filename, int col, int
 	float cntrFactor = (tileScale - itemScale) * spriteWH * 0.5f;
 
 	ent->setPosition(x + cntrFactor, y + cntrFactor);
-	ent->setVelocity({ 0.0f, 0.0f });
+	//ent->setVelocity({ 0.0f, 0.0f });
 	ent->init(filename, itemScale);
 	
 	return ent;
