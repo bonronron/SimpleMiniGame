@@ -1,10 +1,11 @@
 #include "../../include/entities/Entity.h"
 #include "../../include/graphics/Window.h"
+#include "../../include/components/PositionComponent.h"
 #include <iostream>
 
 
 Entity::Entity() :
-	position(0, 0),
+	/*position(0, 0),*/ position(std::make_unique<PositionComponent>()),
 	velocity(0, 0),
 	speed(1),
 	isSpriteSheet(false),
@@ -15,7 +16,7 @@ Entity::Entity() :
 {}
 
 Entity::Entity(EntityType et) : 
-	position(0,0), 
+	/*position(0,0), */ position(std::make_unique<PositionComponent>()),
 	velocity(0, 0), 
 	speed(1), 
 	isSpriteSheet(false),
@@ -36,8 +37,9 @@ void Entity::update(Game* game, float elapsed)
 	//       This movement needs to be per second, so you need to factor in the speed of the entity 
 	//       (which is a member variable of this class) and the elapsed time since the last frame 
 	//       (a parameter in this function).
-	position.x  = position.x + velocity.x * elapsed * speed;
-	position.y  = position.y + velocity.y * elapsed * speed;
+	//position.x  = position.x + velocity.x * elapsed * speed;
+	//position.y  = position.y + velocity.y * elapsed * speed;
+	position->setPosition(position->getPosition().x + velocity.x * elapsed * speed, position->getPosition().y + velocity.y * elapsed * speed);
 	/*setPosition(newX, newY); */// <FEEDBACK> You don't need the two variables nor calling this function. Modify position.x and position.y direclty.
 
 
@@ -49,11 +51,11 @@ void Entity::update(Game* game, float elapsed)
 	//			  If the entity does NOT have a spritesheet ("isSpriteSheet" is false, {else} clause), simply:
 	//			    iii) set the position of the "sprite" variable to the position vector (using sprite.setPosition(...)).
 	if (isSpriteSheet) {
-		spriteSheet.getSprite().setPosition(position.x, position.y);
+		spriteSheet.getSprite().setPosition(position->getPosition().x, position->getPosition().y);
 		spriteSheet.update(elapsed);
 	}
 	else {
-		sprite.setPosition(position.x, position.y);
+		sprite.setPosition(position->getPosition().x, position->getPosition().y);
 	}
 	// VIII.A  The bounding box of an entity has the same dimensions as the texture of the sprite
 	//		   or spritesheet. This is calculated in the init() functions (see below in this file)
@@ -62,8 +64,8 @@ void Entity::update(Game* game, float elapsed)
 	//		   Set the top left corner of this rectangle to the position of this entity.
 	//		   Set the bottom right corner of this rectangle to the position+bboxSize coordinates.
 
-	boundingBox.setTopLeft(position);
-	boundingBox.setBottomRight(position + bboxSize);
+	boundingBox.setTopLeft(position->getPosition());
+	boundingBox.setBottomRight(position->getPosition() + bboxSize);
 
 }
 
@@ -104,12 +106,16 @@ void Entity::initSpriteSheet(const std::string& spriteSheetFile)
 
 void Entity::setPosition(float x, float y)
 {
-	position.x = x; position.y = y;
+	//position.x = x; position.y = y;
+	position->setPosition(x, y);
 	if(isSpriteSheet)
-		spriteSheet.getSprite().setPosition(position.x, position.y);
+		spriteSheet.getSprite().setPosition(position->getPosition().x, position->getPosition().y);
 	else
-		sprite.setPosition(position.x, position.y);
+		sprite.setPosition(position->getPosition().x, position->getPosition().y);
 }	
+const Vector2f& Entity::getPosition() const {
+	return position->getPosition();
+};
 
 
 const sf::Vector2f& Entity::getSpriteScale() const

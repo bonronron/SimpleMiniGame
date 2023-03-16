@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity.h"
+#include "../components/PositionComponent.h"
 
 
 class Potion : public Entity
@@ -13,8 +14,8 @@ public:
 		// III.C (1/2) Call the init() function in Entity to initalize this object
 		Entity::init(textureFile, scale);
 		// VIII.C (1/2) Set the top left and bottom right corners of the bounding box for this entity.
-		boundingBox.setTopLeft(position);
-		boundingBox.setBottomRight(position + bboxSize);
+		boundingBox.setTopLeft(position->getPosition());
+		boundingBox.setBottomRight(position->getPosition() + bboxSize);
 	}
 
 	virtual void update(Game* game, float elapsed = 1.0f) override { }
@@ -37,8 +38,8 @@ public:
 		// III.C (2/2) Call the init() function in Entity to initalize this object
 		Entity::init(textureFile, scale);
 		// VIII.C (2/2) Set the top left and bottom right corners of the bounding box for this entity.
-		boundingBox.setTopLeft(position);
-		boundingBox.setBottomRight(position + bboxSize);
+		boundingBox.setTopLeft(position->getPosition());
+		boundingBox.setBottomRight(position->getPosition() + bboxSize);
 	}
 
 	virtual void update(Game* game, float elapsed = 1.0f) override {}

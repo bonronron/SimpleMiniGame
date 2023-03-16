@@ -4,6 +4,7 @@
 #include "../../include/core/Game.h"
 #include "../../include/core/InputHandler.h"
 #include "../../include/core/Command.h"
+#include "../../include/components/PositionComponent.h"
 #include <iostream>
 
 
@@ -108,7 +109,7 @@ std::shared_ptr<Fire> Player::createFire() const
 {
 	auto fireEntity = std::make_shared<Fire>();		
 
-	Vector2f pos { position.x + getTextureSize().x * 0.5f,  position.y + getTextureSize().y * 0.5f };
+	Vector2f pos { position->getPosition().x + getTextureSize().x * 0.5f,  position->getPosition().y + getTextureSize().y * 0.5f};
 	fireEntity->init("../img/fire.png", 1.0f);
 	fireEntity->setPosition(pos.x, pos.y);
 	Vector2f vel(fireSpeed, 0.f);

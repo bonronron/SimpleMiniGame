@@ -4,6 +4,8 @@
 #include "../utils/Rectangle.h"
 
 using EntityID = unsigned int;
+
+class PositionComponent;
 enum class EntityType
 {
 	UNDEFINED = -1,
@@ -35,7 +37,7 @@ public:
 	EntityID getID() const { return id; }
 	void setPosition(float x, float y);
 	void setVelocity(const Vector2f& v) { velocity.x = v.x; velocity.y = v.y; }
-	const Vector2f& getPosition() const { return position; }
+	const Vector2f& getPosition() const;
 	const Vector2f& getVelocity() const { return velocity; }
 	Rectangle& getBoundingBox() { return boundingBox; };
 	const sf::Vector2f& getSpriteScale() const;
@@ -57,8 +59,9 @@ protected:
 	EntityID id;
 
 	//Position and velocity
-	Vector2f position;
+	//Vector2f position;
 	Vector2f velocity;
+	std::unique_ptr<PositionComponent> position;
 	float speed;
 
 	//Collision
