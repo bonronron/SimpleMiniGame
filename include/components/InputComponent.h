@@ -1,7 +1,6 @@
-#pragma once
-#include<memory>
+#include "../core/InputHandler.h"
 class Game;
-class PlayerInputHandler;
+//class PlayerInputHandler; // ask sir about why this doesn't work?
 class InputComponent {
 public:
 	virtual void update(Game& game) = 0;

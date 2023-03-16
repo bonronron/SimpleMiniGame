@@ -1,7 +1,7 @@
-#include "../../include/components/InputComponent.h"
-#include "../../include/core/InputHandler.h"
+//#include "../core/InputHandler.h"
 #include "../../include/core/Command.h"
 #include "../../include/core/Game.h"
+#include "../../include/components/InputComponent.h"
 
 PlayerInputComponent::PlayerInputComponent() :input{ std::make_unique<PlayerInputHandler>() } {}
 
