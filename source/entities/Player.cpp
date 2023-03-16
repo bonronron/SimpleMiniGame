@@ -2,12 +2,11 @@
 #include "../../include/graphics/AnimBase.h"
 #include "../../include/entities/Fire.h"
 #include "../../include/core/Game.h"
-#include "../../include/core/InputHandler.h"
-#include "../../include/core/Command.h"
+#include "../../include/components/InputComponent.h"
 #include <iostream>
 
 
-Player::Player() : Entity(EntityType::PLAYER), attacking(false), shouting(false), health(60), wood(0), shootCooldown(0), playerInputHandler{ std::make_unique<PlayerInputHandler>() }
+Player::Player() : Entity(EntityType::PLAYER), attacking(false), shouting(false), health(60), wood(0), shootCooldown(0), input{ std::make_unique<PlayerInputComponent>() }
 {
 	speed = playerSpeed;
 
@@ -78,23 +77,7 @@ void Player::update(Game* game, float elapsed)
 
 void Player::handleInput(Game& game)
 {
-	// VI.E Set the velocity of this player to (0, 0)
-	setVelocity(Vector2f(0, 0));
-
-
-	// VI.C: Call the fucntion that handles the input for the player and retrieve the command returned in a variable.
-	//       Then, call the "execute" method of the returned object to run this command.
-
-	// <FEEDBACK> These are good places to use the keyword "auto".
-	auto commands = playerInputHandler->handleInput();
-	auto it = commands.begin();
-	while (it != commands.end()) {
-		(*it)->execute(game); // <FEEDBACK> Actually, your vector should never contain a nullptr.
-		it++;
-	}
-
-	// VII.A Modify the code ABOVE so, instead of calling "execute" in a command pointer, iterates through
-	//       the vector of commands and executes them all.
+	input->update(game);
 }
 
 std::shared_ptr<Fire> Player::createFire() const
