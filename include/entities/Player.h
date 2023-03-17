@@ -39,11 +39,11 @@ public:
 	int getWood() const { return wood; }
 	void addWood(int w);
 
-	bool hasSpriteSheet() const { return isSpriteSheet; }
+	//bool hasSpriteSheet() const { return isSpriteSheet; }
 	//void setVelocityX(float newX) { velocity.x = newX; }
 	//void setVelocityY(float newY) { velocity.y = newY; }
 
-	void positionSprite(int row, int col, int spriteWH, float tileScale);
+	//void positionSprite(int row, int col, int spriteWH, float tileScale);
 
 private:
 

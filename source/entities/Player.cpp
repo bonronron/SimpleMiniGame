@@ -7,6 +7,7 @@
 #include "../../include/components/PositionComponent.h"
 #include "../../include/components/InputComponent.h"
 #include "../../include/components/HealthComponent.h"
+#include "../../include/components/GraphicsComponent.h"
 
 #include <iostream>
 
@@ -47,13 +48,13 @@ void Player::update(Game* game, float elapsed)
 	//			  animation: if it should start playing and if it should loop.
 	//			  Additionally, you must also set the sprite direction (to Direction::Right) of the spritesheet.
 		
-	if (isAttacking()) spriteSheet.setAnimation("Attack", true, false);
-	else if (isShouting()) spriteSheet.setAnimation("Shout", true, false);
-	else if(velocityComponent->getVelocity().x != 0 || velocityComponent->getVelocity().y != 0) spriteSheet.setAnimation("Walk", true, true);
-	// VI.F (2/2) If the player is not moving, we must get back to playing the "Idle" animation.
-	else spriteSheet.setAnimation("Idle", true, true);
-	if (velocityComponent->getVelocity().x > 0) {spriteSheet.setSpriteDirection(Direction::Right);}
-	else if(velocityComponent->getVelocity().x < 0) spriteSheet.setSpriteDirection(Direction::Left);
+	//if (isAttacking()) graphics->getSpriteSheet.setAnimation("Attack", true, false);
+	//else if (isShouting()) graphics->getSpriteSheet.setAnimation("Shout", true, false);
+	//else if(velocityComponent->getVelocity().x != 0 || velocityComponent->getVelocity().y != 0) spriteSheet.setAnimation("Walk", true, true);
+	//// VI.F (2/2) If the player is not moving, we must get back to playing the "Idle" animation.
+	//else spriteSheet.setAnimation("Idle", true, true);
+	//if (velocityComponent->getVelocity().x > 0) {spriteSheet.setSpriteDirection(Direction::Right);}
+	//else if(velocityComponent->getVelocity().x < 0) spriteSheet.setSpriteDirection(Direction::Left);
 
 	
 	// IV.D (1/2) Call the function update in the base class to do the general update stuff that is common to all entities.
@@ -64,7 +65,8 @@ void Player::update(Game* game, float elapsed)
 		shootCooldown = shootCooldown - elapsed; 
 	}
 	//       Finally, wrap the functionality below in an IF statement, so we only spawn fire when:
-	if (spriteSheet.getCurrentAnim()->getName() == "Shout" && spriteSheet.getCurrentAnim()->isInAction() && wood >= shootingCost && shootCooldown <= 0) {
+	if (std::dynamic_pointer_cast<std::shared_ptr<spriteSheetGraphicsComponent>>(graphics)->get()->getSpriteSheet().getCurrentAnim()->getName() == "Shout"
+		&& std::dynamic_pointer_cast<std::shared_ptr<spriteSheetGraphicsComponent>>(graphics)->get()->getSpriteSheet().getCurrentAnim()->isInAction() && wood >= shootingCost && shootCooldown <= 0) {
 		shootCooldown = shootCooldownTime;
 		// XI.A: Create an Fire entity object (using Player::createFire()) and add it to the game (using Game::addEntity).
 		game->addEntity(createFire());
@@ -86,8 +88,8 @@ void Player::update(Game* game, float elapsed)
 	// <FEEDBACK> This is not correct, the two cases should be treated separately.
 	//			  Check that we are "attacking" and animation is playing -> then set attacking to False.
 	//			  A separate IF is needd for shouting.
-	if (!spriteSheet.getCurrentAnim()->isPlaying() && attacking) setAttacking(false);
-	if(!spriteSheet.getCurrentAnim()->isPlaying() && shouting) setShouting(false);
+	//if (!spriteSheet.getCurrentAnim()->isPlaying() && attacking) setAttacking(false);
+	//if(!spriteSheet.getCurrentAnim()->isPlaying() && shouting) setShouting(false);
 
 
 }
@@ -103,10 +105,10 @@ std::shared_ptr<Fire> Player::createFire() const
 	auto fireEntity = std::make_shared<Fire>();		
 
 	Vector2f pos { position->getPosition().x + getTextureSize().x * 0.5f,  position->getPosition().y + getTextureSize().y * 0.5f};
-	fireEntity->init("../img/fire.png", 1.0f);
+	fireEntity->init("../img/fire.png", std::make_shared<simpleSpriteGraphicsComponent>(1.f));
 	fireEntity->setPosition(pos.x, pos.y);
 	Vector2f vel(fireSpeed, 0.f);
-	if (spriteSheet.getSpriteDirection() == Direction::Left) vel.x = vel.x * -1.0f;
+	if (std::dynamic_pointer_cast<std::shared_ptr<spriteSheetGraphicsComponent>>(graphics)->get()->getSpriteSheet().getSpriteDirection() == Direction::Left) vel.x = vel.x * -1.0f;
 	fireEntity->getVelocityComponent()->setVelocity(vel.x, vel.y);
 
 	return fireEntity;
@@ -127,18 +129,18 @@ void Player::addWood(int w)
 }
 
 
-void Player::positionSprite(int row, int col, int spriteWH, float tileScale)
-{
-	sf::Vector2f scaleV2f = getSpriteScale();
-	sf::Vector2i textureSize = getTextureSize();
-
-	float x = col * spriteWH * tileScale;
-	float y = (row)*spriteWH * tileScale;
-	float spriteSizeY = scaleV2f.y * textureSize.y;
-	float cntrFactorY = ((spriteWH * tileScale) - spriteSizeY);	// to align to lower side of the tile.
-	float cntrFactorX = cntrFactorY * 0.5f;						//to center horizontally
-
-	setPosition(x + cntrFactorX, y + cntrFactorY);
-	//setVelocity({ 0.0f, 0.0f });
-	velocityComponent->setVelocity(0.f, 0.f);
-}
+//void Player::positionSprite(int row, int col, int spriteWH, float tileScale)
+//{
+//	sf::Vector2f scaleV2f = getSpriteScale();
+//	sf::Vector2i textureSize = getTextureSize();
+//
+//	float x = col * spriteWH * tileScale;
+//	float y = (row)*spriteWH * tileScale;
+//	float spriteSizeY = scaleV2f.y * textureSize.y;
+//	float cntrFactorY = ((spriteWH * tileScale) - spriteSizeY);	// to align to lower side of the tile.
+//	float cntrFactorX = cntrFactorY * 0.5f;						//to center horizontally
+//
+//	setPosition(x + cntrFactorX, y + cntrFactorY);
+//	//setVelocity({ 0.0f, 0.0f });
+//	velocityComponent->setVelocity(0.f, 0.f);
+//}

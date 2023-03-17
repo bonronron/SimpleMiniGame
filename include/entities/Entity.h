@@ -44,9 +44,9 @@ public:
 	const sf::Vector2f& getSpriteScale() const;
 	sf::Vector2i getTextureSize() const;
 	EntityType getEntityType() const { return type; }
-	const SpriteSheet* getSpriteSheet() const { return &spriteSheet; }
+	//const SpriteSheet* getSpriteSheet() const { return &spriteSheet; }
 	//float getSpeed() const { return speed; }
-	bool isSpriteSheetEntity() const { return isSpriteSheet; }
+	//bool isSpriteSheetEntity() const { return isSpriteSheet; }
 
 	std::shared_ptr<GraphicsComponent> getGraphicsComp() { return graphics; }
 	
@@ -72,10 +72,10 @@ protected:
 	Vector2f bboxSize;
 
 	//Graphics-related variables.
-	bool isSpriteSheet;
-	SpriteSheet spriteSheet;
-	sf::Texture texture;
-	sf::Sprite sprite;
+	//bool isSpriteSheet;
+	//SpriteSheet spriteSheet;
+	//sf::Texture texture;
+	//sf::Sprite sprite;
 
 	// X.A Add a bool member variable "deleted" to this class.
 	bool deleted;

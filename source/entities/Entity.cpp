@@ -8,7 +8,7 @@ Entity::Entity() :
 	/*position(0, 0),*/ position(std::make_unique<PositionComponent>()),
 	//velocity(0, 0),
 	//speed(1),
-	isSpriteSheet(false),
+	//isSpriteSheet(false),
 	//graphics(std::make_shared<simpleSpriteGraphicsComponent>()),
 	id(0),
 	type(EntityType::UNDEFINED),
@@ -20,7 +20,7 @@ Entity::Entity(EntityType et) :
 	/*position(0,0), */ position(std::make_unique<PositionComponent>()),
 	//velocity(0, 0), 
 	//speed(1), 
-	isSpriteSheet(false),
+	//isSpriteSheet(false),
 	id(0),
 	type (et),
 	// X.B (2/2) Add the initialization the deleted flag to false
@@ -80,14 +80,14 @@ void Entity::update(Game* game, float elapsed)
 
 void Entity::draw(Window* window)
 {
-	if (isSpriteSheet)
-	{
-		sf::Sprite* sp = &spriteSheet.getSprite();
-		const sf::Vector2f pos = sp->getPosition();
-		window->draw(spriteSheet.getSprite());
-	}
-	else
-		window->draw(sprite); 
+	//if (isSpriteSheet)
+	//{
+	//	sf::Sprite* sp = &spriteSheet.getSprite();
+	//	const sf::Vector2f pos = sp->getPosition();
+	//	window->draw(spriteSheet.getSprite());
+	//}
+	//else
+	//	window->draw(sprite); 
 
 	// VIII.B Draw the bounding box by retrieving a drawable rect from the bounding box Rectangle.
 	window->draw(boundingBox.getDrawableRect());
@@ -129,22 +129,22 @@ const Vector2f& Entity::getPosition() const {
 };
 
 
-const sf::Vector2f& Entity::getSpriteScale() const
-{
-	if (isSpriteSheet)
-	{
-		return spriteSheet.getSpriteScale();
-	}
+//const sf::Vector2f& Entity::getSpriteScale() const
+//{
+//	if (isSpriteSheet)
+//	{
+//		return spriteSheet.getSpriteScale();
+//	}
+//
+//	return sprite.getScale();
+//}
 
-	return sprite.getScale();
-}
-
-sf::Vector2i Entity::getTextureSize() const
-{
-	if (isSpriteSheet)
-	{
-		return spriteSheet.getSpriteSize();
-	}
-
-	return { static_cast<int>(texture.getSize().x), static_cast<int>(texture.getSize().y) };
-}
+//sf::Vector2i Entity::getTextureSize() const
+//{
+//	if (isSpriteSheet)
+//	{
+//		return spriteSheet.getSpriteSize();
+//	}
+//
+//	return { static_cast<int>(texture.getSize().x), static_cast<int>(texture.getSize().y) };
+//}

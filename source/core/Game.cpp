@@ -138,8 +138,8 @@ void Game::init(std::vector<std::string> lines)
 				// IV.B (3/4): Call the function that positions the sprite of the player in the board (Player::positionSprite). 
 				//			   Parameters are the row and column where this object goes in the board, the sprite width and height (const int Game::spriteWH) 
 				//			   and the scale for the tiles (const float Game::tileScale)
-				player->positionSprite(row, col, spriteWH, tileScale);
-
+				std::dynamic_pointer_cast<std::shared_ptr<spriteSheetGraphicsComponent>>(player->getGraphicsComp())->get()->positionSprite(row, col, spriteWH, tileScale);
+				player->getVelocityComp()->setVelocity(0.f, 0.f);
 				// IV.B (4/4): Call our function to add an entity to a game passing the player that has just been created.
 				addEntity(player);
 
@@ -193,7 +193,7 @@ void Game::update(float elapsed)
 		auto it = entities.begin();
 		while (it != entities.end()) {
 			(*it)->update(this, elapsed);
-			(*it)->getGraphicsComp()->update((*it),elapsed);
+			(*it)->getGraphicsComp()->update(*(*it),elapsed);
 			it++;
 		}
 		// Collisions block:
@@ -234,8 +234,10 @@ void Game::update(float elapsed)
 					{
 						Log* log = dynamic_cast<Log*>((*it).get());
 						std::cout << " Collide with log " << std::endl;
-						if (player->getSpriteSheet()->getCurrentAnim()->isInAction()
-							&& player->getSpriteSheet()->getCurrentAnim()->getName() == "Attack") {
+						auto playerGraphics = std::dynamic_pointer_cast<std::shared_ptr<spriteSheetGraphicsComponent>>(player->getGraphicsComp());
+
+						if( playerGraphics->get()->getSpriteSheet().getCurrentAnim()->isInAction()
+							&& playerGraphics->get()->getSpriteSheet().getCurrentAnim()->getName() == "Attack") {
 							player->addWood(log->getWood());
 							std::cout << " Logs : " << player->getWood() << "\tLogs collected : " << log->getWood() << std::endl;
 							log->deleteEntity();
@@ -278,7 +280,7 @@ void Game::render(float elapsed)
 	// III.J Draw all units. Write a loop that iterates over all entities in this class's vector
 	//       and calls the "draw" method in the entities.
 	for (std::shared_ptr<Entity> e : entities) {
-		e->getGraphicsComp()->draw(&window);
+		e->getGraphicsComp()->draw(window);
 	}
 
 	//Draw FPS
