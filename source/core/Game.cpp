@@ -3,6 +3,7 @@
 #include "../../include/entities/StaticEntities.h"
 #include "../../include/core/InputHandler.h"
 #include "../../include/core/Command.h"
+#include "../../include/components/HealthComponent.h"
 #include <iostream>
 
 // III.F Add the initialization (to 0) of the entity counter to the initalizers list of this constructor
@@ -24,7 +25,7 @@ std::shared_ptr<T> Game::buildEntityAt(const std::string& filename, int col, int
 	float cntrFactor = (tileScale - itemScale) * spriteWH * 0.5f;
 
 	ent->setPosition(x + cntrFactor, y + cntrFactor);
-	ent->setVelocity({ 0.0f, 0.0f });
+	//ent->setVelocity({ 0.0f, 0.0f });
 	ent->init(filename, itemScale);
 	
 	return ent;

@@ -36,15 +36,15 @@ public:
 	void setID(EntityID entId) { id = entId; }
 	EntityID getID() const { return id; }
 	void setPosition(float x, float y);
-	void setVelocity(const Vector2f& v) { velocity.x = v.x; velocity.y = v.y; }
+	//void setVelocity(const Vector2f& v) { velocity.x = v.x; velocity.y = v.y; }
 	const Vector2f& getPosition() const;
-	const Vector2f& getVelocity() const { return velocity; }
+	//const Vector2f& getVelocity() const { return velocity; }
 	Rectangle& getBoundingBox() { return boundingBox; };
 	const sf::Vector2f& getSpriteScale() const;
 	sf::Vector2i getTextureSize() const;
 	EntityType getEntityType() const { return type; }
 	const SpriteSheet* getSpriteSheet() const { return &spriteSheet; }
-	float getSpeed() const { return speed; }
+	//float getSpeed() const { return speed; }
 	bool isSpriteSheetEntity() const { return isSpriteSheet; }
 
 	
@@ -60,9 +60,9 @@ protected:
 
 	//Position and velocity
 	//Vector2f position;
-	Vector2f velocity;
+	//Vector2f velocity;
 	std::unique_ptr<PositionComponent> position;
-	float speed;
+	//float speed;
 
 	//Collision
 	Rectangle boundingBox;
