@@ -1,9 +1,11 @@
 #pragma once
 #include "Entity.h"
-#include "../components/HealthComponent.h" //I read that in header we shouldnt include turns out that is the error
-#include "../components/VelocityComponent.h"
+//#include "../components/HealthComponent.h" //I read that in header we shouldnt include turns out that is the error
+//#include "../components/VelocityComponent.h"
 //class HealthComponent;
 class Fire;
+class HealthComponent;
+class VelocityComponent;
 
 
 class InputComponent;
@@ -16,7 +18,7 @@ public:
 	const int maxHealth = 100;
 	const int maxWood = 100;
 	const int shootingCost = 20;
-	const float fireSpeed = 5.f;
+	const float fireSpeed = 2.f;
 	const float shootCooldownTime = 3.f; //in seconds
 
 	Player();

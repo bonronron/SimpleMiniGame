@@ -1,5 +1,7 @@
 #include "../../include/core/Command.h"
 #include "../../include/core/Game.h"
+#include "../../include/utils/Vector2.h"
+#include "../../include/components/VelocityComponent.h"
 
 void MoveRightCommand::execute(Game& game) {
 	game.getPlayer()->getVelocityComp()->setVelocityX(1.0f);

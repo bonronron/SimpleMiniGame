@@ -1,12 +1,14 @@
+#include "../../include/utils/Vector2.h"
+#include "../../include/components/PositionComponent.h"
+#include "../../include/components/VelocityComponent.h"
+#include "../../include/components/InputComponent.h"
+#include "../../include/components/HealthComponent.h"
 #include "../../include/entities/Player.h"
 #include "../../include/graphics/AnimBase.h"
 #include "../../include/entities/Fire.h"
 #include "../../include/core/Game.h"
 #include "../../include/core/InputHandler.h"
 #include "../../include/core/Command.h"
-#include "../../include/components/PositionComponent.h"
-#include "../../include/components/InputComponent.h"
-#include "../../include/components/HealthComponent.h"
 
 #include <iostream>
 
