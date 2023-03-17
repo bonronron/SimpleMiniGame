@@ -138,7 +138,7 @@ void Game::init(std::vector<std::string> lines)
 				// IV.B (3/4): Call the function that positions the sprite of the player in the board (Player::positionSprite). 
 				//			   Parameters are the row and column where this object goes in the board, the sprite width and height (const int Game::spriteWH) 
 				//			   and the scale for the tiles (const float Game::tileScale)
-				std::dynamic_pointer_cast<std::shared_ptr<spriteSheetGraphicsComponent>>(player->getGraphicsComp())->get()->positionSprite(row, col, spriteWH, tileScale);
+				std::dynamic_pointer_cast<spriteSheetGraphicsComponent>(player->getGraphicsComp())->positionSprite(row, col, spriteWH, tileScale);
 				player->getVelocityComp()->setVelocity(0.f, 0.f);
 				// IV.B (4/4): Call our function to add an entity to a game passing the player that has just been created.
 				addEntity(player);

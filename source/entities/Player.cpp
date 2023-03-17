@@ -65,8 +65,8 @@ void Player::update(Game* game, float elapsed)
 		shootCooldown = shootCooldown - elapsed; 
 	}
 	//       Finally, wrap the functionality below in an IF statement, so we only spawn fire when:
-	if (std::dynamic_pointer_cast<std::shared_ptr<spriteSheetGraphicsComponent>>(graphics)->get()->getSpriteSheet().getCurrentAnim()->getName() == "Shout"
-		&& std::dynamic_pointer_cast<std::shared_ptr<spriteSheetGraphicsComponent>>(graphics)->get()->getSpriteSheet().getCurrentAnim()->isInAction() && wood >= shootingCost && shootCooldown <= 0) {
+	if (std::dynamic_pointer_cast<spriteSheetGraphicsComponent>(graphics)->getSpriteSheet().getCurrentAnim()->getName() == "Shout"
+		&& std::dynamic_pointer_cast<spriteSheetGraphicsComponent>(graphics)->getSpriteSheet().getCurrentAnim()->isInAction() && wood >= shootingCost && shootCooldown <= 0) {
 		shootCooldown = shootCooldownTime;
 		// XI.A: Create an Fire entity object (using Player::createFire()) and add it to the game (using Game::addEntity).
 		game->addEntity(createFire());
