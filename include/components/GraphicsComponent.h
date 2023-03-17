@@ -5,8 +5,8 @@ class Window;
 class GraphicsComponent {
 public:
 	virtual ~GraphicsComponent(){}
-	virtual void update(Entity& entity,float elapsedTime) = 0;
-	virtual void draw(Window& window) = 0;
+	//virtual void update(Entity& entity,float elapsedTime) = 0;
+	virtual void draw(const Window& window) = 0;
 	virtual void loadSprite(const std::string& fileLocation) = 0;
 };
 
@@ -14,8 +14,9 @@ class spriteSheetGraphicsComponent : public GraphicsComponent {
 private:
 	SpriteSheet spriteSheet;
 public:
-	void update(Player& player,float elapsedTime) override;
-	void draw(Window& window) override;
+	//void update(Entity& entity, float elapsedTime) override {};
+	void update(Player& player,float elapsedTime);
+	void draw(const Window& window) override;
 	void loadSprite(const std::string& fileLocation) override;
 
 
@@ -27,8 +28,8 @@ private:
 	float scale;
 
 public:
-	void update(Entity& entity, float elapsedTime) override;
+	void update(Entity& entity, float elapsedTime);
 	simpleSpriteGraphicsComponent(float scale) :scale{ scale } {};
-	void draw(Window& window) override;
+	void draw(const Window& window) override;
 	void loadSprite(const std::string& fileLocation) override;
 };

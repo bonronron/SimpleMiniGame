@@ -13,7 +13,7 @@ void simpleSpriteGraphicsComponent::loadSprite(const std::string& fileLocation) 
 void simpleSpriteGraphicsComponent::update(Entity& entity, float elapsedTime) {
 	sprite.setPosition(entity.getPosition().x, entity.getPosition().y);
 }
-void simpleSpriteGraphicsComponent::draw(Window& window) {
+void simpleSpriteGraphicsComponent::draw(const Window& window) {
 	//setting sprite position
 	
 	window.draw(sprite);
@@ -37,7 +37,7 @@ void spriteSheetGraphicsComponent::update(Player& player, float elapsedTime) {
 
 	spriteSheet.update(elapsedTime);
 }
-void spriteSheetGraphicsComponent::draw(Window& window) {	
+void spriteSheetGraphicsComponent::draw(const Window& window) {	
 	sf::Sprite* sp = &spriteSheet.getSprite();
 	//const sf::Vector2f pos = sp->getPosition();
 	window.draw(spriteSheet.getSprite());
