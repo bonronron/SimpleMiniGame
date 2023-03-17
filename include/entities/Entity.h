@@ -2,6 +2,7 @@
 #include "../graphics/Window.h"
 #include "../graphics/SpriteSheet.h"
 #include "../utils/Rectangle.h"
+#include "../../include/components/GraphicsComponent.h"
 
 using EntityID = unsigned int;
 
@@ -27,8 +28,8 @@ public:
 	~Entity();
 
 	//Init and update functions
-	virtual void init(const std::string& textureFile, float scale);
-	void initSpriteSheet(const std::string& spriteSheetFile);
+	virtual void init(const std::string& textureFile, std::shared_ptr<simpleSpriteGraphicsComponent> gc);
+	void initSpriteSheet(const std::string& spriteSheetFile, std::shared_ptr<spriteSheetGraphicsComponent> gc);
 	virtual void update(Game* game, float elapsed = 1.0f);
 	void draw(Window* window);
 
@@ -47,6 +48,7 @@ public:
 	//float getSpeed() const { return speed; }
 	bool isSpriteSheetEntity() const { return isSpriteSheet; }
 
+	std::shared_ptr<GraphicsComponent> getGraphicsComp() { return graphics; }
 	
 	// X.C  Add two helper functions. One that returns the value of the deleted flag, another one that 
 	//      "deletes" the entity by setting this flag to true. (Q: one of this functions should be "const", which one?).
@@ -62,6 +64,7 @@ protected:
 	//Vector2f position;
 	//Vector2f velocity;
 	std::unique_ptr<PositionComponent> position;
+	std::shared_ptr<GraphicsComponent> graphics;
 	//float speed;
 
 	//Collision

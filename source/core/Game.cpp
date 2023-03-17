@@ -133,7 +133,7 @@ void Game::init(std::vector<std::string> lines)
 
 				// IV.B (2/4): Call the function that initializes the Sprite Sheet with a single parameter, a const std::string& filename.
 				//			   This string should be "img/DwarfSpriteSheet_data.txt"
-				player->initSpriteSheet("../img/DwarfSpriteSheet_data.txt");
+				player->initSpriteSheet("../img/DwarfSpriteSheet_data.txt",std::make_shared<spriteSheetGraphicsComponent>());
 
 				// IV.B (3/4): Call the function that positions the sprite of the player in the board (Player::positionSprite). 
 				//			   Parameters are the row and column where this object goes in the board, the sprite width and height (const int Game::spriteWH) 
@@ -193,6 +193,7 @@ void Game::update(float elapsed)
 		auto it = entities.begin();
 		while (it != entities.end()) {
 			(*it)->update(this, elapsed);
+			(*it)->getGraphicsComp()->update((*it),elapsed);
 			it++;
 		}
 		// Collisions block:
@@ -277,7 +278,7 @@ void Game::render(float elapsed)
 	// III.J Draw all units. Write a loop that iterates over all entities in this class's vector
 	//       and calls the "draw" method in the entities.
 	for (std::shared_ptr<Entity> e : entities) {
-		e->draw(&window);
+		e->getGraphicsComp()->draw(&window);
 	}
 
 	//Draw FPS

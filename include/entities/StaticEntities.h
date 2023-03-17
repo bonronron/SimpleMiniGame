@@ -12,7 +12,7 @@ public:
 	void init(const std::string& textureFile, float scale) override
 	{
 		// III.C (1/2) Call the init() function in Entity to initalize this object
-		Entity::init(textureFile, scale);
+		Entity::init(textureFile, std::shared_ptr<simpleSpriteGraphicsComponent>(scale));
 		// VIII.C (1/2) Set the top left and bottom right corners of the bounding box for this entity.
 		boundingBox.setTopLeft(position->getPosition());
 		boundingBox.setBottomRight(position->getPosition() + bboxSize);
@@ -36,7 +36,7 @@ public:
 	void init(const std::string& textureFile, float scale) override
 	{
 		// III.C (2/2) Call the init() function in Entity to initalize this object
-		Entity::init(textureFile, scale);
+		Entity::init(textureFile, std::shared_ptr<simpleSpriteGraphicsComponent>(scale));
 		// VIII.C (2/2) Set the top left and bottom right corners of the bounding box for this entity.
 		boundingBox.setTopLeft(position->getPosition());
 		boundingBox.setBottomRight(position->getPosition() + bboxSize);

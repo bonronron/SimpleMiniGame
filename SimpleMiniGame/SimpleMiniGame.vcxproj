@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\components\GraphicsComponent.h" />
     <ClInclude Include="..\include\components\HealthComponent.h" />
     <ClInclude Include="..\include\components\PositionComponent.h" />
     <ClInclude Include="..\include\components\InputComponent.h" />
@@ -162,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\main.cpp" />
+    <ClCompile Include="..\source\components\GraphicsComponent.cpp" />
     <ClCompile Include="..\source\components\VelocityComponent.cpp" />
     <ClCompile Include="..\source\components\InputComponent.cpp" />
     <ClCompile Include="..\source\core\Board.cpp" />

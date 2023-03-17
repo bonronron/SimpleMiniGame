@@ -9,6 +9,7 @@ Entity::Entity() :
 	//velocity(0, 0),
 	//speed(1),
 	isSpriteSheet(false),
+	//graphics(std::make_shared<simpleSpriteGraphicsComponent>()),
 	id(0),
 	type(EntityType::UNDEFINED),
 	// X.B (1/2) Add the initialization the deleted flag to false
@@ -24,7 +25,12 @@ Entity::Entity(EntityType et) :
 	type (et),
 	// X.B (2/2) Add the initialization the deleted flag to false
 	deleted(false)
-{}
+{
+	/*if (et == EntityType::PLAYER)
+		graphics = std::make_shared<spriteSheetGraphicsComponent>();
+	else
+		graphics = std::make_shared<simpleSpriteGraphicsComponent>();*/
+}
 
 Entity::~Entity()
 {
@@ -50,13 +56,14 @@ void Entity::update(Game* game, float elapsed)
 	//              ii) Call update on the spriteSheet, passing the delta time of this update call.
 	//			  If the entity does NOT have a spritesheet ("isSpriteSheet" is false, {else} clause), simply:
 	//			    iii) set the position of the "sprite" variable to the position vector (using sprite.setPosition(...)).
-	if (isSpriteSheet) {
-		spriteSheet.getSprite().setPosition(position->getPosition().x, position->getPosition().y);
-		spriteSheet.update(elapsed);
-	}
-	else {
-		sprite.setPosition(position->getPosition().x, position->getPosition().y);
-	}
+	//if (isSpriteSheet) {
+	//	spriteSheet.getSprite().setPosition(position->getPosition().x, position->getPosition().y);
+	//	spriteSheet.update(elapsed);
+	//}
+	//else {
+	//	sprite.setPosition(position->getPosition().x, position->getPosition().y);
+	//}
+	 
 	// VIII.A  The bounding box of an entity has the same dimensions as the texture of the sprite
 	//		   or spritesheet. This is calculated in the init() functions (see below in this file)
 	//		   and the size is stored in the variable "bboxSize". 
@@ -87,31 +94,35 @@ void Entity::draw(Window* window)
 
 }
 
-void Entity::init(const std::string& textureFile, float scale)
+void Entity::init(const std::string& textureFile, std::shared_ptr<simpleSpriteGraphicsComponent> gc)
 {
-	texture.loadFromFile(textureFile);
-	sprite.setTexture(texture);
-	sprite.setScale(scale, scale);
-	bboxSize = Vector2f(texture.getSize().x * sprite.getScale().x, texture.getSize().y * sprite.getScale().y);
+	graphics = gc;
+	gc->loadSprite(textureFile);
+	//texture.loadFromFile(textureFile);
+	//sprite.setTexture(texture);
+	//sprite.setScale(scale, scale);
+	//bboxSize = Vector2f(texture.getSize().x * sprite.getScale().x, texture.getSize().y * sprite.getScale().y);
 }
 
-void Entity::initSpriteSheet(const std::string& spriteSheetFile)
+void Entity::initSpriteSheet(const std::string& spriteSheetFile, std::shared_ptr<spriteSheetGraphicsComponent> gc)
 {
-	spriteSheet.loadSheet(spriteSheetFile);
-	isSpriteSheet = true;
-	spriteSheet.setAnimation("Idle", true, true);
-	bboxSize = Vector2f(spriteSheet.getSpriteSize().x * spriteSheet.getSpriteScale().x,
-					  spriteSheet.getSpriteSize().y * spriteSheet.getSpriteScale().y);
+	graphics = gc;
+	gc->loadSprite(spriteSheetFile);
+	//spriteSheet.loadSheet(spriteSheetFile);
+	//isSpriteSheet = true;
+	//spriteSheet.setAnimation("Idle", true, true);
+	/*bboxSize = Vector2f(spriteSheet.getSpriteSize().x * spriteSheet.getSpriteScale().x,
+					  spriteSheet.getSpriteSize().y * spriteSheet.getSpriteScale().y);*/
 }
 
 void Entity::setPosition(float x, float y)
 {
 	//position.x = x; position.y = y;
 	position->setPosition(x, y);
-	if(isSpriteSheet)
-		spriteSheet.getSprite().setPosition(position->getPosition().x, position->getPosition().y);
-	else
-		sprite.setPosition(position->getPosition().x, position->getPosition().y);
+	//if(isSpriteSheet)
+	//	spriteSheet.getSprite().setPosition(position->getPosition().x, position->getPosition().y);
+	//else
+	//	sprite.setPosition(position->getPosition().x, position->getPosition().y);
 }	
 const Vector2f& Entity::getPosition() const {
 	return position->getPosition();
