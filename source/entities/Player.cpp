@@ -1,3 +1,4 @@
+#include <iostream>
 #include "../../include/utils/Vector2.h"
 #include "../../include/components/PositionComponent.h"
 #include "../../include/components/VelocityComponent.h"
@@ -10,7 +11,6 @@
 #include "../../include/core/InputHandler.h"
 #include "../../include/core/Command.h"
 
-#include <iostream>
 
 
 Player::Player() : Entity(EntityType::PLAYER), 

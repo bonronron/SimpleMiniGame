@@ -1,9 +1,11 @@
 #include "../../include/core/Game.h"
 #include "../../include/entities/Fire.h"
-#include "../../include/entities/StaticEntities.h"
 #include "../../include/core/InputHandler.h"
 #include "../../include/core/Command.h"
 #include "../../include/components/HealthComponent.h"
+#include "../../include/components/PositionComponent.h"
+#include "../../include/components/ColliderComponent.h"
+#include "../../include/entities/StaticEntities.h"
 #include <iostream>
 
 // III.F Add the initialization (to 0) of the entity counter to the initalizers list of this constructor
@@ -201,7 +203,7 @@ void Game::update(float elapsed)
 		// IX.C: Retrieve a reference to the player's bounding box and run through all entities (using an itereator)  
 		//      in the game with a while loop. You don't need to check the player's bounding box to itself, 
 		//      so include a check that skips the player entity while looping through the entities vector.
-		auto playerBoundingBox{ getPlayer()->getBoundingBox() };
+		auto playerBoundingBox{ getPlayer()->getBoundingBox()};
 		it = entities.begin();
 		while (it != entities.end()) {
 			if ((*it)->getEntityType() == EntityType::PLAYER) {

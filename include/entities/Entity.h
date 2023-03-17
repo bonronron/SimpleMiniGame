@@ -6,6 +6,7 @@
 using EntityID = unsigned int;
 
 class PositionComponent;
+class ColliderComponent;
 enum class EntityType
 {
 	UNDEFINED = -1,
@@ -39,7 +40,7 @@ public:
 	//void setVelocity(const Vector2f& v) { velocity.x = v.x; velocity.y = v.y; }
 	const Vector2f& getPosition() const;
 	//const Vector2f& getVelocity() const { return velocity; }
-	Rectangle& getBoundingBox() { return boundingBox; };
+	Rectangle& getBoundingBox() const;
 	const sf::Vector2f& getSpriteScale() const;
 	sf::Vector2i getTextureSize() const;
 	EntityType getEntityType() const { return type; }
@@ -65,8 +66,9 @@ protected:
 	//float speed;
 
 	//Collision
-	Rectangle boundingBox;
-	Vector2f bboxSize;
+	//Rectangle boundingBox;
+	//Vector2f bboxSize;
+	std::unique_ptr<ColliderComponent> collider;
 
 	//Graphics-related variables.
 	bool isSpriteSheet;
