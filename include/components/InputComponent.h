@@ -1,6 +1,6 @@
-#include "../core/InputHandler.h"
+//#include "../core/InputHandler.h"
 class Game;
-//class PlayerInputHandler; // ask sir about why this doesn't work?
+class PlayerInputHandler; 
 class InputComponent {
 public:
 	virtual void update(Game& game) = 0;
