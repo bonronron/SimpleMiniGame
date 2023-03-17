@@ -1,6 +1,5 @@
 #pragma once
 //#include "../utils/Vector2.h"
-class Vector2;
 class PositionComponent {
 public:
 		//A public member function that returns a constant reference to the position member variable
