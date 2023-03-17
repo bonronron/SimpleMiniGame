@@ -108,7 +108,7 @@ std::shared_ptr<Fire> Player::createFire() const
 	fireEntity->init("../img/fire.png", std::make_shared<simpleSpriteGraphicsComponent>(1.f));
 	fireEntity->setPosition(pos.x, pos.y);
 	Vector2f vel(fireSpeed, 0.f);
-	if (std::dynamic_pointer_cast<std::shared_ptr<spriteSheetGraphicsComponent>>(graphics)->get()->getSpriteSheet().getSpriteDirection() == Direction::Left) vel.x = vel.x * -1.0f;
+	if (std::dynamic_pointer_cast<spriteSheetGraphicsComponent>(graphics)->getSpriteSheet().getSpriteDirection() == Direction::Left) vel.x = vel.x * -1.0f;
 	fireEntity->getVelocityComponent()->setVelocity(vel.x, vel.y);
 
 	return fireEntity;

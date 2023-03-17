@@ -234,10 +234,10 @@ void Game::update(float elapsed)
 					{
 						Log* log = dynamic_cast<Log*>((*it).get());
 						std::cout << " Collide with log " << std::endl;
-						auto playerGraphics = std::dynamic_pointer_cast<std::shared_ptr<spriteSheetGraphicsComponent>>(player->getGraphicsComp());
+						auto playerGraphics = std::dynamic_pointer_cast<spriteSheetGraphicsComponent>(player->getGraphicsComp());
 
-						if( playerGraphics->get()->getSpriteSheet().getCurrentAnim()->isInAction()
-							&& playerGraphics->get()->getSpriteSheet().getCurrentAnim()->getName() == "Attack") {
+						if( playerGraphics->getSpriteSheet().getCurrentAnim()->isInAction()
+							&& playerGraphics->getSpriteSheet().getCurrentAnim()->getName() == "Attack") {
 							player->addWood(log->getWood());
 							std::cout << " Logs : " << player->getWood() << "\tLogs collected : " << log->getWood() << std::endl;
 							log->deleteEntity();
