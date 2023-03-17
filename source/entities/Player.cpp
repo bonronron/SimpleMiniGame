@@ -104,7 +104,7 @@ std::shared_ptr<Fire> Player::createFire() const
 {
 	auto fireEntity = std::make_shared<Fire>();		
 
-	Vector2f pos { position->getPosition().x + getTextureSize().x * 0.5f,  position->getPosition().y + getTextureSize().y * 0.5f};
+	Vector2f pos { position->getPosition().x + graphics->getTextureSize().x * 0.5f,  position->getPosition().y + graphics->getTextureSize().y * 0.5f};
 	fireEntity->init("../img/fire.png", std::make_shared<simpleSpriteGraphicsComponent>(1.f));
 	fireEntity->setPosition(pos.x, pos.y);
 	Vector2f vel(fireSpeed, 0.f);

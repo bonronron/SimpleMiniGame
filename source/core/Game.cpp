@@ -1,9 +1,9 @@
+#include <iostream>
 #include "../../include/core/Game.h"
 #include "../../include/entities/Fire.h"
 #include "../../include/entities/StaticEntities.h"
 #include "../../include/core/InputHandler.h"
 #include "../../include/core/Command.h"
-#include <iostream>
 
 // III.F Add the initialization (to 0) of the entity counter to the initalizers list of this constructor
 Game::Game() : paused(false),entityID(0), inputHandler{ std::make_unique<InputHandler>() }

@@ -42,7 +42,7 @@ public:
 	//const Vector2f& getVelocity() const { return velocity; }
 	Rectangle& getBoundingBox() { return boundingBox; };
 	const sf::Vector2f& getSpriteScale() const;
-	sf::Vector2i getTextureSize() const;
+	//sf::Vector2i getTextureSize() const;
 	EntityType getEntityType() const { return type; }
 	//const SpriteSheet* getSpriteSheet() const { return &spriteSheet; }
 	//float getSpeed() const { return speed; }
