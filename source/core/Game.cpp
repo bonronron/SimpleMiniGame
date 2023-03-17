@@ -203,20 +203,22 @@ void Game::update(float elapsed)
 		// IX.C: Retrieve a reference to the player's bounding box and run through all entities (using an itereator)  
 		//      in the game with a while loop. You don't need to check the player's bounding box to itself, 
 		//      so include a check that skips the player entity while looping through the entities vector.
-		auto playerBoundingBox{ getPlayer()->getBoundingBox()};
 		it = entities.begin();
 		while (it != entities.end()) {
-			if ((*it)->getEntityType() == EntityType::PLAYER) {
+			/*if ((*it)->getEntityType() == EntityType::PLAYER) {
 				it++;
 				continue;
+			}*/
+			if ((*it)->getCollider() == nullptr) {
+				it++; 
+				continue;
 			}
-
 			// <FEEDBACK> In the following switch cases, rather than calling getPlayer() repeatedly, call it
 			// once and store it in a local variable (pointer). Then use that pointer. It's more efficient that calling a function repeatedly.
 			auto player = getPlayer();
 			// IX.D: (Inside the loop) Once you have a different entity to player, retrieve it's bounding box
 			//       and check if they intersect.
-			if ((*it)->getBoundingBox().intersects(playerBoundingBox)) {
+			if (player->collidesWith(*(*it).get())) {
 				switch ((*it)->getEntityType()) {
 					// IX.E (if there is an intesection) Write a switch statement that determines the type of the object (which you
 					//      can retrieve with getEntityType()) we are colliding with. For each case, add a console print out that 

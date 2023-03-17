@@ -8,7 +8,6 @@
 Entity::Entity() :
 	/*position(0, 0),*/ position(std::make_unique<PositionComponent>()),
 	//velocity(0, 0),
-	collider(std::make_unique<ColliderComponent>()),
 	//speed(1),
 	isSpriteSheet(false),
 	id(0),
@@ -20,7 +19,6 @@ Entity::Entity() :
 Entity::Entity(EntityType et) : 
 	/*position(0,0), */ position(std::make_unique<PositionComponent>()),
 	//velocity(0, 0), 
-	collider(std::make_unique<ColliderComponent>()),
 	//speed(1), 
 	isSpriteSheet(false),
 	id(0),
@@ -67,8 +65,7 @@ void Entity::update(Game* game, float elapsed)
 	//		   Set the top left corner of this rectangle to the position of this entity.
 	//		   Set the bottom right corner of this rectangle to the position+bboxSize coordinates.
 
-	collider->getBoundingBox().setTopLeft(position->getPosition());
-	collider->getBoundingBox().setBottomRight(position->getPosition() + collider->getBoundingBoxSize());
+
 
 }
 
@@ -86,7 +83,7 @@ void Entity::draw(Window* window)
 		window->draw(sprite); 
 
 	// VIII.B Draw the bounding box by retrieving a drawable rect from the bounding box Rectangle.
-	window->draw(collider->getBoundingBox().getDrawableRect());
+	//window->draw(collider->getBoundingBox().getDrawableRect());
 
 }
 
@@ -95,7 +92,7 @@ void Entity::init(const std::string& textureFile, float scale)
 	texture.loadFromFile(textureFile);
 	sprite.setTexture(texture);
 	sprite.setScale(scale, scale);
-	collider->setBoundingBoxSize(Vector2f(texture.getSize().x * sprite.getScale().x, texture.getSize().y * sprite.getScale().y));
+	//collider->setBoundingBoxSize(Vector2f(texture.getSize().x * sprite.getScale().x, texture.getSize().y * sprite.getScale().y));
 }
 
 void Entity::initSpriteSheet(const std::string& spriteSheetFile)
@@ -103,8 +100,8 @@ void Entity::initSpriteSheet(const std::string& spriteSheetFile)
 	spriteSheet.loadSheet(spriteSheetFile);
 	isSpriteSheet = true;
 	spriteSheet.setAnimation("Idle", true, true);
-	collider->setBoundingBoxSize(Vector2f(spriteSheet.getSpriteSize().x * spriteSheet.getSpriteScale().x,
-					  spriteSheet.getSpriteSize().y * spriteSheet.getSpriteScale().y));
+	//collider->setBoundingBoxSize(Vector2f(spriteSheet.getSpriteSize().x * spriteSheet.getSpriteScale().x,
+	//				  spriteSheet.getSpriteSize().y * spriteSheet.getSpriteScale().y));
 }
 
 void Entity::setPosition(float x, float y)
@@ -116,6 +113,7 @@ void Entity::setPosition(float x, float y)
 	else
 		sprite.setPosition(position->getPosition().x, position->getPosition().y);
 }	
+
 const Vector2f& Entity::getPosition() const {
 	return position->getPosition();
 };
@@ -140,7 +138,3 @@ sf::Vector2i Entity::getTextureSize() const
 
 	return { static_cast<int>(texture.getSize().x), static_cast<int>(texture.getSize().y) };
 }
-
-Rectangle& Entity::getBoundingBox() const{
-	return collider->getBoundingBox();
-};

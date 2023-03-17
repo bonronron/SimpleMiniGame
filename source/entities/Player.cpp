@@ -1,10 +1,11 @@
 #include <iostream>
-#include "../../include/utils/Vector2.h"
+#include "../../include/utils/Rectangle.h"
+#include "../../include/entities/Player.h"
 #include "../../include/components/PositionComponent.h"
 #include "../../include/components/VelocityComponent.h"
 #include "../../include/components/InputComponent.h"
+#include "../../include/components/ColliderComponent.h"
 #include "../../include/components/HealthComponent.h"
-#include "../../include/entities/Player.h"
 #include "../../include/graphics/AnimBase.h"
 #include "../../include/entities/Fire.h"
 #include "../../include/core/Game.h"
@@ -23,13 +24,12 @@ Player::Player() : Entity(EntityType::PLAYER),
 	velocityComponent {std::make_shared<VelocityComponent>()},
 	// playerInputHandler{ std::make_unique<PlayerInputHandler>() },
 	healthComponent {std::make_shared<HealthComponent>(startingHealth,maxHealth) },
-	input{ std::make_unique<PlayerInputComponent>() }
+	input{ std::make_unique<PlayerInputComponent>() },
+	colliderComponent(std::make_shared<ColliderComponent>())
 {
 	//speed =playerSpeed;
 	 //speed = playerSpeed;
-
 	// VI.B: Create the unique pointer to the PlayerInputHandler object
-
 
 }
 
@@ -43,6 +43,7 @@ void Player::update(Game* game, float elapsed)
 	//      velocity vector for moving up, down and left.
 
 	velocityComponent->update(*this, elapsed);
+	colliderComponent->update(*this, elapsed);
 
 	// VI.F (1/2) If the X component of the velocity vector is positive, we're moving to the right.
 	//            Set the animation of the spritesheet to "Walk". Mind the parameters required for the
@@ -143,4 +144,15 @@ void Player::positionSprite(int row, int col, int spriteWH, float tileScale)
 	setPosition(x + cntrFactorX, y + cntrFactorY);
 	//setVelocity({ 0.0f, 0.0f });
 	velocityComponent->setVelocity(0.f, 0.f);
+	colliderComponent->setBoundingBoxSize(Vector2f(textureSize.x * scaleV2f.x, textureSize.y * scaleV2f.y));
+}
+
+void Player::draw(Window* window) {
+	Entity::draw(window);
+	window->draw(colliderComponent->getBoundingBox().getDrawableRect());
+}
+
+bool Player::collidesWith(Entity& const other)
+{
+	return colliderComponent->getBoundingBox().intersects(other.getCollider()->getBoundingBox());
 }

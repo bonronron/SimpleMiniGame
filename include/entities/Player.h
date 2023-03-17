@@ -6,6 +6,7 @@
 class Fire;
 class HealthComponent;
 class VelocityComponent;
+class ColliderComponent;
 
 
 class InputComponent;
@@ -25,6 +26,7 @@ public:
 	~Player();
 
 	virtual void update(Game* game, float elapsed = 1.0f) override;
+	void draw(Window* window) override;
 
 	void handleInput(Game& game);
 
@@ -36,6 +38,7 @@ public:
 
 	std::shared_ptr<HealthComponent> getHealthComp() { return healthComponent; }
 	std::shared_ptr<VelocityComponent> getVelocityComp() { return velocityComponent; }
+	std::shared_ptr<ColliderComponent> getCollider() override { return colliderComponent; };
 	//void addHealth(int h) { healthComponent->changeHealth(h); }
 
 	int getWood() const { return wood; }
@@ -46,6 +49,9 @@ public:
 	//void setVelocityY(float newY) { velocity.y = newY; }
 
 	void positionSprite(int row, int col, int spriteWH, float tileScale);
+
+	bool collidesWith(Entity& const other);
+
 
 private:
 
@@ -58,6 +64,7 @@ private:
 	float shootCooldown;
 	std::shared_ptr<HealthComponent> healthComponent;
 	std::shared_ptr<VelocityComponent> velocityComponent;
+	std::shared_ptr<ColliderComponent> colliderComponent;
 
 	// VI.A (1/2): Declare a unique pointer to a player input handler.
 	std::unique_ptr<InputComponent> input;

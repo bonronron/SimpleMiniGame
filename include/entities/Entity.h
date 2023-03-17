@@ -31,7 +31,7 @@ public:
 	virtual void init(const std::string& textureFile, float scale);
 	void initSpriteSheet(const std::string& spriteSheetFile);
 	virtual void update(Game* game, float elapsed = 1.0f);
-	void draw(Window* window);
+	virtual void draw(Window* window);
 
 	//Getters and Setters
 	void setID(EntityID entId) { id = entId; }
@@ -40,13 +40,13 @@ public:
 	//void setVelocity(const Vector2f& v) { velocity.x = v.x; velocity.y = v.y; }
 	const Vector2f& getPosition() const;
 	//const Vector2f& getVelocity() const { return velocity; }
-	Rectangle& getBoundingBox() const;
 	const sf::Vector2f& getSpriteScale() const;
 	sf::Vector2i getTextureSize() const;
 	EntityType getEntityType() const { return type; }
 	const SpriteSheet* getSpriteSheet() const { return &spriteSheet; }
 	//float getSpeed() const { return speed; }
 	bool isSpriteSheetEntity() const { return isSpriteSheet; }
+	virtual std::shared_ptr<ColliderComponent> getCollider() { return nullptr; };
 
 	
 	// X.C  Add two helper functions. One that returns the value of the deleted flag, another one that 
@@ -68,7 +68,7 @@ protected:
 	//Collision
 	//Rectangle boundingBox;
 	//Vector2f bboxSize;
-	std::unique_ptr<ColliderComponent> collider;
+	
 
 	//Graphics-related variables.
 	bool isSpriteSheet;
