@@ -7,6 +7,7 @@ class Fire;
 class HealthComponent;
 class VelocityComponent;
 class ColliderComponent;
+class PlayerStateComponent;
 
 
 class InputComponent;
@@ -30,19 +31,20 @@ public:
 
 	void handleInput(Game& game);
 
-	bool isAttacking() const { return attacking; }
-	void setAttacking(bool at) { attacking = at; }
+	//bool isAttacking() const { return attacking; }
+	//void setAttacking(bool at) { attacking = at; }
 
-	bool isShouting() const { return shouting; }
-	void setShouting(bool sh) { shouting = sh; }
+	//bool isShouting() const { return shouting; }
+	//void setShouting(bool sh) { shouting = sh; }
 
 	std::shared_ptr<HealthComponent> getHealthComp() { return healthComponent; }
 	std::shared_ptr<VelocityComponent> getVelocityComp() { return velocityComponent; }
 	std::shared_ptr<ColliderComponent> getCollider() override { return colliderComponent; };
+	std::shared_ptr<PlayerStateComponent> getPlayerStateComp() { return playerStateComponent; }
 	//void addHealth(int h) { healthComponent->changeHealth(h); }
 
-	int getWood() const { return wood; }
-	void addWood(int w);
+	//int getWood() const { return wood; }
+	//void addWood(int w);
 
 	bool hasSpriteSheet() const { return isSpriteSheet; }
 	//void setVelocityX(float newX) { velocity.x = newX; }
@@ -57,14 +59,15 @@ private:
 
 	std::shared_ptr<Fire> createFire() const;
 
-	bool attacking;
-	bool shouting;
-	//int health;
-	int wood;
-	float shootCooldown;
+	//bool attacking;
+	//bool shouting;
+	////int health;
+	//int wood;
+	//float shootCooldown;
 	std::shared_ptr<HealthComponent> healthComponent;
 	std::shared_ptr<VelocityComponent> velocityComponent;
 	std::shared_ptr<ColliderComponent> colliderComponent;
+	std::shared_ptr<PlayerStateComponent> playerStateComponent;
 
 	// VI.A (1/2): Declare a unique pointer to a player input handler.
 	std::unique_ptr<InputComponent> input;
