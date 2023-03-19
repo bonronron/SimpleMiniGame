@@ -8,6 +8,8 @@
 #include "../../include/entities/StaticEntities.h"
 #include <iostream>
 
+#include "../../include/components/LogicComponent.h"
+
 // III.F Add the initialization (to 0) of the entity counter to the initalizers list of this constructor
 Game::Game() : paused(false),entityID(0), inputHandler{ std::make_unique<InputHandler>() }
 {
@@ -240,8 +242,8 @@ void Game::update(float elapsed)
 						std::cout << " Collide with log " << std::endl;
 						if (player->getSpriteSheet()->getCurrentAnim()->isInAction()
 							&& player->getSpriteSheet()->getCurrentAnim()->getName() == "Attack") {
-							player->addWood(log->getWood());
-							std::cout << " Logs : " << player->getWood() << "\tLogs collected : " << log->getWood() << std::endl;
+							player->getPlayerStateComp()->addWood(log->getWood());
+							std::cout << " Logs : " << player->getPlayerStateComp()->getWood() << "\tLogs collected : " << log->getWood() << std::endl;
 							log->deleteEntity();
 						}
 						break;

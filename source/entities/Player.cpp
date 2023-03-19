@@ -3,7 +3,6 @@
 #include "../../include/entities/Player.h"
 #include "../../include/components/PositionComponent.h"
 #include "../../include/components/VelocityComponent.h"
-#include "../../include/components/LogicComponent.h"
 #include "../../include/components/InputComponent.h"
 #include "../../include/components/ColliderComponent.h"
 #include "../../include/components/HealthComponent.h"
@@ -13,6 +12,7 @@
 #include "../../include/core/InputHandler.h"
 #include "../../include/core/Command.h"
 
+#include "../../include/components/LogicComponent.h"
 
 
 Player::Player() : Entity(EntityType::PLAYER), 
@@ -26,7 +26,8 @@ Player::Player() : Entity(EntityType::PLAYER),
 	// playerInputHandler{ std::make_unique<PlayerInputHandler>() },
 	healthComponent {std::make_shared<HealthComponent>(startingHealth,maxHealth) },
 	input{ std::make_unique<PlayerInputComponent>() },
-	colliderComponent(std::make_shared<ColliderComponent>())
+	colliderComponent(std::make_shared<ColliderComponent>()),
+	playerStateComponent(std::make_shared<PlayerStateComponent>())
 {
 	//speed =playerSpeed;
 	 //speed = playerSpeed;

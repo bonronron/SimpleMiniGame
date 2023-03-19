@@ -1,11 +1,12 @@
 #include "../../include/components/LogicComponent.h"
 #include "../../include/entities/Entity.h"
 #include "../../include/entities/Player.h"
+#include "../../include/entities/Fire.h"
 #include "../../include/core/Game.h"
 
-void PlayerStateComponent::update(Entity* entity, Game* game, float elapsedTime)
+void PlayerStateComponent::update(Player* player, Game* game, float elapsedTime)
 {
-	auto player = std::dynamic_pointer_cast<Player>(entity);
+	//auto player = std::dynamic_pointer_cast<Player>(entity);
 	if (shootCooldown > 0) {
 		shootCooldown = shootCooldown - elapsedTime;
 	}

@@ -55,9 +55,9 @@ public:
 	bool collidesWith(Entity& const other);
 
 
+	std::shared_ptr<Fire> createFire() const;
 private:
 
-	std::shared_ptr<Fire> createFire() const;
 
 	//bool attacking;
 	//bool shouting;
