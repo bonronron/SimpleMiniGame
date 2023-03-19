@@ -24,6 +24,8 @@ Player::Player() : Entity(EntityType::PLAYER),
 	healthComponent {std::make_shared<HealthComponent>(startingHealth,maxHealth) },
 	input{ std::make_unique<PlayerInputComponent>() }
 {
+	//auto tempGraphics = std::dynamic_pointer_cast<spriteSheetGraphicsComponent>(graphics);
+	//tempGraphics->positionSprite()
 	//speed =playerSpeed;
 	 //speed = playerSpeed;
 

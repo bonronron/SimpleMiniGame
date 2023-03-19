@@ -26,10 +26,10 @@ Entity::Entity(EntityType et) :
 	// X.B (2/2) Add the initialization the deleted flag to false
 	deleted(false)
 {
-	/*if (et == EntityType::PLAYER)
-		graphics = std::make_shared<spriteSheetGraphicsComponent>();
-	else
-		graphics = std::make_shared<simpleSpriteGraphicsComponent>();*/
+	//if (et == EntityType::PLAYER)
+	//	graphics = std::make_shared<spriteSheetGraphicsComponent>();
+	//else
+	//	graphics = std::make_shared<simpleSpriteGraphicsComponent>();
 }
 
 Entity::~Entity()
@@ -96,6 +96,10 @@ void Entity::draw(Window* window)
 
 void Entity::init(const std::string& textureFile, std::shared_ptr<simpleSpriteGraphicsComponent> gc)
 {
+	// How should we initialize graphics component
+	// Should this be moved into constructor
+
+
 	graphics = gc;
 	gc->loadSprite(textureFile);
 	//texture.loadFromFile(textureFile);

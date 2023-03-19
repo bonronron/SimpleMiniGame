@@ -14,10 +14,10 @@ void simpleSpriteGraphicsComponent::loadSprite(const std::string& fileLocation) 
 void simpleSpriteGraphicsComponent::update(Entity& entity, float elapsedTime) {
 	sprite.setPosition(entity.getPosition().x, entity.getPosition().y);
 }
-void simpleSpriteGraphicsComponent::draw(Window& window) {
+void simpleSpriteGraphicsComponent::draw(Window* window) {
 	//setting sprite position
 	
-	window.draw(sprite);
+	window->draw(sprite);
 }
 
 
@@ -41,12 +41,13 @@ void spriteSheetGraphicsComponent::update(Entity& entity, float elapsedTime) {
 	if (!spriteSheet.getCurrentAnim()->isPlaying() && player.isAttacking()) player.setAttacking(false);
 	if (!spriteSheet.getCurrentAnim()->isPlaying() && player.isShouting()) player.setShouting(false);
 }
-void spriteSheetGraphicsComponent::draw(Window& window) {	
+void spriteSheetGraphicsComponent::draw(Window* window) {	
 	sf::Sprite* sp = &spriteSheet.getSprite();
 	//const sf::Vector2f pos = sp->getPosition();
-	window.draw(spriteSheet.getSprite());
+	window->draw(spriteSheet.getSprite());
 }
-void spriteSheetGraphicsComponent::positionSprite(int row, int col, int spriteWH, float tileScale) {
+void spriteSheetGraphicsComponent::positionSprite(Entity& entity, int row, int col, int spriteWH, float tileScale) {
+	//Player& player = dynamic_cast<Player&>(entity);
 	sf::Vector2f scaleV2f = getSpriteScale();
 	sf::Vector2i textureSize = getTextureSize();
 
@@ -56,5 +57,6 @@ void spriteSheetGraphicsComponent::positionSprite(int row, int col, int spriteWH
 	float cntrFactorY = ((spriteWH * tileScale) - spriteSizeY);	// to align to lower side of the tile.
 	float cntrFactorX = cntrFactorY * 0.5f;						//to center horizontally
 
-	spriteSheet.getSprite().setPosition(x + cntrFactorX, y + cntrFactorY);
+	entity.setPosition(x + cntrFactorX, y + cntrFactorY);
+	//spriteSheet.getSprite().setPosition(x + cntrFactorX, y + cntrFactorY);
 }

@@ -138,7 +138,7 @@ void Game::init(std::vector<std::string> lines)
 				// IV.B (3/4): Call the function that positions the sprite of the player in the board (Player::positionSprite). 
 				//			   Parameters are the row and column where this object goes in the board, the sprite width and height (const int Game::spriteWH) 
 				//			   and the scale for the tiles (const float Game::tileScale)
-				std::dynamic_pointer_cast<spriteSheetGraphicsComponent>(player->getGraphicsComp())->positionSprite(row, col, spriteWH, tileScale);
+				std::dynamic_pointer_cast<spriteSheetGraphicsComponent>(player->getGraphicsComp())->positionSprite(*(std::dynamic_pointer_cast<Entity>(player)) , row, col, spriteWH, tileScale);
 				player->getVelocityComp()->setVelocity(0.f, 0.f);
 				// IV.B (4/4): Call our function to add an entity to a game passing the player that has just been created.
 				addEntity(player);
@@ -214,8 +214,11 @@ void Game::update(float elapsed)
 			auto player = getPlayer();
 			// IX.D: (Inside the loop) Once you have a different entity to player, retrieve it's bounding box
 			//       and check if they intersect.
-			if ((*it)->getBoundingBox().intersects(playerBoundingBox)) {
-				switch ((*it)->getEntityType()) {
+			if ((*it)->getBoundingBox().intersects(playerBoundingBox)) 
+			{
+
+				switch ((*it)->getEntityType()) 
+				{
 					// IX.E (if there is an intesection) Write a switch statement that determines the type of the object (which you
 					//      can retrieve with getEntityType()) we are colliding with. For each case, add a console print out that 
 					//      says what are you colliding with.
@@ -237,7 +240,8 @@ void Game::update(float elapsed)
 						auto playerGraphics = std::dynamic_pointer_cast<spriteSheetGraphicsComponent>(player->getGraphicsComp());
 
 						if( playerGraphics->getSpriteSheet().getCurrentAnim()->isInAction()
-							&& playerGraphics->getSpriteSheet().getCurrentAnim()->getName() == "Attack") {
+							&& playerGraphics->getSpriteSheet().getCurrentAnim()->getName() == "Attack") 
+						{
 							player->addWood(log->getWood());
 							std::cout << " Logs : " << player->getWood() << "\tLogs collected : " << log->getWood() << std::endl;
 							log->deleteEntity();
@@ -280,7 +284,8 @@ void Game::render(float elapsed)
 	// III.J Draw all units. Write a loop that iterates over all entities in this class's vector
 	//       and calls the "draw" method in the entities.
 	for (std::shared_ptr<Entity> e : entities) {
-		e->getGraphicsComp()->draw(window);
+		e->getGraphicsComp()->draw(&window);
+		e->draw(&window);
 	}
 
 	//Draw FPS
