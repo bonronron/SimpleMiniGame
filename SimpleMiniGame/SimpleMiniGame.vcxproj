@@ -136,6 +136,7 @@
     <ClInclude Include="..\include\components\GraphicsComponent.h" />
     <ClInclude Include="..\include\components\ColliderComponent.h" />
     <ClInclude Include="..\include\components\HealthComponent.h" />
+    <ClInclude Include="..\include\components\LogicComponent.h" />
     <ClInclude Include="..\include\components\PositionComponent.h" />
     <ClInclude Include="..\include\components\InputComponent.h" />
     <ClInclude Include="..\include\components\TTLComponent.h" />

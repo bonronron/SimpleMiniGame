@@ -1,5 +1,5 @@
 #pragma once
-#include<string.h>
+
 class Window;
 class Entity;
 class GraphicsComponent {
@@ -10,22 +10,21 @@ public:
 	virtual void loadSprite(const std::string& fileLocation) = 0;
 	virtual sf::Vector2i getTextureSize() const = 0;
 	virtual const sf::Vector2f& getSpriteScale() const = 0;
-	//virtual sf::Texture getTexture() const = 0;
+	virtual SpriteSheet* getSpriteSheet() { return nullptr; };
+
 };
 
 class spriteSheetGraphicsComponent : public GraphicsComponent {
 public:
 	void update(Entity& entity, float elapsedTime) override;
 	void draw(Window* window) override;
-	SpriteSheet getSpriteSheet() { return spriteSheet; }
 	void loadSprite(const std::string& fileLocation) override;
 	sf::Vector2i getTextureSize() const override { return spriteSheet.getSpriteSize(); }
 	const sf::Vector2f& getSpriteScale() const override { return spriteSheet.getSpriteScale(); }
 	void positionSprite(Entity& entity, int row, int col, int spriteWH, float tileScale);
+	SpriteSheet* getSpriteSheet() override { return &spriteSheet; };
 private:
 	SpriteSheet spriteSheet;
-
-
 };
 class simpleSpriteGraphicsComponent : public GraphicsComponent {
 public:

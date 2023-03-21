@@ -29,8 +29,7 @@ public:
 	~Entity();
 
 	//Init and update functions
-	virtual void init(const std::string& textureFile, std::shared_ptr<simpleSpriteGraphicsComponent> gc);
-	void initSpriteSheet(const std::string& spriteSheetFile, std::shared_ptr<spriteSheetGraphicsComponent> gc);
+	virtual void init(const std::string& textureFile, std::shared_ptr<GraphicsComponent> gc);
 	virtual void update(Game* game, float elapsed = 1.0f);
 	virtual void draw(Window* window);
 
@@ -41,7 +40,7 @@ public:
 	//void setVelocity(const Vector2f& v) { velocity.x = v.x; velocity.y = v.y; }
 	const Vector2f& getPosition() const;
 	//const Vector2f& getVelocity() const { return velocity; }
-	const sf::Vector2f& getSpriteScale() const;
+	//const sf::Vector2f& getSpriteScale() const;
 	//sf::Vector2i getTextureSize() const;
 	EntityType getEntityType() const { return type; }
 	//const SpriteSheet* getSpriteSheet() const { return &spriteSheet; }

@@ -1,5 +1,4 @@
 #pragma once
-//#include "../utils/Vector2.h"
 struct Vector2f;
 class PositionComponent {
 public:

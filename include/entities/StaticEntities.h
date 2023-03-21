@@ -5,13 +5,11 @@ public:
 		colliderComponent(std::make_shared<ColliderComponent>()) {}
 	~Potion() {}
 
-	void init(const std::string& textureFile, float scale) override
+	void init(const std::string& textureFile, std::shared_ptr<GraphicsComponent> gc) override
 	{
-		// III.C (1/2) Call the init() function in Entity to initalize this object
-		Entity::init(textureFile, std::make_shared<simpleSpriteGraphicsComponent>(scale));
+		Entity::init(textureFile, gc);
 
-		colliderComponent->setBoundingBoxSize(Vector2f(texture.getSize().x * sprite.getScale().x, texture.getSize().y * sprite.getScale().y));
-		// VIII.C (1/2) Set the top left and bottom right corners of the bounding box for this entity.
+		colliderComponent->setBoundingBoxSize(Vector2f(gc->getTextureSize().x * gc->getSpriteScale().x, gc->getTextureSize().y * gc->getSpriteScale().y));
 		colliderComponent->setBoundingBox(position->getPosition());
 	}
 
@@ -38,12 +36,10 @@ public:
 		colliderComponent(std::make_shared<ColliderComponent>()) {}
 	~Log() {}
 
-	void init(const std::string& textureFile, float scale)
+	void init(const std::string& textureFile, std::shared_ptr<GraphicsComponent> gc) override
 	{
-		// III.C (2/2) Call the init() function in Entity to initalize this object
-		Entity::init(textureFile, std::make_shared<simpleSpriteGraphicsComponent>(scale));
-		colliderComponent->setBoundingBoxSize(Vector2f(texture.getSize().x * sprite.getScale().x, texture.getSize().y * sprite.getScale().y));
-		// VIII.C (2/2) Set the top left and bottom right corners of the bounding box for this entity.
+		Entity::init(textureFile, gc);
+		colliderComponent->setBoundingBoxSize(Vector2f(gc->getTextureSize().x * gc->getSpriteScale().x, gc->getTextureSize().y * gc->getSpriteScale().y));
 		colliderComponent->setBoundingBox(position->getPosition());
 	}
 

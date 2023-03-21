@@ -22,7 +22,6 @@ private:
 	const float shootCooldownTime = 3.f; //in seconds
 
 	//state identification
-	//bool deleted;
 	bool attacking;
 	bool shouting;
 	int wood;
@@ -37,10 +36,3 @@ public:
 	void setAttacking(bool atk) { attacking = atk; }
 	void setShouting(bool shout) { shouting = shout; }
 };
-//class entityStateComponent : public LogicComponent 
-//{
-//private:
-//	bool deleted;
-//public:
-//	void update(Entity* entity, Game* game, float elapsedTime) override;
-//};

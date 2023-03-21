@@ -16,11 +16,7 @@ std::shared_ptr<Command> InputHandler::handleInput() {
 PlayerInputHandler::PlayerInputHandler() : moveRightCommand{ std::make_shared<MoveRightCommand>() },
 	moveLeftCommand{ std::make_shared<MoveLeftCommand>() }, moveUpCommand{ std::make_shared<MoveUpCommand>() },
 	moveDownCommand{ std::make_shared<MoveDownCommand>() }, shoutCommand{ std::make_shared<ShoutCommand>() },
-	attackCommand{ std::make_shared<AttackCommand>() }
-{
-	// <FEEDBACK> This is not necessary, remove.
-	//simultaneousCommands = std::vector<std::shared_ptr<Command>>();
-};
+	attackCommand{ std::make_shared<AttackCommand>() } {};
 
 std::vector<std::shared_ptr<Command>>& PlayerInputHandler::handleInput() {
 	

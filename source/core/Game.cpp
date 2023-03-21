@@ -8,6 +8,7 @@
 #include "../../include/components/ColliderComponent.h"
 #include "../../include/entities/StaticEntities.h"
 #include "../../include/components/LogicComponent.h"
+#include "../../include/components/VelocityComponent.h"
 
 // III.F Add the initialization (to 0) of the entity counter to the initalizers list of this constructor
 Game::Game() : paused(false),entityID(0), inputHandler{ std::make_unique<InputHandler>() }
@@ -29,7 +30,7 @@ std::shared_ptr<T> Game::buildEntityAt(const std::string& filename, int col, int
 
 	ent->setPosition(x + cntrFactor, y + cntrFactor);
 	//ent->setVelocity({ 0.0f, 0.0f });
-	ent->init(filename, itemScale);
+	ent->init(filename, std::make_shared<simpleSpriteGraphicsComponent>(itemScale));
 	
 	return ent;
 }
@@ -137,7 +138,7 @@ void Game::init(std::vector<std::string> lines)
 
 				// IV.B (2/4): Call the function that initializes the Sprite Sheet with a single parameter, a const std::string& filename.
 				//			   This string should be "img/DwarfSpriteSheet_data.txt"
-				player->initSpriteSheet("../img/DwarfSpriteSheet_data.txt",std::make_shared<spriteSheetGraphicsComponent>());
+				player->init("../img/DwarfSpriteSheet_data.txt",std::make_shared<spriteSheetGraphicsComponent>());
 
 				// IV.B (3/4): Call the function that positions the sprite of the player in the board (Player::positionSprite). 
 				//			   Parameters are the row and column where this object goes in the board, the sprite width and height (const int Game::spriteWH) 
@@ -242,8 +243,8 @@ void Game::update(float elapsed)
 						std::cout << " Collide with log " << std::endl;
 						auto playerGraphics = std::dynamic_pointer_cast<spriteSheetGraphicsComponent>(player->getGraphicsComp());
 
-						if( playerGraphics->getSpriteSheet().getCurrentAnim()->isInAction()
-							&& playerGraphics->getSpriteSheet().getCurrentAnim()->getName() == "Attack") 
+						if( playerGraphics->getSpriteSheet()->getCurrentAnim()->isInAction()
+							&& playerGraphics->getSpriteSheet()->getCurrentAnim()->getName() == "Attack") 
 						{
 							player->getPlayerStateComp()->addWood(log->getWood());
 							std::cout << " Logs : " << player->getPlayerStateComp()->getWood() << "\tLogs collected : " << log->getWood() << std::endl;

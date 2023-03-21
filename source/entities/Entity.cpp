@@ -94,30 +94,30 @@ void Entity::draw(Window* window)
 
 }
 
-void Entity::init(const std::string& textureFile, std::shared_ptr<simpleSpriteGraphicsComponent> gc)
+void Entity::init(const std::string& textureFile, std::shared_ptr<GraphicsComponent> gc)
 {
 	// How should we initialize graphics component
 	// Should this be moved into constructor
 
 
-	graphics {gc};
+	graphics = gc;
 	gc->loadSprite(textureFile);
 	//texture.loadFromFile(textureFile);
 	//sprite.setTexture(texture);
 	//sprite.setScale(scale, scale);
-	bboxSize = Vector2f(gc->getTextureSize().x * gc->getSpriteScale().x, gc->getTexture().getSize().y * gc->getSpriteScale().y);
+	//bboxSize = Vector2f(gc->getTextureSize().x * gc->getSpriteScale().x, gc->getTexture().getSize().y * gc->getSpriteScale().y);
 }
 
-void Entity::initSpriteSheet(const std::string& spriteSheetFile, std::shared_ptr<spriteSheetGraphicsComponent> gc)
-{
-	graphics {gc};
-	gc->loadSprite(spriteSheetFile);
-	//spriteSheet.loadSheet(spriteSheetFile);
-	//isSpriteSheet = true;
-	//spriteSheet.setAnimation("Idle", true, true);
-	bboxSize = Vector2f(gc->getSpriteSheet().getSpriteSize().x * gc->getSpriteSheet().getSpriteScale().x,
-					  gc->getSpriteSheet().getSpriteSize().y * gc->getSpriteSheet().getSpriteScale().y);
-}
+//void Entity::initSpriteSheet(const std::string& spriteSheetFile, std::shared_ptr<spriteSheetGraphicsComponent> gc)
+//{
+//	graphics {gc};
+//	gc->loadSprite(spriteSheetFile);
+//	//spriteSheet.loadSheet(spriteSheetFile);
+//	//isSpriteSheet = true;
+//	//spriteSheet.setAnimation("Idle", true, true);
+//	/*bboxSize = Vector2f(gc->getSpriteSheet().getSpriteSize().x * gc->getSpriteSheet().getSpriteScale().x,
+//					  gc->getSpriteSheet().getSpriteSize().y * gc->getSpriteSheet().getSpriteScale().y);*/
+//}
 
 void Entity::setPosition(float x, float y)
 {
