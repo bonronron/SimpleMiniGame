@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <fstream>
+#include "include/entities/Entity.h"
+#include "include/entities/Player.h"
 #include "include/core/Game.h"
 
 void adaptiveLoop(Game& game, float& lastTime, float updateTarget = 0)

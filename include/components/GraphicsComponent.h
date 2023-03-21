@@ -2,6 +2,7 @@
 
 class Window;
 class Entity;
+class SpriteSheet;
 class GraphicsComponent {
 public:
 	virtual ~GraphicsComponent(){}

@@ -1,9 +1,8 @@
 #include "../graphics/Window.h"
 #include "../core/Board.h"
-#include "../entities/Player.h"
 
 class InputHandler;
-
+class Player;
 class Game
 {
 public:

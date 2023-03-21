@@ -1,13 +1,11 @@
 #pragma once
 #include "../graphics/Window.h"
-#include "../graphics/SpriteSheet.h"
-#include "../utils/Rectangle.h"
-#include "../../include/components/GraphicsComponent.h"
-
+#include "../utils/Vector2.h"
 using EntityID = unsigned int;
 
 class PositionComponent;
 class ColliderComponent;
+class GraphicsComponent;
 enum class EntityType
 {
 	UNDEFINED = -1,

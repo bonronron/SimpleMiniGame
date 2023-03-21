@@ -1,10 +1,12 @@
 #include<iostream>
 #include "../../include/graphics/Window.h"
 #include "../../include/graphics/SpriteSheet.h"
+#include "../../include/entities/Entity.h"
 #include "../../include/entities/Player.h"
-#include "../../include/components/GraphicsComponent.h"
+#include "../../include/utils/Rectangle.h"
 #include "../../include/components/LogicComponent.h"
 #include "../../include/components/VelocityComponent.h"
+#include "../../include/components/GraphicsComponent.h"
 
 void simpleSpriteGraphicsComponent::loadSprite(const std::string& fileLocation) {
 	texture.loadFromFile(fileLocation);

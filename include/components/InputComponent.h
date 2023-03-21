@@ -1,4 +1,3 @@
-//#include "../core/InputHandler.h"
 class Game;
 class PlayerInputHandler; 
 class InputComponent {

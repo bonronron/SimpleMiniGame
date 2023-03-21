@@ -1,14 +1,20 @@
 #include <iostream>
-#include "../../include/core/Game.h"
-#include "../../include/entities/Fire.h"
+#include "../../include/utils/Rectangle.h"
+#include "../../include/graphics/SpriteSheet.h"
+#include "../../include/entities/Entity.h"
+#include "../../include/entities/Player.h"
 #include "../../include/core/InputHandler.h"
+#include "../../include/core/Game.h"
 #include "../../include/core/Command.h"
 #include "../../include/components/HealthComponent.h"
 #include "../../include/components/PositionComponent.h"
 #include "../../include/components/ColliderComponent.h"
-#include "../../include/entities/StaticEntities.h"
 #include "../../include/components/LogicComponent.h"
 #include "../../include/components/VelocityComponent.h"
+#include "../../include/components/GraphicsComponent.h"
+#include "../../include/components/TTLComponent.h"
+#include "../../include/entities/Fire.h"
+#include "../../include/entities/StaticEntities.h"
 
 Game::Game() : paused(false),entityID(0), inputHandler{ std::make_unique<InputHandler>() }
 {}

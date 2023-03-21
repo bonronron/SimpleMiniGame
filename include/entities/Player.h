@@ -1,5 +1,4 @@
 #pragma once
-#include "Entity.h"
 class Fire;
 class HealthComponent;
 class VelocityComponent;

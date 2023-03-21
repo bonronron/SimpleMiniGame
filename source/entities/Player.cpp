@@ -1,6 +1,7 @@
 #include <iostream>
 #include "../../include/utils/Rectangle.h"
-#include "../../include/entities/Player.h"
+#include "../../include/graphics/SpriteSheet.h"
+#include "../../include/entities/Entity.h"
 #include "../../include/components/PositionComponent.h"
 #include "../../include/components/VelocityComponent.h"
 #include "../../include/components/InputComponent.h"
@@ -8,11 +9,12 @@
 #include "../../include/components/HealthComponent.h"
 #include "../../include/components/GraphicsComponent.h"
 #include "../../include/components/LogicComponent.h"
-#include "../../include/graphics/AnimBase.h"
-#include "../../include/entities/Fire.h"
+#include "../../include/components/TTLComponent.h"
 #include "../../include/core/Game.h"
 #include "../../include/core/InputHandler.h"
 #include "../../include/core/Command.h"
+#include "../../include/entities/Fire.h"
+#include "../../include/entities/Player.h"
 
 
 Player::Player() : Entity(EntityType::PLAYER),

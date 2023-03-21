@@ -1,8 +1,10 @@
-#include "../../include/entities/Entity.h"
-#include "../../include/graphics/Window.h"
-#include "../../include/components/PositionComponent.h"
-#include "../../include/components/ColliderComponent.h"
 #include <iostream>
+#include "../../include/utils/Rectangle.h"
+#include "../../include/graphics/SpriteSheet.h"
+#include "../../include/entities/Entity.h"
+#include "../../include/components/PositionComponent.h"
+#include "../../include/components/GraphicsComponent.h"
+#include "../../include/components/ColliderComponent.h"
 
 
 Entity::Entity() :

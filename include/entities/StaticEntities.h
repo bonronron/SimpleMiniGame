@@ -1,3 +1,4 @@
+class Entity;
 class Potion : public Entity
 {
 public:
