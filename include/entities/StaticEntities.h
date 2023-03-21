@@ -18,7 +18,7 @@ public:
 		boundingBox.setBottomRight(position->getPosition() + bboxSize);
 	}
 
-	virtual void update(Game* game, float elapsed = 1.0f) override { }
+	virtual void update(Game* game, float elapsed = 1.0f) override { Entity::update(game, elapsed); }
 
 	int getHealth() const { return potionHealth; }
 
@@ -42,7 +42,7 @@ public:
 		boundingBox.setBottomRight(position->getPosition() + bboxSize);
 	}
 
-	virtual void update(Game* game, float elapsed = 1.0f) override {}
+	virtual void update(Game* game, float elapsed = 1.0f) override { Entity::update(game, elapsed); }
 
 	int getWood() const { return woodAdded; }
 

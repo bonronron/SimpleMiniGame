@@ -49,7 +49,7 @@ void Entity::update(Game* game, float elapsed)
 	/*setPosition(newX, newY); */// <FEEDBACK> You don't need the two variables nor calling this function. Modify position.x and position.y direclty.
 
 
-	//graphics->update(*this, elapsed);
+	graphics->update(*this, elapsed);
 
 	// IV.D (2/2) If this entity has a spritesheet (variable "isSpriteSheet" is true), do two operations:
 	//              i)  Set the sprite position of the spritesheet to the position of this entity.
