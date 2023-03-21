@@ -1,8 +1,5 @@
 #pragma once
 #include "Entity.h"
-//#include "../components/HealthComponent.h" //I read that in header we shouldnt include turns out that is the error
-//#include "../components/VelocityComponent.h"
-//class HealthComponent;
 class Fire;
 class HealthComponent;
 class VelocityComponent;
@@ -21,7 +18,7 @@ public:
 	const int maxWood = 100;
 	const int shootingCost = 20;
 	const float fireSpeed = 2.f;
-	const float shootCooldownTime = 3.f; //in seconds
+	const float shootCooldownTime = 3.f;
 
 	Player();
 	~Player();
@@ -31,45 +28,20 @@ public:
 
 	void handleInput(Game& game);
 
-	//bool isAttacking() const { return attacking; }
-	//void setAttacking(bool at) { attacking = at; }
-
-	//bool isShouting() const { return shouting; }
-	//void setShouting(bool sh) { shouting = sh; }
-
 	std::shared_ptr<HealthComponent> getHealthComp() { return healthComponent; }
 	std::shared_ptr<VelocityComponent> getVelocityComp() { return velocityComponent; }
 	std::shared_ptr<ColliderComponent> getCollider() override { return colliderComponent; };
 	std::shared_ptr<PlayerStateComponent> getPlayerStateComp() { return playerStateComponent; }
-	//void addHealth(int h) { healthComponent->changeHealth(h); }
-
-	//int getWood() const { return wood; }
-	//void addWood(int w);
-
-	//bool hasSpriteSheet() const { return isSpriteSheet; }
-	//void setVelocityX(float newX) { velocity.x = newX; }
-	//void setVelocityY(float newY) { velocity.y = newY; }
-
-	//void positionSprite(int row, int col, int spriteWH, float tileScale);
-
 	bool collidesWith(Entity& const other);
 
 
 	std::shared_ptr<Fire> createFire() const;
 private:
 
-
-	//bool attacking;
-	//bool shouting;
-	////int health;
-	//int wood;
-	//float shootCooldown;
 	std::shared_ptr<HealthComponent> healthComponent;
 	std::shared_ptr<VelocityComponent> velocityComponent;
 	std::shared_ptr<ColliderComponent> colliderComponent;
 	std::shared_ptr<PlayerStateComponent> playerStateComponent;
-
-	// VI.A (1/2): Declare a unique pointer to a player input handler.
 	std::unique_ptr<InputComponent> input;
 };
 
