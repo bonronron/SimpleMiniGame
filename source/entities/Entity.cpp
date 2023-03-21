@@ -1,6 +1,7 @@
 #include "../../include/entities/Entity.h"
 #include "../../include/graphics/Window.h"
 #include "../../include/components/PositionComponent.h"
+#include "../../include/components/ColliderComponent.h"
 #include <iostream>
 
 
@@ -71,8 +72,7 @@ void Entity::update(Game* game, float elapsed)
 	//		   Set the top left corner of this rectangle to the position of this entity.
 	//		   Set the bottom right corner of this rectangle to the position+bboxSize coordinates.
 
-	boundingBox.setTopLeft(position->getPosition());
-	boundingBox.setBottomRight(position->getPosition() + bboxSize);
+
 
 }
 
@@ -90,7 +90,7 @@ void Entity::draw(Window* window)
 	//	window->draw(sprite); 
 
 	// VIII.B Draw the bounding box by retrieving a drawable rect from the bounding box Rectangle.
-	window->draw(boundingBox.getDrawableRect());
+	//window->draw(collider->getBoundingBox().getDrawableRect());
 
 }
 
@@ -100,7 +100,7 @@ void Entity::init(const std::string& textureFile, std::shared_ptr<simpleSpriteGr
 	// Should this be moved into constructor
 
 
-	graphics = gc;
+	graphics {gc};
 	gc->loadSprite(textureFile);
 	//texture.loadFromFile(textureFile);
 	//sprite.setTexture(texture);
@@ -110,7 +110,7 @@ void Entity::init(const std::string& textureFile, std::shared_ptr<simpleSpriteGr
 
 void Entity::initSpriteSheet(const std::string& spriteSheetFile, std::shared_ptr<spriteSheetGraphicsComponent> gc)
 {
-	graphics = gc;
+	graphics {gc};
 	gc->loadSprite(spriteSheetFile);
 	//spriteSheet.loadSheet(spriteSheetFile);
 	//isSpriteSheet = true;
@@ -128,6 +128,7 @@ void Entity::setPosition(float x, float y)
 	//else
 	//	sprite.setPosition(position->getPosition().x, position->getPosition().y);
 }	
+
 const Vector2f& Entity::getPosition() const {
 	return position->getPosition();
 };

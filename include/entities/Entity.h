@@ -7,6 +7,7 @@
 using EntityID = unsigned int;
 
 class PositionComponent;
+class ColliderComponent;
 enum class EntityType
 {
 	UNDEFINED = -1,
@@ -31,7 +32,7 @@ public:
 	virtual void init(const std::string& textureFile, std::shared_ptr<simpleSpriteGraphicsComponent> gc);
 	void initSpriteSheet(const std::string& spriteSheetFile, std::shared_ptr<spriteSheetGraphicsComponent> gc);
 	virtual void update(Game* game, float elapsed = 1.0f);
-	void draw(Window* window);
+	virtual void draw(Window* window);
 
 	//Getters and Setters
 	void setID(EntityID entId) { id = entId; }
@@ -40,13 +41,13 @@ public:
 	//void setVelocity(const Vector2f& v) { velocity.x = v.x; velocity.y = v.y; }
 	const Vector2f& getPosition() const;
 	//const Vector2f& getVelocity() const { return velocity; }
-	Rectangle& getBoundingBox() { return boundingBox; };
 	const sf::Vector2f& getSpriteScale() const;
 	//sf::Vector2i getTextureSize() const;
 	EntityType getEntityType() const { return type; }
 	//const SpriteSheet* getSpriteSheet() const { return &spriteSheet; }
 	//float getSpeed() const { return speed; }
 	//bool isSpriteSheetEntity() const { return isSpriteSheet; }
+	virtual std::shared_ptr<ColliderComponent> getCollider() { return nullptr; };
 
 	std::shared_ptr<GraphicsComponent> getGraphicsComp() { return graphics; }
 	
@@ -68,8 +69,9 @@ protected:
 	//float speed;
 
 	//Collision
-	Rectangle boundingBox;
-	Vector2f bboxSize;
+	//Rectangle boundingBox;
+	//Vector2f bboxSize;
+	
 
 	//Graphics-related variables.
 	//bool isSpriteSheet;

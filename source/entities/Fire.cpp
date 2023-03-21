@@ -1,6 +1,7 @@
+#include "../../include/utils/Vector2.h"
+#include "../../include/components/VelocityComponent.h"
 #include "../../include/entities/Fire.h"
 #include <iostream>
-#include "../../include/components/VelocityComponent.h"
 
 Fire::Fire() : Entity(EntityType::FIRE), /*ttl(startTimeToLive)*/
 ttl{ std::make_unique<TTLComponent>(startTimeToLive) },

@@ -1,6 +1,5 @@
 #include "../../include/core/InputHandler.h"
 #include "../../include/core/Command.h"
-
 #include <SFML/Graphics.hpp>
 
 InputHandler::InputHandler() : pauseCommand{ std::make_shared<PauseCommand>() } {};

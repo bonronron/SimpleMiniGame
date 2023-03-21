@@ -1,3 +1,4 @@
+#include "../../include/utils/Vector2.h"
 #include "../../include/components/VelocityComponent.h"
 #include "../../include/entities/Entity.h"
 
