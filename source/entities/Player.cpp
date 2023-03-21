@@ -23,7 +23,13 @@ velocityComponent {std::make_shared<VelocityComponent>()},
 	playerStateComponent(std::make_shared<PlayerStateComponent>()) {}
 
 Player::~Player() {}
-
+void Player::init(const std::string& textureFile, std::shared_ptr<GraphicsComponent> gc) 
+{
+	Entity::init(textureFile, gc);
+	colliderComponent->setBoundingBoxSize(Vector2f(gc->getSpriteSheet()->getSpriteSize().x * gc->getSpriteSheet()->getSpriteScale().x,
+		gc->getSpriteSheet()->getSpriteSize().y * gc->getSpriteSheet()->getSpriteScale().y));
+	colliderComponent->setBoundingBox(position->getPosition());
+}
 void Player::update(Game* game, float elapsed)
 {
 	velocityComponent->update(*this, elapsed);
@@ -59,7 +65,7 @@ void Player::draw(Window* window) {
 	window->draw(colliderComponent->getBoundingBox().getDrawableRect());
 }
 
-bool Player::collidesWith(Entity& const other)
+bool Player::collidesWith(Entity& other)
 {
 	return colliderComponent->getBoundingBox().intersects(other.getCollider()->getBoundingBox());
 }

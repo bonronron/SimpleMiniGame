@@ -181,7 +181,7 @@ void Game::update(float elapsed)
 			}
 			it++;
 		}
-
+		it = entities.begin();
 		while (it != entities.end()) {
 			if ((*it)->isDeleted()) {
 				it = entities.erase(it);

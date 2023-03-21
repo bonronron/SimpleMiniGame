@@ -23,6 +23,7 @@ public:
 	Player();
 	~Player();
 
+	void init(const std::string& textureFile, std::shared_ptr<GraphicsComponent> gc) override;
 	virtual void update(Game* game, float elapsed = 1.0f) override;
 	void draw(Window* window) override;
 
@@ -32,7 +33,7 @@ public:
 	std::shared_ptr<VelocityComponent> getVelocityComp() { return velocityComponent; }
 	std::shared_ptr<ColliderComponent> getCollider() override { return colliderComponent; };
 	std::shared_ptr<PlayerStateComponent> getPlayerStateComp() { return playerStateComponent; }
-	bool collidesWith(Entity& const other);
+	bool collidesWith(Entity& other);
 
 
 	std::shared_ptr<Fire> createFire() const;
