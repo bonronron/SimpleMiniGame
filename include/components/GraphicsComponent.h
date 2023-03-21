@@ -15,7 +15,7 @@ public:
 
 };
 
-class spriteSheetGraphicsComponent : public GraphicsComponent {
+class SpriteSheetGraphicsComponent : public GraphicsComponent {
 public:
 	void update(Entity& entity, float elapsedTime) override;
 	void draw(Window* window) override;
@@ -27,9 +27,9 @@ public:
 private:
 	SpriteSheet spriteSheet;
 };
-class simpleSpriteGraphicsComponent : public GraphicsComponent {
+class SimpleSpriteGraphicsComponent : public GraphicsComponent {
 public:
-	simpleSpriteGraphicsComponent(float scale) :scale{ scale } {};
+	SimpleSpriteGraphicsComponent(float scale) :scale{ scale } {};
 	void update(Entity& entity, float elapsedTime) override;
 	void draw(Window* window) override;
 	void loadSprite(const std::string& fileLocation) override;

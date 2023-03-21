@@ -8,24 +8,24 @@
 #include "../../include/components/VelocityComponent.h"
 #include "../../include/components/GraphicsComponent.h"
 
-void simpleSpriteGraphicsComponent::loadSprite(const std::string& fileLocation) {
+void SimpleSpriteGraphicsComponent::loadSprite(const std::string& fileLocation) {
 	texture.loadFromFile(fileLocation);
 	sprite.setTexture(texture);
 	sprite.setScale(scale, scale);
 }
-void simpleSpriteGraphicsComponent::update(Entity& entity, float elapsedTime) {
+void SimpleSpriteGraphicsComponent::update(Entity& entity, float elapsedTime) {
 	sprite.setPosition(entity.getPosition().x, entity.getPosition().y);
 }
-void simpleSpriteGraphicsComponent::draw(Window* window) {
+void SimpleSpriteGraphicsComponent::draw(Window* window) {
 	window->draw(sprite);
 }
 
 
-void spriteSheetGraphicsComponent::loadSprite(const std::string& fileLocation) {
+void SpriteSheetGraphicsComponent::loadSprite(const std::string& fileLocation) {
 	spriteSheet.loadSheet(fileLocation);
 	spriteSheet.setAnimation("Idle", true, true);
 }
-void spriteSheetGraphicsComponent::update(Entity& entity, float elapsedTime) {
+void SpriteSheetGraphicsComponent::update(Entity& entity, float elapsedTime) {
 	Player& player = dynamic_cast<Player&>(entity);
 	spriteSheet.getSprite().setPosition(player.getPosition().x, player.getPosition().y);
 	if (player.getPlayerStateComp()->isAttacking()) spriteSheet.setAnimation("Attack", true, false);
@@ -39,11 +39,11 @@ void spriteSheetGraphicsComponent::update(Entity& entity, float elapsedTime) {
 	if (!spriteSheet.getCurrentAnim()->isPlaying() && player.getPlayerStateComp()->isAttacking()) player.getPlayerStateComp()->setAttacking(false);
 	if (!spriteSheet.getCurrentAnim()->isPlaying() && player.getPlayerStateComp()->isShouting()) player.getPlayerStateComp()->setShouting(false);
 }
-void spriteSheetGraphicsComponent::draw(Window* window) {	
+void SpriteSheetGraphicsComponent::draw(Window* window) {	
 	sf::Sprite* sp = &spriteSheet.getSprite();
 	window->draw(spriteSheet.getSprite());
 }
-void spriteSheetGraphicsComponent::positionSprite(Entity& entity, int row, int col, int spriteWH, float tileScale) {
+void SpriteSheetGraphicsComponent::positionSprite(Entity& entity, int row, int col, int spriteWH, float tileScale) {
 	sf::Vector2f scaleV2f = getSpriteScale();
 	sf::Vector2i textureSize = getTextureSize();
 

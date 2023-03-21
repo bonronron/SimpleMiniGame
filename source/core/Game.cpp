@@ -32,7 +32,7 @@ std::shared_ptr<T> Game::buildEntityAt(const std::string& filename, int col, int
 	float cntrFactor = (tileScale - itemScale) * spriteWH * 0.5f;
 
 	ent->setPosition(x + cntrFactor, y + cntrFactor);
-	ent->init(filename, std::make_shared<simpleSpriteGraphicsComponent>(itemScale));
+	ent->init(filename, std::make_shared<SimpleSpriteGraphicsComponent>(itemScale));
 	
 	return ent;
 }
@@ -110,8 +110,8 @@ void Game::init(std::vector<std::string> lines)
 			case '*':
 				{
 				player = std::make_shared<Player>();
-				player->init("../img/DwarfSpriteSheet_data.txt",std::make_shared<spriteSheetGraphicsComponent>());
-				std::dynamic_pointer_cast<spriteSheetGraphicsComponent>(player->getGraphicsComp())->positionSprite(*(std::dynamic_pointer_cast<Entity>(player)) , row, col, spriteWH, tileScale);
+				player->init("../img/DwarfSpriteSheet_data.txt",std::make_shared<SpriteSheetGraphicsComponent>());
+				std::dynamic_pointer_cast<SpriteSheetGraphicsComponent>(player->getGraphicsComp())->positionSprite(*(std::dynamic_pointer_cast<Entity>(player)) , row, col, spriteWH, tileScale);
 				player->getVelocityComp()->setVelocity(0.f, 0.f);
 				addEntity(player);
 				board->addTile(col, row, tileScale, TileType::CORRIDOR);
@@ -171,7 +171,7 @@ void Game::update(float elapsed)
 					{
 						Log* log = dynamic_cast<Log*>((*it).get());
 						std::cout << " Collide with log " << std::endl;
-						auto playerGraphics = std::dynamic_pointer_cast<spriteSheetGraphicsComponent>(player->getGraphicsComp());
+						auto playerGraphics = std::dynamic_pointer_cast<SpriteSheetGraphicsComponent>(player->getGraphicsComp());
 
 						if( playerGraphics->getSpriteSheet()->getCurrentAnim()->isInAction()
 							&& playerGraphics->getSpriteSheet()->getCurrentAnim()->getName() == "Attack") 
