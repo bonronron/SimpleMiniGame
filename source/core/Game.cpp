@@ -193,7 +193,7 @@ void Game::update(float elapsed)
 		auto it = entities.begin();
 		while (it != entities.end()) {
 			(*it)->update(this, elapsed);
-			//(*it)->getGraphicsComp()->update(*(*it),elapsed);
+			(*it)->getGraphicsComp()->update(*(*it),elapsed);
 			it++;
 		}
 		// Collisions block:

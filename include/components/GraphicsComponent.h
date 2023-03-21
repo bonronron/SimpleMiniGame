@@ -10,6 +10,7 @@ public:
 	virtual void loadSprite(const std::string& fileLocation) = 0;
 	virtual sf::Vector2i getTextureSize() const = 0;
 	virtual const sf::Vector2f& getSpriteScale() const = 0;
+	//virtual sf::Texture getTexture() const = 0;
 };
 
 class spriteSheetGraphicsComponent : public GraphicsComponent {
@@ -34,6 +35,7 @@ public:
 	void loadSprite(const std::string& fileLocation) override;
 	sf::Vector2i getTextureSize() const override { return { static_cast<int>(texture.getSize().x), static_cast<int>(texture.getSize().y) }; }
 	const sf::Vector2f& getSpriteScale() const override { return sprite.getScale(); }
+	sf::Texture getTexture() { return texture; }
 private:
 	sf::Texture texture;
 	sf::Sprite sprite;

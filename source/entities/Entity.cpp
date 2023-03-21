@@ -49,7 +49,7 @@ void Entity::update(Game* game, float elapsed)
 	/*setPosition(newX, newY); */// <FEEDBACK> You don't need the two variables nor calling this function. Modify position.x and position.y direclty.
 
 
-	graphics->update(*this, elapsed);
+	//graphics->update(*this, elapsed);
 
 	// IV.D (2/2) If this entity has a spritesheet (variable "isSpriteSheet" is true), do two operations:
 	//              i)  Set the sprite position of the spritesheet to the position of this entity.
@@ -105,7 +105,7 @@ void Entity::init(const std::string& textureFile, std::shared_ptr<simpleSpriteGr
 	//texture.loadFromFile(textureFile);
 	//sprite.setTexture(texture);
 	//sprite.setScale(scale, scale);
-	//bboxSize = Vector2f(texture.getSize().x * sprite.getScale().x, texture.getSize().y * sprite.getScale().y);
+	bboxSize = Vector2f(gc->getTextureSize().x * gc->getSpriteScale().x, gc->getTexture().getSize().y * gc->getSpriteScale().y);
 }
 
 void Entity::initSpriteSheet(const std::string& spriteSheetFile, std::shared_ptr<spriteSheetGraphicsComponent> gc)
@@ -115,8 +115,8 @@ void Entity::initSpriteSheet(const std::string& spriteSheetFile, std::shared_ptr
 	//spriteSheet.loadSheet(spriteSheetFile);
 	//isSpriteSheet = true;
 	//spriteSheet.setAnimation("Idle", true, true);
-	/*bboxSize = Vector2f(spriteSheet.getSpriteSize().x * spriteSheet.getSpriteScale().x,
-					  spriteSheet.getSpriteSize().y * spriteSheet.getSpriteScale().y);*/
+	bboxSize = Vector2f(gc->getSpriteSheet().getSpriteSize().x * gc->getSpriteSheet().getSpriteScale().x,
+					  gc->getSpriteSheet().getSpriteSize().y * gc->getSpriteSheet().getSpriteScale().y);
 }
 
 void Entity::setPosition(float x, float y)
