@@ -1,7 +1,5 @@
 #include "../../include/graphics/Window.h"
-#include "../../include/entities/Entity.h"
 #include "../../include/core/Game.h"
-
 #include <iostream>
 
 Window::Window() :

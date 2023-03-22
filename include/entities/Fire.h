@@ -1,6 +1,7 @@
 #pragma once
+#include "Entity.h"
+#include "../components/TTLComponent.h"
 
-class Entity;
 class VelocityComponent;
 class Fire : public Entity
 {

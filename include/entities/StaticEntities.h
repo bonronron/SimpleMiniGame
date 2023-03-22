@@ -1,61 +1,46 @@
-class Entity;
 class Potion : public Entity
 {
 public:
-	Potion() : Entity(EntityType::POTION),
-		colliderComponent(std::make_shared<ColliderComponent>()) {}
+	Potion() : Entity(EntityType::POTION){}
 	~Potion() {}
 
-	void init(const std::string& textureFile, std::shared_ptr<GraphicsComponent> gc) override
+	void init(const std::string& textureFile, float scale) override
 	{
-		Entity::init(textureFile, gc);
-
-		colliderComponent->setBoundingBoxSize(Vector2f(gc->getTextureSize().x * gc->getSpriteScale().x, gc->getTextureSize().y * gc->getSpriteScale().y));
-		colliderComponent->setBoundingBox(position->getPosition());
+		// III.C (1/2) Call the init() function in Entity to initalize this object
+		Entity::init(textureFile, scale);
+		// VIII.C (1/2) Set the top left and bottom right corners of the bounding box for this entity.
+		collider->getBoundingBox().setTopLeft(position->getPosition());
+		collider->getBoundingBox().setBottomRight(position->getPosition() + collider->getBoundingBoxSize());
 	}
 
-	virtual void update(Game* game, float elapsed = 1.0f) override { Entity::update(game, elapsed); }
-	void draw(Window* window) override {
-		Entity::draw(window);		
-		window->draw(colliderComponent->getBoundingBox().getDrawableRect());
-	}
+	virtual void update(Game* game, float elapsed = 1.0f) override { }
 
 	int getHealth() const { return potionHealth; }
-	std::shared_ptr<ColliderComponent> getCollider() override { return colliderComponent; };
 
 protected:
 	const int potionHealth = 10;
-private:
-	std::shared_ptr<ColliderComponent> colliderComponent;
 };
 
 
 class Log : public Entity
 {
 public:
-	Log() : Entity(EntityType::LOG),
-		colliderComponent(std::make_shared<ColliderComponent>()) {}
+	Log() : Entity(EntityType::LOG) {}
 	~Log() {}
 
-	void init(const std::string& textureFile, std::shared_ptr<GraphicsComponent> gc) override
+	void init(const std::string& textureFile, float scale) override
 	{
-		Entity::init(textureFile, gc);
-		colliderComponent->setBoundingBoxSize(Vector2f(gc->getTextureSize().x * gc->getSpriteScale().x, gc->getTextureSize().y * gc->getSpriteScale().y));
-		colliderComponent->setBoundingBox(position->getPosition());
+		// III.C (2/2) Call the init() function in Entity to initalize this object
+		Entity::init(textureFile, scale);
+		// VIII.C (2/2) Set the top left and bottom right corners of the bounding box for this entity.
+		collider->getBoundingBox().setTopLeft(position->getPosition());
+		collider->getBoundingBox().setBottomRight(position->getPosition() + collider->getBoundingBoxSize());
 	}
 
-	virtual void update(Game* game, float elapsed = 1.0f) override { Entity::update(game, elapsed); }
-
-	void draw(Window* window) override {
-		Entity::draw(window);
-		window->draw(colliderComponent->getBoundingBox().getDrawableRect());
-	}
+	virtual void update(Game* game, float elapsed = 1.0f) override {}
 
 	int getWood() const { return woodAdded; }
-	std::shared_ptr<ColliderComponent> getCollider() override { return colliderComponent; };
 
 protected:
 	const int woodAdded = 15;
-private:
-	std::shared_ptr<ColliderComponent> colliderComponent;
 };
