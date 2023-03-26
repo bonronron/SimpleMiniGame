@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\components\Components.h" />
     <ClInclude Include="..\include\components\GraphicsComponent.h" />
     <ClInclude Include="..\include\components\ColliderComponent.h" />
     <ClInclude Include="..\include\components\HealthComponent.h" />
@@ -154,6 +155,7 @@
     <ClInclude Include="..\include\graphics\AnimDirectional.h" />
     <ClInclude Include="..\include\graphics\SpriteSheet.h" />
     <ClInclude Include="..\include\graphics\Window.h" />
+    <ClInclude Include="..\include\utils\Bitmask.h" />
     <ClInclude Include="..\include\utils\Rectangle.h" />
     <ClInclude Include="..\include\utils\Vector2.h" />
   </ItemGroup>

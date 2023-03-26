@@ -6,6 +6,7 @@
 #include "../../include/core/InputHandler.h"
 #include "../../include/core/Game.h"
 #include "../../include/core/Command.h"
+#include "../../include/components/Components.h"
 #include "../../include/components/HealthComponent.h"
 #include "../../include/components/PositionComponent.h"
 #include "../../include/components/ColliderComponent.h"

@@ -2,6 +2,7 @@
 #include "../../include/utils/Rectangle.h"
 #include "../../include/graphics/SpriteSheet.h"
 #include "../../include/entities/Entity.h"
+#include "../../include/components/Components.h"
 #include "../../include/components/PositionComponent.h"
 #include "../../include/components/GraphicsComponent.h"
 #include "../../include/components/ColliderComponent.h"

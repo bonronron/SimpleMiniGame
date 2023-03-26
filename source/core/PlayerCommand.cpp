@@ -3,6 +3,7 @@
 #include "../../include/entities/Player.h"
 #include "../../include/core/Game.h"
 #include "../../include/utils/Vector2.h"
+#include "../../include/components/Components.h"
 #include "../../include/components/VelocityComponent.h"
 #include "../../include/components/LogicComponent.h"
 
