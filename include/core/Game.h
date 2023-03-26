@@ -1,9 +1,8 @@
 #include "../graphics/Window.h"
 #include "../core/Board.h"
-#include "../entities/Player.h"
 
 class InputHandler;
-
+class Player;
 class Game
 {
 public:
@@ -31,7 +30,6 @@ public:
 	void togglePause() { paused = !paused; }
 	bool isPaused() const { return paused; }
 
-	//  IV.A (2/2) Write a function that returns the shared pointer of the player of the game.
 	std::shared_ptr<Player> getPlayer() { return player; }
 
 	EntityID getIDCounter();
@@ -48,22 +46,10 @@ private:
 	sf::Clock gameClock;
 	sf::Time elapsed;
 
-	// II.A Declare a unique pointer of type Board 
 	std::unique_ptr<Board> board;
-
-	// III.D Declare a vector from the standard template library that 
-	//       contains shared pointers to Entity classes. Recommended name: entities.
 	std::vector<std::shared_ptr<Entity>> entities;
-
-	// III.E Declare a variable of type EntityID (which is declared in Entity.h). This variable will
-	//       be incremented by one every time an entity is added to the game.
 	EntityID entityID;
-
-	
-	// IV.A (1/2) Declare a pointer to a player object. The pointer must be shared pointer from the standard library.
 	std::shared_ptr<Player> player;
-
-	// V.A Declare a unique pointer to an Input Handler object for this class.
 	std::unique_ptr<InputHandler> inputHandler;
 
 };
