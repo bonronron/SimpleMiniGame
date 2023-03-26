@@ -3,7 +3,7 @@
 class Window;
 class Entity;
 class SpriteSheet;
-class GraphicsComponent {
+class GraphicsComponent : public Component {
 public:
 	virtual ~GraphicsComponent(){}
 	virtual void update(Entity& entity,float elapsedTime) = 0;
@@ -12,7 +12,7 @@ public:
 	virtual sf::Vector2i getTextureSize() const = 0;
 	virtual const sf::Vector2f& getSpriteScale() const = 0;
 	virtual SpriteSheet* getSpriteSheet() { return nullptr; };
-
+	ComponentID getID() const { return ComponentID::GRAPHICS; };
 };
 
 class SpriteSheetGraphicsComponent : public GraphicsComponent {

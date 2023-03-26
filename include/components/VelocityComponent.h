@@ -1,7 +1,8 @@
 #pragma once
 class Entity;
 struct Vector2f;
-class VelocityComponent {
+
+class VelocityComponent : public Component{
 	Vector2f velocity;
 	float speed;
 public:
@@ -11,4 +12,5 @@ public:
 	void setVelocityY(float newY) { velocity.y = newY; };
 	const Vector2f& getVelocity() const { return velocity; };
 	void update(Entity& entity, float elapsedTime);
+	ComponentID getID() const { return ComponentID::VELOCITY; };
 };

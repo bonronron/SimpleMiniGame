@@ -2,7 +2,7 @@
 class Rectangle;
 class Window;
 struct Vector2f;
-class ColliderComponent {
+class ColliderComponent : public Component {
 public:
 	Rectangle& getBoundingBox() { return boundingBox; };
 	const Vector2f& getBoundingBoxSize() const { return bboxSize; }
@@ -18,6 +18,7 @@ public:
 	void draw(Window* window) {
 		window->draw(boundingBox.getDrawableRect());
 	}
+	ComponentID getID() const { return ComponentID::COLLIDER; };
 private:
 	Rectangle boundingBox;
 	Vector2f bboxSize;

@@ -1,9 +1,11 @@
 class Game;
 class PlayerInputHandler; 
-class InputComponent {
+class InputComponent :public Component {
 public:
 	virtual void update(Game& game) = 0;
 	~InputComponent(){}
+
+	ComponentID getID() const { return ComponentID::INPUT; };
 };
 class PlayerInputComponent : public InputComponent {
 private:

@@ -3,10 +3,12 @@
 class Entity;
 class Game;
 class Player;
-class LogicComponent
+class LogicComponent : public Component
 {
 public:
 	virtual void update(Player* player, Game* game, float elapsedTime) = 0;
+
+	ComponentID getID() const { return ComponentID::LOGIC; };
 };
 
 class PlayerStateComponent : public LogicComponent 
