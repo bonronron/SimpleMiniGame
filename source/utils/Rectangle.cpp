@@ -3,21 +3,18 @@
 
 bool Rectangle::inside(float x, float y) const
 {
-    // IX.A Implement this function, that returns true if the point <x,y> is inside this rectangle.
-    
-    // <FEEDBACK> Better to check for <= or >= than for > or <
     return x >= topLeft.x && x <= bottomRight.x && y >= topLeft.y && y <= bottomRight.y;
-    //return false; // you can delete this once IX.A is complete.
 }
 
 bool Rectangle::intersects(const Rectangle& rect) const
 {
-    // IX.B Implement this function, that returns true if the rectangle "rect" overlaps with this rectangle.
-
-    return ((rect.inside(topLeft.x, bottomRight.y)) ||
+    return ((inside(rect.topLeft.x, rect.bottomRight.y)) || 
+        (inside(rect.bottomRight.x, rect.bottomRight.y)) || 
+            (inside(rect.bottomRight.x, rect.topLeft.y)) || 
+                (inside(rect.topLeft.x, rect.topLeft.y)) ||
+        (rect.inside(topLeft.x, bottomRight.y)) ||
         (rect.inside(bottomRight.x, bottomRight.y)) ||
-            (rect.inside(bottomRight.x, topLeft.y)) ||
-                (rect.inside(topLeft.x, topLeft.y)));
-    //return intersect; // you can delete this once IX.B is complete.
+        (rect.inside(bottomRight.x, topLeft.y)) ||
+        (rect.inside(topLeft.x, topLeft.y)));
 }
 

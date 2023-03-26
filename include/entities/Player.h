@@ -1,10 +1,12 @@
 #pragma once
-#include "Entity.h"
-
 class Fire;
+class HealthComponent;
+class VelocityComponent;
+class ColliderComponent;
+class PlayerStateComponent;
 
-// VI.A (2/2): Add a forward declaration to the class PlayerInputHandler
-class PlayerInputHandler;
+
+class InputComponent;
 class Player :  public Entity
 {
 public:
@@ -14,45 +16,32 @@ public:
 	const int maxHealth = 100;
 	const int maxWood = 100;
 	const int shootingCost = 20;
-	const float fireSpeed = 200.f;
-	const float shootCooldownTime = 3.f; //in seconds
+	const float fireSpeed = 2.f;
+	const float shootCooldownTime = 3.f;
 
 	Player();
 	~Player();
 
+	void init(const std::string& textureFile, std::shared_ptr<GraphicsComponent> gc) override;
 	virtual void update(Game* game, float elapsed = 1.0f) override;
+	void draw(Window* window) override;
 
 	void handleInput(Game& game);
 
-	bool isAttacking() const { return attacking; }
-	void setAttacking(bool at) { attacking = at; }
+	std::shared_ptr<HealthComponent> getHealthComp() { return healthComponent; }
+	std::shared_ptr<VelocityComponent> getVelocityComp() { return velocityComponent; }
+	std::shared_ptr<ColliderComponent> getCollider() override { return colliderComponent; };
+	std::shared_ptr<PlayerStateComponent> getPlayerStateComp() { return playerStateComponent; }
+	bool collidesWith(Entity& other);
 
-	bool isShouting() const { return shouting; }
-	void setShouting(bool sh) { shouting = sh; }
-
-	int getHealth() const { return health; }
-	void addHealth(int h);
-
-	int getWood() const { return wood; }
-	void addWood(int w);
-
-	bool hasSpriteSheet() const { return isSpriteSheet; }
-	void setVelocityX(float newX) { velocity.x = newX; }
-	void setVelocityY(float newY) { velocity.y = newY; }
-
-	void positionSprite(int row, int col, int spriteWH, float tileScale);
-
-private:
 
 	std::shared_ptr<Fire> createFire() const;
+private:
 
-	bool attacking;
-	bool shouting;
-	int health;
-	int wood;
-	float shootCooldown;
-
-	// VI.A (1/2): Declare a unique pointer to a player input handler.
-	std::unique_ptr<PlayerInputHandler> playerInputHandler;
+	std::shared_ptr<HealthComponent> healthComponent;
+	std::shared_ptr<VelocityComponent> velocityComponent;
+	std::shared_ptr<ColliderComponent> colliderComponent;
+	std::shared_ptr<PlayerStateComponent> playerStateComponent;
+	std::unique_ptr<InputComponent> input;
 };
 
