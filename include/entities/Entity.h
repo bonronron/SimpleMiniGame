@@ -1,6 +1,7 @@
 #pragma once
 #include "../graphics/Window.h"
 #include "../utils/Vector2.h"
+#include "../utils/Bitmask.h"
 using EntityID = unsigned int;
 
 class PositionComponent;
@@ -40,7 +41,7 @@ public:
 	virtual std::shared_ptr<ColliderComponent> getCollider() { return nullptr; };
 
 	std::shared_ptr<GraphicsComponent> getGraphicsComp() { return graphics; }
-	
+	Bitmask getComponentSet() { return componentSet; }
 	bool isDeleted() const { return deleted; }
 	void deleteEntity() { deleted = true; }
 
@@ -48,7 +49,7 @@ protected:
 
 	EntityType type;
 	EntityID id;
-
+	Bitmask componentSet;
 	std::unique_ptr<PositionComponent> position;
 	std::shared_ptr<GraphicsComponent> graphics;
 	bool deleted;
