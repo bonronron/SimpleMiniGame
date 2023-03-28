@@ -14,7 +14,7 @@ public:
 
 	std::shared_ptr<TTLComponent> getTTLComp() override { return ttl; }
 	//int getTTL() const { return ttl->getTTL(); }
-	std::shared_ptr<VelocityComponent> getVelocityComp() { return velocity; }
+	std::shared_ptr<VelocityComponent> getVelocityComp() override { return velocity; }
 
 private:
 

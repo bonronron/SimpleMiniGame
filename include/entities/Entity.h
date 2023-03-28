@@ -5,6 +5,7 @@
 using EntityID = unsigned int;
 
 class PositionComponent;
+class VelocityComponent;
 class ColliderComponent;
 class GraphicsComponent;
 class TTLComponent;
@@ -43,6 +44,8 @@ public:
 	virtual std::shared_ptr<ColliderComponent> getCollider() { return nullptr; };
 	std::shared_ptr<GraphicsComponent> getGraphicsComp() { return graphics; }
 	virtual std::shared_ptr<TTLComponent> getTTLComp() { return nullptr; };
+	virtual std::shared_ptr<PositionComponent> getPositionComp() { return position; };
+	virtual std::shared_ptr<VelocityComponent> getVelocityComp() { return nullptr; };
 	Bitmask getComponentSet() { return componentSet; }
 	void addComponent(std::shared_ptr<Component> component);
 	bool hasComponent(Bitmask mask) const;
