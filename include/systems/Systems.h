@@ -16,3 +16,9 @@ public :
 	TTLSystem();
 	void update(Game* game, Entity* entity, float elapsedTime) override;
 };
+
+class GameplaySystem : public System {
+public:
+	GameplaySystem();
+	void update(Game* game, Entity* entity, float elapsedTime) override;
+};

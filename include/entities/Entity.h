@@ -8,6 +8,7 @@ class PositionComponent;
 class ColliderComponent;
 class GraphicsComponent;
 class TTLComponent;
+class LogicComponent;
 enum class EntityType
 {
 	UNDEFINED = -1,
@@ -43,6 +44,7 @@ public:
 	virtual std::shared_ptr<ColliderComponent> getCollider() { return nullptr; };
 	std::shared_ptr<GraphicsComponent> getGraphicsComp() { return graphics; }
 	virtual std::shared_ptr<TTLComponent> getTTLComp() { return nullptr; };
+	virtual std::shared_ptr<LogicComponent> getLogicComp() { return nullptr; };
 	Bitmask getComponentSet() { return componentSet; }
 	void addComponent(std::shared_ptr<Component> component);
 	bool hasComponent(Bitmask mask) const;
