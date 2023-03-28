@@ -124,7 +124,6 @@ void Game::init(std::vector<std::string> lines)
 				{
 				player = std::make_shared<Player>();
 				player->init("../img/DwarfSpriteSheet_data.txt",std::make_shared<SpriteSheetGraphicsComponent>());
-				//std::dynamic_pointer_cast<SpriteSheetGraphicsComponent>(player->getGraphicsComp())->positionSprite(*(std::dynamic_pointer_cast<Entity>(player)) , row, col, spriteWH, tileScale);
 				positionSprite(*player, row, col, spriteWH, tileScale);
 				player->getVelocityComp()->setVelocity(0.f, 0.f);
 				addEntity(player);
