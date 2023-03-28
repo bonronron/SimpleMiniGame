@@ -33,7 +33,7 @@ Entity::~Entity()
 
 void Entity::update(Game* game, float elapsed)
 {
-	graphics->update(*this, elapsed);
+	//graphics->update(*this, elapsed);
 }
 
 
