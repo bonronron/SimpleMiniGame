@@ -22,7 +22,7 @@ public:
 	void loadSprite(const std::string& fileLocation) override;
 	sf::Vector2i getTextureSize() const override { return spriteSheet.getSpriteSize(); }
 	const sf::Vector2f& getSpriteScale() const override { return spriteSheet.getSpriteScale(); }
-	void positionSprite(Entity& entity, int row, int col, int spriteWH, float tileScale);
+	//void positionSprite(Entity& entity, int row, int col, int spriteWH, float tileScale);
 	SpriteSheet* getSpriteSheet() override { return &spriteSheet; };
 private:
 	SpriteSheet spriteSheet;

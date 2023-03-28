@@ -32,16 +32,16 @@ void SpriteSheetGraphicsComponent::draw(Window* window) {
 	sf::Sprite* sp = &spriteSheet.getSprite();
 	window->draw(spriteSheet.getSprite());
 }
-void SpriteSheetGraphicsComponent::positionSprite(Entity& entity, int row, int col, int spriteWH, float tileScale) {
-	sf::Vector2f scaleV2f = getSpriteScale();
-	sf::Vector2i textureSize = getTextureSize();
-
-	float x = col * spriteWH * tileScale;
-	float y = (row)*spriteWH * tileScale;
-	float spriteSizeY = scaleV2f.y * textureSize.y;
-	float cntrFactorY = ((spriteWH * tileScale) - spriteSizeY);	// to align to lower side of the tile.
-	float cntrFactorX = cntrFactorY * 0.5f;						//to center horizontally
-
-	entity.setPosition(x + cntrFactorX, y + cntrFactorY);
-}
+//void SpriteSheetGraphicsComponent::positionSprite(Entity& entity, int row, int col, int spriteWH, float tileScale) {
+//	sf::Vector2f scaleV2f = getSpriteScale();
+//	sf::Vector2i textureSize = getTextureSize();
+//
+//	float x = col * spriteWH * tileScale;
+//	float y = (row)*spriteWH * tileScale;
+//	float spriteSizeY = scaleV2f.y * textureSize.y;
+//	float cntrFactorY = ((spriteWH * tileScale) - spriteSizeY);	// to align to lower side of the tile.
+//	float cntrFactorX = cntrFactorY * 0.5f;						//to center horizontally
+//
+//	entity.setPosition(x + cntrFactorX, y + cntrFactorY);
+//}
 
