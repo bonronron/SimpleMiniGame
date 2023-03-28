@@ -1,8 +1,8 @@
 #include <iostream>
 #include "../../include/utils/Rectangle.h"
 #include "../../include/graphics/SpriteSheet.h"
-#include "../../include/entities/Entity.h"
 #include "../../include/components/Components.h"
+#include "../../include/entities/Entity.h"
 #include "../../include/components/PositionComponent.h"
 #include "../../include/components/VelocityComponent.h"
 #include "../../include/components/InputComponent.h"
@@ -11,6 +11,7 @@
 #include "../../include/components/GraphicsComponent.h"
 #include "../../include/components/LogicComponent.h"
 #include "../../include/components/TTLComponent.h"
+#include "../../include/systems/Systems.h"
 #include "../../include/core/Game.h"
 #include "../../include/core/InputHandler.h"
 #include "../../include/core/Command.h"
@@ -21,9 +22,16 @@
 Player::Player() : Entity(EntityType::PLAYER),
 velocityComponent {std::make_shared<VelocityComponent>()},
 	healthComponent {std::make_shared<HealthComponent>(startingHealth,maxHealth) },
-	input{ std::make_unique<PlayerInputComponent>() },
+	input{ std::make_shared<PlayerInputComponent>() },
 	colliderComponent(std::make_shared<ColliderComponent>()),
-	playerStateComponent(std::make_shared<PlayerStateComponent>()) {}
+	playerStateComponent(std::make_shared<PlayerStateComponent>()) 
+{
+	addComponent(velocityComponent);
+	addComponent(healthComponent);
+	addComponent(input);
+	addComponent(colliderComponent);
+	addComponent(playerStateComponent);
+}
 
 Player::~Player() {}
 void Player::init(const std::string& textureFile, std::shared_ptr<GraphicsComponent> gc) 

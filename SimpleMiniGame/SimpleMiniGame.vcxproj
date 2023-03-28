@@ -155,6 +155,7 @@
     <ClInclude Include="..\include\graphics\AnimDirectional.h" />
     <ClInclude Include="..\include\graphics\SpriteSheet.h" />
     <ClInclude Include="..\include\graphics\Window.h" />
+    <ClInclude Include="..\include\systems\Systems.h" />
     <ClInclude Include="..\include\utils\Bitmask.h" />
     <ClInclude Include="..\include\utils\Rectangle.h" />
     <ClInclude Include="..\include\utils\Vector2.h" />
@@ -184,6 +185,7 @@
     <ClCompile Include="..\source\graphics\AnimDirectional.cpp" />
     <ClCompile Include="..\source\graphics\SpriteSheet.cpp" />
     <ClCompile Include="..\source\graphics\Window.cpp" />
+    <ClCompile Include="..\source\systems\TTLSystem.cpp" />
     <ClCompile Include="..\source\utils\Rectangle.cpp" />
   </ItemGroup>
   <ItemGroup>

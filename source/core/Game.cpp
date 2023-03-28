@@ -1,12 +1,14 @@
 #include <iostream>
+#include "../../include/utils/Bitmask.h"
+#include "../../include/components/Components.h"
+#include "../../include/entities/Entity.h"
+#include "../../include/systems/Systems.h"
 #include "../../include/utils/Rectangle.h"
 #include "../../include/graphics/SpriteSheet.h"
-#include "../../include/entities/Entity.h"
 #include "../../include/entities/Player.h"
 #include "../../include/core/InputHandler.h"
 #include "../../include/core/Game.h"
 #include "../../include/core/Command.h"
-#include "../../include/components/Components.h"
 #include "../../include/components/HealthComponent.h"
 #include "../../include/components/PositionComponent.h"
 #include "../../include/components/ColliderComponent.h"
@@ -18,7 +20,9 @@
 #include "../../include/entities/StaticEntities.h"
 
 Game::Game() : paused(false),entityID(0), inputHandler{ std::make_unique<InputHandler>() }
-{}
+{
+	systems.push_back(std::make_shared<TTLSystem>());
+}
 
 Game::~Game()
 {
@@ -150,6 +154,7 @@ void Game::update(float elapsed)
 			(*it)->update(this, elapsed);
 			it++;
 		}
+
 		it = entities.begin();
 		while (it != entities.end()) {
 			if ((*it)->getCollider() == nullptr) {
@@ -188,6 +193,8 @@ void Game::update(float elapsed)
 			}
 			it++;
 		}
+
+
 		it = entities.begin();
 		while (it != entities.end()) {
 			if ((*it)->isDeleted()) {
@@ -198,8 +205,8 @@ void Game::update(float elapsed)
 		}
 
 
-
 	}
+	bigArray(elapsed);
 	window.update();
 }
 
@@ -236,4 +243,18 @@ std::shared_ptr<Entity> Game::getEntity(unsigned int idx)
 		return nullptr;
 	}
 	return entities[idx];
+}
+
+void Game::bigArray(float elapsedTime) {
+	auto it{ systems.begin() };
+	while (it != systems.end()) {
+		auto iterEntity{ entities.begin() };
+		while (iterEntity != entities.end()) {
+			if ((!(*iterEntity)->isDeleted()) && (*it)->validate((*iterEntity).get())) {
+				(*it)->update(this, (*iterEntity).get(), elapsedTime);
+			}
+			iterEntity++;
+		}
+		it++;
+	}
 }

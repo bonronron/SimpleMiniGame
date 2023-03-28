@@ -38,7 +38,7 @@ public:
 	template <typename T>
 	std::shared_ptr<T> buildEntityAt(const std::string& filename, int col, int row);
 
-
+	void bigArray(float elapsedTime);
 private:
 
 	Window window;
@@ -52,5 +52,6 @@ private:
 	std::shared_ptr<Player> player;
 	std::unique_ptr<InputHandler> inputHandler;
 
+	std::vector<std::shared_ptr<System>> systems;
 };
 

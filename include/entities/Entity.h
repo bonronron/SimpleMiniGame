@@ -7,6 +7,7 @@ using EntityID = unsigned int;
 class PositionComponent;
 class ColliderComponent;
 class GraphicsComponent;
+class TTLComponent;
 enum class EntityType
 {
 	UNDEFINED = -1,
@@ -38,19 +39,24 @@ public:
 	void setPosition(float x, float y);
 	const Vector2f& getPosition() const;
 	EntityType getEntityType() const { return type; }
-	virtual std::shared_ptr<ColliderComponent> getCollider() { return nullptr; };
 
+	virtual std::shared_ptr<ColliderComponent> getCollider() { return nullptr; };
 	std::shared_ptr<GraphicsComponent> getGraphicsComp() { return graphics; }
+	virtual std::shared_ptr<TTLComponent> getTTLComponent() { return nullptr; };
 	Bitmask getComponentSet() { return componentSet; }
+	void addComponent(std::shared_ptr<Component> component);
+	bool hasComponent(Bitmask mask) const;
+
 	bool isDeleted() const { return deleted; }
 	void deleteEntity() { deleted = true; }
+
 
 protected:
 
 	EntityType type;
 	EntityID id;
 	Bitmask componentSet;
-	std::unique_ptr<PositionComponent> position;
+	std::shared_ptr<PositionComponent> position;
 	std::shared_ptr<GraphicsComponent> graphics;
 	bool deleted;
 

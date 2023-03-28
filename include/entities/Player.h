@@ -42,6 +42,6 @@ private:
 	std::shared_ptr<VelocityComponent> velocityComponent;
 	std::shared_ptr<ColliderComponent> colliderComponent;
 	std::shared_ptr<PlayerStateComponent> playerStateComponent;
-	std::unique_ptr<InputComponent> input;
+	std::shared_ptr<InputComponent> input;
 };
 

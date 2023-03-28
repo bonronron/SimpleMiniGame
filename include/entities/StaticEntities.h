@@ -3,7 +3,10 @@ class Potion : public Entity
 {
 public:
 	Potion() : Entity(EntityType::POTION),
-		colliderComponent(std::make_shared<ColliderComponent>()) {}
+		colliderComponent(std::make_shared<ColliderComponent>()) 
+	{
+		addComponent(colliderComponent);
+	}
 	~Potion() {}
 
 	void init(const std::string& textureFile, std::shared_ptr<GraphicsComponent> gc) override
@@ -34,7 +37,10 @@ class Log : public Entity
 {
 public:
 	Log() : Entity(EntityType::LOG),
-		colliderComponent(std::make_shared<ColliderComponent>()) {}
+		colliderComponent(std::make_shared<ColliderComponent>()) 
+	{
+		addComponent(colliderComponent);
+	}
 	~Log() {}
 
 	void init(const std::string& textureFile, std::shared_ptr<GraphicsComponent> gc) override
