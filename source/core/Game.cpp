@@ -56,6 +56,19 @@ void Game::initWindow(size_t width, size_t height)
 	window.redraw();
 }
 
+void Game::positionSprite(Entity& entity, int row, int col, int spriteWH, float tileScale) {
+	sf::Vector2f scaleV2f = entity.getGraphicsComp()->getSpriteScale();
+	sf::Vector2i textureSize = entity.getGraphicsComp()->getTextureSize();
+
+	float x = col * spriteWH * tileScale;
+	float y = (row)*spriteWH * tileScale;
+	float spriteSizeY = scaleV2f.y * textureSize.y;
+	float cntrFactorY = ((spriteWH * tileScale) - spriteSizeY);	// to align to lower side of the tile.
+	float cntrFactorX = cntrFactorY * 0.5f;						//to center horizontally
+
+	entity.setPosition(x + cntrFactorX, y + cntrFactorY);
+}
+
 void Game::init(std::vector<std::string> lines)
 {
 	size_t h = lines.size() - 1;
@@ -117,7 +130,7 @@ void Game::init(std::vector<std::string> lines)
 				{
 				player = std::make_shared<Player>();
 				player->init("../img/DwarfSpriteSheet_data.txt",std::make_shared<SpriteSheetGraphicsComponent>());
-				std::dynamic_pointer_cast<SpriteSheetGraphicsComponent>(player->getGraphicsComp())->positionSprite(*(std::dynamic_pointer_cast<Entity>(player)) , row, col, spriteWH, tileScale);
+				positionSprite(*player, row, col, spriteWH, tileScale);
 				player->getVelocityComp()->setVelocity(0.f, 0.f);
 				addEntity(player);
 				board->addTile(col, row, tileScale, TileType::CORRIDOR);
