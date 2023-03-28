@@ -66,7 +66,7 @@ std::shared_ptr<Fire> Player::createFire() const
 	fireEntity->setPosition(pos.x, pos.y);
 	Vector2f vel(fireSpeed, 0.f);
 	if (graphics->getSpriteSheet()->getSpriteDirection() == Direction::Left) vel.x = vel.x * -1.0f;
-	fireEntity->getVelocityComponent()->setVelocity(vel.x, vel.y);
+	fireEntity->getVelocityComp()->setVelocity(vel.x, vel.y);
 
 	return fireEntity;
 }

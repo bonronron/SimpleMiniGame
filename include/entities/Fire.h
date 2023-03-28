@@ -12,9 +12,9 @@ public:
 
 	virtual void update(Game* game, float elapsed = 1.0f) override;
 
-	std::shared_ptr<TTLComponent> getTTLComponent() override { return ttl; }
+	std::shared_ptr<TTLComponent> getTTLComp() override { return ttl; }
 	//int getTTL() const { return ttl->getTTL(); }
-	std::shared_ptr<VelocityComponent> getVelocityComponent() { return velocity; }
+	std::shared_ptr<VelocityComponent> getVelocityComp() { return velocity; }
 
 private:
 

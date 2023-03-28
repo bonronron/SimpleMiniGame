@@ -11,7 +11,7 @@ TTLSystem::TTLSystem() {
 }
 
 void TTLSystem::update(Game* game, Entity* entity, float elapsedTime) {
-	auto ttl{ entity->getTTLComponent() };
+	auto ttl{ entity->getTTLComp() };
 	if (ttl == nullptr) throw std::exception("No TTL component found");
 	ttl->decrementTTL();
 	if (ttl->getTTL() <= 0) {
