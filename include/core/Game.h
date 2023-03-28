@@ -24,6 +24,7 @@ public:
 	void update(float elapsed);
 	void render(float elapsed);
 	Window* getWindow() { return &window; }
+	void positionSprite(Entity&, int, int, int, float);
 
 	sf::Time getElapsed() const;
 	void setFPS(int FPS);
