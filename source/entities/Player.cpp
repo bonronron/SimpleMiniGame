@@ -52,10 +52,10 @@ void Player::update(Game* game, float elapsed)
 }
 
 
-void Player::handleInput(Game& game)
-{
-	input->update(game);
-}
+//void Player::handleInput(Game& game)
+//{
+//	input->update(game);
+//}
 
 std::shared_ptr<Fire> Player::createFire() const
 {

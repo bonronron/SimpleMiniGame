@@ -11,9 +11,9 @@
 #include "../../include/core/Command.h"
 #include "../../include/components/HealthComponent.h"
 #include "../../include/components/PositionComponent.h"
+#include "../../include/components/VelocityComponent.h"
 #include "../../include/components/ColliderComponent.h"
 #include "../../include/components/LogicComponent.h"
-#include "../../include/components/VelocityComponent.h"
 #include "../../include/components/GraphicsComponent.h"
 #include "../../include/components/TTLComponent.h"
 #include "../../include/entities/Fire.h"
@@ -22,6 +22,7 @@
 Game::Game() : paused(false),entityID(0), inputHandler{ std::make_unique<InputHandler>() }
 {
 	systems.push_back(std::make_shared<TTLSystem>());
+	systems.push_back(std::make_shared<InputSystem>());
 }
 
 Game::~Game()
@@ -141,7 +142,7 @@ void Game::handleInput()
 {
 	std::shared_ptr<Command> command = inputHandler->handleInput();
 	if(command != nullptr) command->execute(*this);
-	player->handleInput(*this);
+	//player->handleInput(*this);
 
 }
 
