@@ -7,6 +7,7 @@
 #include "../../include/components/TTLComponent.h"
 #include "../../include/components/LogicComponent.h"
 #include "../../include/components/GraphicsComponent.h"
+#include "../../include/components/VelocityComponent.h"
 #include "../../include/entities/Fire.h"
 
 
@@ -21,8 +22,25 @@ void PlayerStateComponent::update(Player* player, Game* game, float elapsedTime)
 		game->addEntity(player->createFire());
 		wood = wood - shootingCost;
 	}
+
+	if (isAttacking()) 
+		graphicsComp->getSpriteSheet()->setAnimation("Attack", true, false);
+	else if (isShouting()) 
+		graphicsComp->getSpriteSheet()->setAnimation("Shout", true, false);
+	else if (player->getVelocityComp()->getVelocity().x != 0 || player->getVelocityComp()->getVelocity().y != 0) 
+		graphicsComp->getSpriteSheet()->setAnimation("Walk", true, true);
+	else 
+		graphicsComp->getSpriteSheet()->setAnimation("Idle", true, true);
+	if (player->getVelocityComp()->getVelocity().x > 0) 
+		graphicsComp->getSpriteSheet()->setSpriteDirection(Direction::Right);
+	else if (player->getVelocityComp()->getVelocity().x < 0) 
+		graphicsComp->getSpriteSheet()->setSpriteDirection(Direction::Left);
+
+
 	if (!graphicsComp->getSpriteSheet()->getCurrentAnim()->isPlaying() && attacking) attacking = false;
 	if (!graphicsComp->getSpriteSheet()->getCurrentAnim()->isPlaying() && shouting) shouting = false;
+
+
 }
 
 void PlayerStateComponent::addWood(int w)

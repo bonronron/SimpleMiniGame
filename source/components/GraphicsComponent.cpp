@@ -20,24 +20,13 @@ void SimpleSpriteGraphicsComponent::draw(Window* window) {
 	window->draw(sprite);
 }
 
-
 void SpriteSheetGraphicsComponent::loadSprite(const std::string& fileLocation) {
 	spriteSheet.loadSheet(fileLocation);
 	spriteSheet.setAnimation("Idle", true, true);
 }
 void SpriteSheetGraphicsComponent::update(Entity& entity, float elapsedTime) {
-	Player& player = dynamic_cast<Player&>(entity);
-	spriteSheet.getSprite().setPosition(player.getPosition().x, player.getPosition().y);
-	if (player.getPlayerStateComp()->isAttacking()) spriteSheet.setAnimation("Attack", true, false);
-	else if (player.getPlayerStateComp()->isShouting()) spriteSheet.setAnimation("Shout", true, false);
-	else if (player.getVelocityComp()->getVelocity().x != 0 || player.getVelocityComp()->getVelocity().y != 0) spriteSheet.setAnimation("Walk", true, true);
-	else spriteSheet.setAnimation("Idle", true, true);
-	if (player.getVelocityComp()->getVelocity().x > 0) { spriteSheet.setSpriteDirection(Direction::Right); }
-	else if (player.getVelocityComp()->getVelocity().x < 0) spriteSheet.setSpriteDirection(Direction::Left);
-
+	spriteSheet.getSprite().setPosition(entity.getPosition().x, entity.getPosition().y);
 	spriteSheet.update(elapsedTime);
-	if (!spriteSheet.getCurrentAnim()->isPlaying() && player.getPlayerStateComp()->isAttacking()) player.getPlayerStateComp()->setAttacking(false);
-	if (!spriteSheet.getCurrentAnim()->isPlaying() && player.getPlayerStateComp()->isShouting()) player.getPlayerStateComp()->setShouting(false);
 }
 void SpriteSheetGraphicsComponent::draw(Window* window) {	
 	sf::Sprite* sp = &spriteSheet.getSprite();
