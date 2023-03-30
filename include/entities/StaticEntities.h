@@ -10,8 +10,8 @@ public:
 	{
 		Entity::init(textureFile, gc);
 
-		colliderComponent->setBoundingBoxSize(Vector2f(gc->getTextureSize().x * gc->getSpriteScale().x, gc->getTextureSize().y * gc->getSpriteScale().y));
-		colliderComponent->setBoundingBox(position->getPosition());
+		Vector2f size{ Vector2f(gc->getTextureSize().x * gc->getSpriteScale().x, gc->getTextureSize().y * gc->getSpriteScale().y) };
+		colliderComponent->init(size, position->getPosition());
 	}
 
 	virtual void update(Game* game, float elapsed = 1.0f) override { Entity::update(game, elapsed); }
@@ -40,8 +40,8 @@ public:
 	void init(const std::string& textureFile, std::shared_ptr<GraphicsComponent> gc) override
 	{
 		Entity::init(textureFile, gc);
-		colliderComponent->setBoundingBoxSize(Vector2f(gc->getTextureSize().x * gc->getSpriteScale().x, gc->getTextureSize().y * gc->getSpriteScale().y));
-		colliderComponent->setBoundingBox(position->getPosition());
+		Vector2f size{ Vector2f(gc->getTextureSize().x * gc->getSpriteScale().x, gc->getTextureSize().y * gc->getSpriteScale().y) };
+		colliderComponent->init(size, position->getPosition());
 	}
 
 	virtual void update(Game* game, float elapsed = 1.0f) override { Entity::update(game, elapsed); }

@@ -28,9 +28,10 @@ Player::~Player() {}
 void Player::init(const std::string& textureFile, std::shared_ptr<GraphicsComponent> gc) 
 {
 	Entity::init(textureFile, gc);
-	colliderComponent->setBoundingBoxSize(Vector2f(gc->getSpriteSheet()->getSpriteSize().x * gc->getSpriteSheet()->getSpriteScale().x,
-		gc->getSpriteSheet()->getSpriteSize().y * gc->getSpriteSheet()->getSpriteScale().y));
-	colliderComponent->setBoundingBox(position->getPosition());
+	Vector2f size{ gc->getSpriteSheet()->getSpriteSize().x * gc->getSpriteSheet()->getSpriteScale().x,
+		gc->getSpriteSheet()->getSpriteSize().y * gc->getSpriteSheet()->getSpriteScale().y };
+
+	colliderComponent->init(size, position->getPosition());
 }
 void Player::update(Game* game, float elapsed)
 {
