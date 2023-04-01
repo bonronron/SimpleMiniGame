@@ -21,12 +21,14 @@ void MoveDownCommand::execute(Game& game) {
 	game.getPlayer()->getVelocityComp()->setVelocityY(1.0f);
 }
 void AttackCommand::execute(Game& game) {
-	if (!game.getPlayer()->getPlayerStateComp()->isAttacking()) {
-		game.getPlayer()->getPlayerStateComp()->setAttacking(true);
+	auto playerLogic = dynamic_cast<PlayerStateComponent*>(game.getPlayer()->getLogicComp().get());
+	if (!playerLogic->isAttacking()) {
+		playerLogic->setAttacking(true);
 	}
 }
 void ShoutCommand::execute(Game& game) {
-	if (!game.getPlayer()->getPlayerStateComp()->isShouting()) {
-		game.getPlayer()->getPlayerStateComp()->setShouting(true);
+	auto playerLogic = dynamic_cast<PlayerStateComponent*>(game.getPlayer()->getLogicComp().get());
+	if (!playerLogic->isShouting()) {
+		playerLogic->setShouting(true);
 	}
 }

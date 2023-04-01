@@ -26,6 +26,7 @@ Game::Game() : paused(false),entityID(0), inputHandler{ std::make_unique<InputHa
 	systems.push_back(std::make_shared<InputSystem>());
 	systems.push_back(std::make_shared<GraphicsSystem>());
 	systems.push_back(std::make_shared<ColliderSystem>());
+	systems.push_back(std::make_shared<LogicSystem>());
 }
 
 Game::~Game()
@@ -194,12 +195,12 @@ void Game::update(float elapsed)
 						Log* log = dynamic_cast<Log*>((*it).get());
 						std::cout << " Collide with log " << std::endl;
 						auto playerGraphics = std::dynamic_pointer_cast<SpriteSheetGraphicsComponent>(player->getGraphicsComp());
-
+						auto playerLogic = dynamic_cast<PlayerStateComponent*>(player->getLogicComp().get());
 						if( playerGraphics->getSpriteSheet()->getCurrentAnim()->isInAction()
 							&& playerGraphics->getSpriteSheet()->getCurrentAnim()->getName() == "Attack") 
 						{
-							player->getPlayerStateComp()->addWood(log->getWood());
-							std::cout << " Logs : " << player->getPlayerStateComp()->getWood() << "\tLogs collected : " << log->getWood() << std::endl;
+							playerLogic->addWood(log->getWood());
+							std::cout << " Logs : " <<playerLogic->getWood() << "\tLogs collected : " << log->getWood() << std::endl;
 							log->deleteEntity();
 						}
 						break;

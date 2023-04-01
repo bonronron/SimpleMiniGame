@@ -44,14 +44,7 @@ void Player::init(const std::string& textureFile, std::shared_ptr<GraphicsCompon
 void Player::update(Game* game, float elapsed)
 {
 	Entity::update(game, elapsed);
-	playerStateComponent->update(this,game,elapsed);
 }
-
-
-//void Player::handleInput(Game& game)
-//{
-//	input->update(game);
-//}
 
 std::shared_ptr<Fire> Player::createFire() const
 {

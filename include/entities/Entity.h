@@ -8,6 +8,7 @@ class PositionComponent;
 class VelocityComponent;
 class ColliderComponent;
 class GraphicsComponent;
+class LogicComponent;
 class TTLComponent;
 class VelocityComponent;
 class InputComponent;
@@ -50,6 +51,7 @@ public:
 	virtual std::shared_ptr<VelocityComponent> getVelocityComp() { return nullptr; };
 	virtual std::shared_ptr<InputComponent> getInputComp() { return nullptr; };
 
+	virtual std::shared_ptr<LogicComponent> getLogicComp() { return nullptr; };
 	Bitmask getComponentSet() { return componentSet; }
 	void addComponent(std::shared_ptr<Component> component);
 	bool hasComponent(Bitmask mask) const;
