@@ -10,15 +10,15 @@
 #include "../../include/components/InputComponent.h"
 #include "../../include/components/VelocityComponent.h"
 
-PlayerInputComponent::PlayerInputComponent() :input{ std::make_unique<PlayerInputHandler>() } {}
-
-void PlayerInputComponent::update(Game& game){
-
-	game.getPlayer()->getVelocityComp()->setVelocity(0.f, 0.f);
-	auto commands = input->handleInput();
-	auto it = commands.begin();
-	while (it != commands.end()) {
-		(*it)->execute(game);
-		it++;
-	}
-}
+//PlayerInputComponent::PlayerInputComponent() :input{ std::make_shared<PlayerInputHandler>() } {}
+//
+//void PlayerInputComponent::update(Game& game){
+//
+//	game.getPlayer()->getVelocityComp()->setVelocity(0.f, 0.f);
+//	auto commands = input->handleInput();
+//	auto it = commands.begin();
+//	while (it != commands.end()) {
+//		(*it)->execute(game);
+//		it++;
+//	}
+//}

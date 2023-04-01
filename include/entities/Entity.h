@@ -9,6 +9,8 @@ class VelocityComponent;
 class ColliderComponent;
 class GraphicsComponent;
 class TTLComponent;
+class VelocityComponent;
+class InputComponent;
 enum class EntityType
 {
 	UNDEFINED = -1,
@@ -46,6 +48,8 @@ public:
 	virtual std::shared_ptr<TTLComponent> getTTLComp() { return nullptr; };
 	virtual std::shared_ptr<PositionComponent> getPositionComp() { return position; };
 	virtual std::shared_ptr<VelocityComponent> getVelocityComp() { return nullptr; };
+	virtual std::shared_ptr<InputComponent> getInputComp() { return nullptr; };
+
 	Bitmask getComponentSet() { return componentSet; }
 	void addComponent(std::shared_ptr<Component> component);
 	bool hasComponent(Bitmask mask) const;
