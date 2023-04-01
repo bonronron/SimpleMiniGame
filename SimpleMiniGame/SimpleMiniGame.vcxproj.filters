@@ -175,6 +175,9 @@
     <ClCompile Include="..\source\systems\MovementSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\systems\GraphicsSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\img\DwarfSpriteSheet.png">

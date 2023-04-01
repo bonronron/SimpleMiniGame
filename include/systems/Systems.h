@@ -25,5 +25,9 @@ public:
 class InputSystem : public System {
 public:
 	InputSystem();
+}
+class GraphicsSystem : public System {
+public:
+	GraphicsSystem();
 	void update(Game* game, Entity* entity, float elapsedTime) override;
 };
