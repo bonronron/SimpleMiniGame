@@ -32,7 +32,6 @@ public:
 	std::shared_ptr<HealthComponent> getHealthComp() { return healthComponent; }
 	std::shared_ptr<VelocityComponent> getVelocityComp() { return velocityComponent; }
 	std::shared_ptr<ColliderComponent> getColliderComp() override { return colliderComponent; };
-	std::shared_ptr<PlayerStateComponent> getPlayerStateComp() { return playerStateComponent; }
 	std::shared_ptr<InputComponent> getInputComp() override { return input; };
 	std::shared_ptr<LogicComponent> getLogicComp() { return playerStateComponent; }
 	bool collidesWith(Entity& other);

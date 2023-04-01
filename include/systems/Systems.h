@@ -36,7 +36,7 @@ class ColliderSystem : public System {
 public:
 	ColliderSystem();
 	void update(Game* game, Entity* entity, float elapsedTime) override;
-}
+};
 class LogicSystem : public System {
 public:
 	LogicSystem();
