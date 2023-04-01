@@ -188,6 +188,7 @@
     <ClCompile Include="..\source\systems\MovementSystem.cpp" />
     <ClCompile Include="..\source\systems\InputSystem.cpp" />
     <ClCompile Include="..\source\systems\GraphicsSystem.cpp" />
+    <ClCompile Include="..\source\systems\ColliderSystem.cpp" />
     <ClCompile Include="..\source\systems\TTLSystem.cpp" />
     <ClCompile Include="..\source\utils\Rectangle.cpp" />
   </ItemGroup>

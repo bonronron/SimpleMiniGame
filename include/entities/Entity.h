@@ -43,7 +43,7 @@ public:
 	const Vector2f& getPosition() const;
 	EntityType getEntityType() const { return type; }
 
-	virtual std::shared_ptr<ColliderComponent> getCollider() { return nullptr; };
+	virtual std::shared_ptr<ColliderComponent> getColliderComp() { return nullptr; };
 	std::shared_ptr<GraphicsComponent> getGraphicsComp() { return graphics; }
 	virtual std::shared_ptr<TTLComponent> getTTLComp() { return nullptr; };
 	virtual std::shared_ptr<PositionComponent> getPositionComp() { return position; };

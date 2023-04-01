@@ -39,12 +39,13 @@ void Player::init(const std::string& textureFile, std::shared_ptr<GraphicsCompon
 	Entity::init(textureFile, gc);
 	Vector2f size{ gc->getSpriteSheet()->getSpriteSize().x * gc->getSpriteSheet()->getSpriteScale().x,
 		gc->getSpriteSheet()->getSpriteSize().y * gc->getSpriteSheet()->getSpriteScale().y };
-
 	colliderComponent->init(size, position->getPosition());
 }
 void Player::update(Game* game, float elapsed)
 {
 	colliderComponent->update(*this, elapsed);
+	velocityComponent->update(*this, elapsed);
+	//colliderComponent->update(*this, elapsed);
 
 	Entity::update(game, elapsed);
 
@@ -78,5 +79,5 @@ void Player::draw(Window* window) {
 
 bool Player::collidesWith(Entity& other)
 {
-	return colliderComponent->getBoundingBox().intersects(other.getCollider()->getBoundingBox());
+	return colliderComponent->getBoundingBox().intersects(other.getColliderComp()->getBoundingBox());
 }
