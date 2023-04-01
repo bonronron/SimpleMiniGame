@@ -21,15 +21,17 @@ class MovementSystem : public System {
 public:
 	MovementSystem();
 	void update(Game* game, Entity* entity, float elapsedTime) override;
-}
+};
 class InputSystem : public System {
 public:
 	InputSystem();
-}
+	void update(Game* game, Entity* entity, float elapsedTime) override;
+};
 class GraphicsSystem : public System {
 public:
 	GraphicsSystem();
-}
+	void update(Game* game, Entity* entity, float elapsedTime) override;
+};
 class ColliderSystem : public System {
 public:
 	ColliderSystem();

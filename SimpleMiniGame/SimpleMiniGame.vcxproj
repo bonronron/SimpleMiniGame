@@ -170,7 +170,6 @@
     <ClCompile Include="..\main.cpp" />
     <ClCompile Include="..\source\components\GraphicsComponent.cpp" />
     <ClCompile Include="..\source\components\LogicComponent.cpp" />
-    <ClCompile Include="..\source\components\VelocityComponent.cpp" />
     <ClCompile Include="..\source\components\InputComponent.cpp" />
     <ClCompile Include="..\source\core\Board.cpp" />
     <ClCompile Include="..\source\core\Game.cpp" />

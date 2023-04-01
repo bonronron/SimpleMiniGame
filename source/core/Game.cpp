@@ -68,7 +68,6 @@ void Game::positionSprite(Entity& entity, int row, int col, int spriteWH, float 
 	float spriteSizeY = scaleV2f.y * textureSize.y;
 	float cntrFactorY = ((spriteWH * tileScale) - spriteSizeY);	// to align to lower side of the tile.
 	float cntrFactorX = cntrFactorY * 0.5f;						//to center horizontally
-
 	entity.setPosition(x + cntrFactorX, y + cntrFactorY);
 }
 
