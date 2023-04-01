@@ -22,6 +22,7 @@
 Game::Game() : paused(false),entityID(0), inputHandler{ std::make_unique<InputHandler>() }
 {
 	systems.push_back(std::make_shared<TTLSystem>());
+	systems.push_back(std::make_shared<ColliderSystem>());
 }
 
 Game::~Game()
@@ -170,7 +171,7 @@ void Game::update(float elapsed)
 
 		it = entities.begin();
 		while (it != entities.end()) {
-			if ((*it)->getCollider() == nullptr) {
+			if ((*it)->getColliderComp() == nullptr) {
 				it++; 
 				continue;
 			}

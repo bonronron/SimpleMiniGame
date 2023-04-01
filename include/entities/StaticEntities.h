@@ -24,7 +24,7 @@ public:
 	}
 
 	int getHealth() const { return potionHealth; }
-	std::shared_ptr<ColliderComponent> getCollider() override { return colliderComponent; };
+	std::shared_ptr<ColliderComponent> getColliderComp() override { return colliderComponent; };
 
 protected:
 	const int potionHealth = 10;
@@ -58,7 +58,7 @@ public:
 	}
 
 	int getWood() const { return woodAdded; }
-	std::shared_ptr<ColliderComponent> getCollider() override { return colliderComponent; };
+	std::shared_ptr<ColliderComponent> getColliderComp() override { return colliderComponent; };
 
 protected:
 	const int woodAdded = 15;
