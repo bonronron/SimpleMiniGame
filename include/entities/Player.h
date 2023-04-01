@@ -3,7 +3,8 @@ class Fire;
 class HealthComponent;
 class VelocityComponent;
 class ColliderComponent;
-class PlayerStateComponent;
+//class PlayerStateComponent;
+class LogicComponent;
 
 
 class InputComponent;
@@ -31,7 +32,7 @@ public:
 	std::shared_ptr<HealthComponent> getHealthComp() { return healthComponent; }
 	std::shared_ptr<VelocityComponent> getVelocityComp() { return velocityComponent; }
 	std::shared_ptr<ColliderComponent> getCollider() override { return colliderComponent; };
-	std::shared_ptr<PlayerStateComponent> getPlayerStateComp() { return playerStateComponent; }
+	std::shared_ptr<LogicComponent> getLogicComp() { return playerStateComponent; }
 	bool collidesWith(Entity& other);
 
 
@@ -41,7 +42,7 @@ private:
 	std::shared_ptr<HealthComponent> healthComponent;
 	std::shared_ptr<VelocityComponent> velocityComponent;
 	std::shared_ptr<ColliderComponent> colliderComponent;
-	std::shared_ptr<PlayerStateComponent> playerStateComponent;
+	std::shared_ptr<LogicComponent> playerStateComponent;
 	std::shared_ptr<InputComponent> input;
 };
 

@@ -185,6 +185,7 @@
     <ClCompile Include="..\source\graphics\AnimDirectional.cpp" />
     <ClCompile Include="..\source\graphics\SpriteSheet.cpp" />
     <ClCompile Include="..\source\graphics\Window.cpp" />
+    <ClCompile Include="..\source\systems\LogicSystem.cpp" />
     <ClCompile Include="..\source\systems\TTLSystem.cpp" />
     <ClCompile Include="..\source\utils\Rectangle.cpp" />
   </ItemGroup>

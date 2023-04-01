@@ -48,7 +48,7 @@ void Player::update(Game* game, float elapsed)
 
 	Entity::update(game, elapsed);
 
-	playerStateComponent->update(this,game,elapsed);
+	//playerStateComponent->update(this,game,elapsed);
 }
 
 
