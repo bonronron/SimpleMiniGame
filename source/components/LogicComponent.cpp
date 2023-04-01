@@ -14,8 +14,9 @@
 #include "../../include/entities/Fire.h"
 
 
-void PlayerStateComponent::update(Player* player, Game* game, float elapsedTime)
+void PlayerStateComponent::update(Entity* entity, Game* game, float elapsedTime)
 {
+	auto player = dynamic_cast<Player*>(entity);
 	if (shootCooldown > 0) {
 		shootCooldown = shootCooldown - elapsedTime;
 	}

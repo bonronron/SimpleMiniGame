@@ -12,6 +12,10 @@ public:
 		boundingBox.setTopLeft(position);
 		boundingBox.setBottomRight(position + bboxSize);
 	}
+	void init(Vector2f size,Vector2f position ) {
+		setBoundingBoxSize(size);
+		setBoundingBox(position);
+	}
 	void update(Entity& entity,float elapsed) {
 		setBoundingBox(entity.getPosition());
 	}
