@@ -29,7 +29,7 @@ public:
 	void handleInput(Game& game);
 
 	std::shared_ptr<HealthComponent> getHealthComp() { return healthComponent; }
-	std::shared_ptr<VelocityComponent> getVelocityComp() { return velocityComponent; }
+	std::shared_ptr<VelocityComponent> getVelocityComp() override { return velocityComponent; }
 	std::shared_ptr<ColliderComponent> getCollider() override { return colliderComponent; };
 	std::shared_ptr<PlayerStateComponent> getPlayerStateComp() { return playerStateComponent; }
 	bool collidesWith(Entity& other);

@@ -44,7 +44,6 @@ void Player::init(const std::string& textureFile, std::shared_ptr<GraphicsCompon
 }
 void Player::update(Game* game, float elapsed)
 {
-	velocityComponent->update(*this, elapsed);
 	colliderComponent->update(*this, elapsed);
 
 	Entity::update(game, elapsed);

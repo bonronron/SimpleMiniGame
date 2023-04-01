@@ -22,6 +22,7 @@
 Game::Game() : paused(false),entityID(0), inputHandler{ std::make_unique<InputHandler>() }
 {
 	systems.push_back(std::make_shared<TTLSystem>());
+	systems.push_back(std::make_shared<MovementSystem>());
 }
 
 Game::~Game()

@@ -11,6 +11,6 @@ public:
 	void setVelocityX(float newX) { velocity.x = newX; };
 	void setVelocityY(float newY) { velocity.y = newY; };
 	const Vector2f& getVelocity() const { return velocity; };
-	void update(Entity& entity, float elapsedTime);
+	const float& getSpeed() const { return speed; };
 	ComponentID getID() const { return ComponentID::VELOCITY; };
 };

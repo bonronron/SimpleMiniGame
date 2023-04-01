@@ -20,8 +20,5 @@ Fire::~Fire()
 
 void Fire::update(Game* game, float elapsed)
 {
-	
 	Entity::update(game, elapsed);
-	velocity->update(*this,elapsed);
-
 }
