@@ -48,14 +48,6 @@ void Entity::init(const std::string& textureFile, std::shared_ptr<GraphicsCompon
 	gc->loadSprite(textureFile);
 }
 
-void Entity::setPosition(float x, float y)
-{
-	position->setPosition(x, y);
-}	
-
-const Vector2f& Entity::getPosition() const {
-	return position->getPosition();
-};
 
 void Entity::addComponent(std::shared_ptr<Component> component) {
 	ComponentID ID{ component->getID() };

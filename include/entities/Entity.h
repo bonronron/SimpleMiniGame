@@ -40,8 +40,6 @@ public:
 	//Getters and Setters
 	void setID(EntityID entId) { id = entId; }
 	EntityID getID() const { return id; }
-	void setPosition(float x, float y);
-	const Vector2f& getPosition() const;
 	EntityType getEntityType() const { return type; }
 
 	virtual std::shared_ptr<ColliderComponent> getColliderComp() { return nullptr; };

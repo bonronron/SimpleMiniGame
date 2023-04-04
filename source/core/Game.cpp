@@ -41,7 +41,7 @@ std::shared_ptr<T> Game::buildEntityAt(const std::string& filename, int col, int
 	float y = row * spriteWH * tileScale;
 	float cntrFactor = (tileScale - itemScale) * spriteWH * 0.5f;
 
-	ent->setPosition(x + cntrFactor, y + cntrFactor);
+	ent->getPositionComp()->setPosition(x + cntrFactor, y + cntrFactor);
 	ent->init(filename, std::make_shared<SimpleSpriteGraphicsComponent>(itemScale));
 	
 	return ent;
@@ -69,7 +69,7 @@ void Game::positionSprite(Entity& entity, int row, int col, int spriteWH, float 
 	float spriteSizeY = scaleV2f.y * textureSize.y;
 	float cntrFactorY = ((spriteWH * tileScale) - spriteSizeY);	// to align to lower side of the tile.
 	float cntrFactorX = cntrFactorY * 0.5f;						//to center horizontally
-	entity.setPosition(x + cntrFactorX, y + cntrFactorY);
+	entity.getPositionComp()->setPosition(x + cntrFactorX, y + cntrFactorY);
 }
 
 void Game::init(std::vector<std::string> lines)

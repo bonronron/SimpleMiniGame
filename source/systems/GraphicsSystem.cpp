@@ -14,10 +14,10 @@ GraphicsSystem::GraphicsSystem() {
 void GraphicsSystem::update(Game* game, Entity* entity, float elapsedTime) 
 {
 	if (entity->getGraphicsComp()->isSpriteSheet()) {
-		entity->getGraphicsComp()->getSpriteSheet()->getSprite().setPosition(entity->getPosition().x, entity->getPosition().y);
+		entity->getGraphicsComp()->getSpriteSheet()->getSprite().setPosition(entity->getPositionComp()->getPosition().x, entity->getPositionComp()->getPosition().y);
 		entity->getGraphicsComp()->getSpriteSheet()->update(elapsedTime);
 	}
 	else {
-		entity->getGraphicsComp()->getSprite()->setPosition(entity->getPosition().x, entity->getPosition().y);
+		entity->getGraphicsComp()->getSprite()->setPosition(entity->getPositionComp()->getPosition().x, entity->getPositionComp()->getPosition().y);
 	}
 }

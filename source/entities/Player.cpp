@@ -52,7 +52,7 @@ std::shared_ptr<Fire> Player::createFire() const
 
 	Vector2f pos { position->getPosition().x + graphics->getTextureSize().x * 0.5f,  position->getPosition().y + graphics->getTextureSize().y * 0.5f};
 	fireEntity->init("../img/fire.png", std::make_shared<SimpleSpriteGraphicsComponent>(1.f));
-	fireEntity->setPosition(pos.x, pos.y);
+	fireEntity->getPositionComp()->setPosition(pos.x, pos.y);
 	Vector2f vel(fireSpeed, 0.f);
 	if (graphics->getSpriteSheet()->getSpriteDirection() == Direction::Left) vel.x = vel.x * -1.0f;
 	fireEntity->getVelocityComp()->setVelocity(vel.x, vel.y);

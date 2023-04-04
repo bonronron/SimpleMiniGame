@@ -5,6 +5,7 @@
 #include "../../include/utils/Bitmask.h"
 #include "../../include/utils/Rectangle.h"
 #include "../../include/components/ColliderComponent.h"
+#include "../../include/components/PositionComponent.h"
 #include <exception>
 
 ColliderSystem::ColliderSystem() {
@@ -15,7 +16,7 @@ ColliderSystem::ColliderSystem() {
 void ColliderSystem::update(Game* game, Entity* entity, float elapsedTime) {
 	auto collider{ entity->getColliderComp() };
 	if (collider == nullptr) throw std::exception("No Collider component found");
-	collider->setBoundingBox(entity->getPosition());
+	collider->setBoundingBox(entity->getPositionComp()->getPosition());
 	while (false);
 }
 
