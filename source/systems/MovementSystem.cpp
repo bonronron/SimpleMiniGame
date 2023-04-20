@@ -21,4 +21,3 @@ void MovementSystem::update(Game* game, Entity* entity, float elapsedTime) {
 	entity->getPositionComp()->setPosition(position->getPosition().x + (velocity->getVelocity().x * elapsedTime * velocity->getSpeed()),
 		position->getPosition().y + (velocity->getVelocity().y * elapsedTime * velocity->getSpeed()));
 }
-

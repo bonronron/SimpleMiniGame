@@ -31,13 +31,6 @@ Entity::~Entity()
 {
 }
 
-void Entity::update(Game* game, float elapsed)
-{
-	//graphics->update(*this, elapsed);
-}
-
-
-
 void Entity::draw(Window* window)
 {}
 

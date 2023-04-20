@@ -34,7 +34,6 @@ public:
 
 	//Init and update functions
 	virtual void init(const std::string& textureFile, std::shared_ptr<GraphicsComponent> gc);
-	virtual void update(Game* game, float elapsed = 1.0f);
 	virtual void draw(Window* window);
 
 	//Getters and Setters

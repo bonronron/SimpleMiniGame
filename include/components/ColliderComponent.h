@@ -16,9 +16,6 @@ public:
 		setBoundingBoxSize(size);
 		setBoundingBox(position);
 	}
-	void update(Entity& entity,float elapsed) {
-		//setBoundingBox(entity.getPosition());
-	}
 	void draw(Window* window) {
 		window->draw(boundingBox.getDrawableRect());
 	}

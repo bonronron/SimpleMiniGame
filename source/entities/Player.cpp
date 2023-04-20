@@ -41,10 +41,6 @@ void Player::init(const std::string& textureFile, std::shared_ptr<GraphicsCompon
 		gc->getSpriteSheet()->getSpriteSize().y * gc->getSpriteSheet()->getSpriteScale().y };
 	colliderComponent->init(size, position->getPosition());
 }
-void Player::update(Game* game, float elapsed)
-{
-	Entity::update(game, elapsed);
-}
 
 std::shared_ptr<Fire> Player::createFire() const
 {

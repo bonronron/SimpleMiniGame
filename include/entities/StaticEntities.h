@@ -17,7 +17,6 @@ public:
 		colliderComponent->init(size, position->getPosition());
 	}
 
-	virtual void update(Game* game, float elapsed = 1.0f) override { Entity::update(game, elapsed); }
 	void draw(Window* window) override {
 		Entity::draw(window);		
 		window->draw(colliderComponent->getBoundingBox().getDrawableRect());
@@ -49,8 +48,6 @@ public:
 		Vector2f size{ Vector2f(gc->getTextureSize().x * gc->getSpriteScale().x, gc->getTextureSize().y * gc->getSpriteScale().y) };
 		colliderComponent->init(size, position->getPosition());
 	}
-
-	virtual void update(Game* game, float elapsed = 1.0f) override { Entity::update(game, elapsed); }
 
 	void draw(Window* window) override {
 		Entity::draw(window);

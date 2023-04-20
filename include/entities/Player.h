@@ -24,7 +24,6 @@ public:
 	~Player();
 
 	void init(const std::string& textureFile, std::shared_ptr<GraphicsComponent> gc) override;
-	virtual void update(Game* game, float elapsed = 1.0f) override;
 	void draw(Window* window) override;
 
 	//void handleInput(Game& game);

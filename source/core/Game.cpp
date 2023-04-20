@@ -168,12 +168,6 @@ void Game::update(float elapsed)
 	if (!paused) {
 		auto it = entities.begin();
 		while (it != entities.end()) {
-			(*it)->update(this, elapsed);
-			it++;
-		}
-
-		it = entities.begin();
-		while (it != entities.end()) {
 			if ((*it)->getColliderComp() == nullptr) {
 				it++; 
 				continue;

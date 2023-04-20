@@ -10,7 +10,6 @@ public:
 	Fire();
 	~Fire();
 
-	virtual void update(Game* game, float elapsed = 1.0f) override;
 
 	std::shared_ptr<TTLComponent> getTTLComp() override { return ttl; }
 	//int getTTL() const { return ttl->getTTL(); }

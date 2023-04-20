@@ -18,7 +18,3 @@ velocity{ std::make_shared<VelocityComponent>() }
 Fire::~Fire()
 {}
 
-void Fire::update(Game* game, float elapsed)
-{
-	Entity::update(game, elapsed);
-}
