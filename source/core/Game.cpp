@@ -214,10 +214,8 @@ void Game::update(float elapsed)
 			else
 				it++;
 		}
-
-
+		bigArray(elapsed);
 	}
-	bigArray(elapsed);
 	window.update();
 }
 
