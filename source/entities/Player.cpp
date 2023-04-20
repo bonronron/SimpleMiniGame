@@ -52,10 +52,10 @@ std::shared_ptr<Fire> Player::createFire() const
 	return fireEntity;
 }
 
-void Player::draw(Window* window) {
-	Entity::draw(window);
-	window->draw(dynamic_cast<ColliderComponent*>(getComponent(ComponentID::COLLIDER))->getBoundingBox().getDrawableRect());
-}
+//void Player::draw(Window* window) {
+//	Entity::draw(window);
+//	window->draw(dynamic_cast<ColliderComponent*>(getComponent(ComponentID::COLLIDER))->getBoundingBox().getDrawableRect());
+//}
 
 bool Player::collidesWith(Entity& other)
 {

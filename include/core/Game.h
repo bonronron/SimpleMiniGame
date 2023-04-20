@@ -20,7 +20,6 @@ public:
 	void buildBoard(size_t width, size_t height);
 	void initWindow(size_t width, size_t height);
 
-	void handleInput();
 	void update(float elapsed);
 	void render(float elapsed);
 	Window* getWindow() { return &window; }

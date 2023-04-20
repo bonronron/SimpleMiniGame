@@ -4,14 +4,8 @@
 #include "../utils/Bitmask.h"
 using EntityID = unsigned int;
 
-class PositionComponent;
-class VelocityComponent;
-class ColliderComponent;
 class GraphicsComponent;
-class LogicComponent;
-class TTLComponent;
-class VelocityComponent;
-class InputComponent;
+
 enum class EntityType
 {
 	UNDEFINED = -1,
@@ -34,7 +28,6 @@ public:
 
 	//Init and update functions
 	virtual void init(const std::string& textureFile, std::shared_ptr<GraphicsComponent> gc);
-	virtual void draw(Window* window);
 
 	//Getters and Setters
 	void setID(EntityID entId) { id = entId; }

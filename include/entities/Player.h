@@ -1,13 +1,5 @@
 #pragma once
 class Fire;
-class HealthComponent;
-class VelocityComponent;
-class ColliderComponent;
-//class PlayerStateComponent;
-class LogicComponent;
-
-
-class InputComponent;
 class Player :  public Entity
 {
 public:
@@ -24,7 +16,6 @@ public:
 	~Player();
 
 	void init(const std::string& textureFile, std::shared_ptr<GraphicsComponent> gc) override;
-	void draw(Window* window) override;
 	bool collidesWith(Entity& other);
 	std::shared_ptr<Fire> createFire() const;
 };

@@ -29,9 +29,6 @@ Entity::~Entity()
 {
 }
 
-void Entity::draw(Window* window)
-{}
-
 void Entity::init(const std::string& textureFile, std::shared_ptr<GraphicsComponent> gc)
 {
 	addComponent(gc);

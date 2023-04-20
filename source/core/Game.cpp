@@ -154,15 +154,6 @@ void Game::addEntity(std::shared_ptr<Entity> newEntity)
 	entities.push_back(newEntity);
 }
 
-void Game::handleInput()
-{
-	std::shared_ptr<Command> command = inputHandler->handleInput();
-	if(command != nullptr) command->execute(*this);
-	//player->handleInput(*this);
-
-}
-
-
 void Game::update(float elapsed)
 {
 	if (!paused) {
@@ -225,7 +216,7 @@ void Game::render(float elapsed)
 	board->draw(&window);
 	for (std::shared_ptr<Entity> e : entities) {
 		dynamic_cast<GraphicsComponent*>(e->getComponent(ComponentID::GRAPHICS))->draw(&window);
-		e->draw(&window);
+		dynamic_cast<ColliderComponent*>(e->getComponent(ComponentID::COLLIDER))->draw(&window);
 	}
 	window.drawGUI(*this);
 	window.endDraw();
