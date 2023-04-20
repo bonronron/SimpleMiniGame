@@ -24,10 +24,10 @@ Game::Game() : paused(false),entityID(0), inputHandler{ std::make_unique<InputHa
 	logicSystems.push_back(std::make_shared<TTLSystem>());
 	logicSystems.push_back(std::make_shared<MovementSystem>());
 	logicSystems.push_back(std::make_shared<InputSystem>());
-	logicSystems.push_back(std::make_shared<GraphicsSystem>());
 	logicSystems.push_back(std::make_shared<ColliderSystem>());
 	logicSystems.push_back(std::make_shared<LogicSystem>());
 
+	graphicsSystems.push_back(std::make_shared<GraphicsSystem>());
 	graphicsSystems.push_back(std::make_shared<PrintDebugSystem>());
 }
 
@@ -217,7 +217,7 @@ void Game::render(float elapsed)
 	window.beginDraw();
 	board->draw(&window);
 	for (std::shared_ptr<Entity> e : entities) {
-		dynamic_cast<GraphicsComponent*>(e->getComponent(ComponentID::GRAPHICS))->draw(&window);
+		//dynamic_cast<GraphicsComponent*>(e->getComponent(ComponentID::GRAPHICS))->draw(&window);
 		//dynamic_cast<ColliderComponent*>(e->getComponent(ComponentID::COLLIDER))->draw(&window);
 	}
 	bigArray(elapsed, graphicsSystems);

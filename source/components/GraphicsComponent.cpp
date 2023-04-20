@@ -15,15 +15,9 @@ void SimpleSpriteGraphicsComponent::loadSprite(const std::string& fileLocation) 
 	sprite.setScale(scale, scale);
 }
 
-void SimpleSpriteGraphicsComponent::draw(Window* window) {
-	window->draw(sprite);
-}
-
 void SpriteSheetGraphicsComponent::loadSprite(const std::string& fileLocation) {
 	spriteSheet.loadSheet(fileLocation);
 	spriteSheet.setAnimation("Idle", true, true);
 }
-void SpriteSheetGraphicsComponent::draw(Window* window) {	
-	window->draw(spriteSheet.getSprite());
-}
+
 

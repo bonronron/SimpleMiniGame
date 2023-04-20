@@ -4,6 +4,7 @@
 #include "../../include/core/Game.h"
 #include "../../include/graphics/SpriteSheet.h"
 #include "../../include/utils/Bitmask.h"
+#include "../../include/graphics/Window.h"
 #include "../../include/components/PositionComponent.h"
 #include "../../include/components/GraphicsComponent.h"
 
@@ -18,11 +19,17 @@ void GraphicsSystem::update(Game* game, Entity* entity, float elapsedTime)
 	auto positionComp = dynamic_cast<PositionComponent*>(entity->getComponent(ComponentID::POSITION));
 	if (positionComp == nullptr) throw std::exception("No position component found");
 
+	auto window = game->getWindow();
+
 	if (graphicsComp->isSpriteSheet()) {
-		graphicsComp->getSpriteSheet()->getSprite().setPosition(positionComp->getPosition().x, positionComp->getPosition().y);
-		graphicsComp->getSpriteSheet()->update(elapsedTime);
+		auto spriteSheet = graphicsComp->getSpriteSheet();
+		spriteSheet->getSprite().setPosition(positionComp->getPosition().x, positionComp->getPosition().y);
+		spriteSheet->update(elapsedTime);
+		window->draw(spriteSheet->getSprite());
 	}
 	else {
-		graphicsComp->getSprite()->setPosition(positionComp->getPosition().x, positionComp->getPosition().y);
+		auto sprite = graphicsComp->getSprite();
+		sprite->setPosition(positionComp->getPosition().x, positionComp->getPosition().y);
+		window->draw(*sprite);
 	}
 }
