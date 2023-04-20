@@ -41,4 +41,8 @@ class LogicSystem : public System {
 public:
 	LogicSystem();
 	void update(Game* game, Entity* entity, float elapsedTime) override;
+};class PrintDebugSystem : public System {
+public:
+	PrintDebugSystem();
+	void update(Game* game, Entity* entity, float elapsedTime) override;
 };

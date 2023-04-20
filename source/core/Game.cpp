@@ -21,12 +21,14 @@
 
 Game::Game() : paused(false),entityID(0), inputHandler{ std::make_unique<InputHandler>() }
 {
-	systems.push_back(std::make_shared<TTLSystem>());
-	systems.push_back(std::make_shared<MovementSystem>());
-	systems.push_back(std::make_shared<InputSystem>());
-	systems.push_back(std::make_shared<GraphicsSystem>());
-	systems.push_back(std::make_shared<ColliderSystem>());
-	systems.push_back(std::make_shared<LogicSystem>());
+	logicSystems.push_back(std::make_shared<TTLSystem>());
+	logicSystems.push_back(std::make_shared<MovementSystem>());
+	logicSystems.push_back(std::make_shared<InputSystem>());
+	logicSystems.push_back(std::make_shared<GraphicsSystem>());
+	logicSystems.push_back(std::make_shared<ColliderSystem>());
+	logicSystems.push_back(std::make_shared<LogicSystem>());
+
+	graphicsSystems.push_back(std::make_shared<PrintDebugSystem>());
 }
 
 Game::~Game()
@@ -205,7 +207,7 @@ void Game::update(float elapsed)
 			else
 				it++;
 		}
-		bigArray(elapsed);
+		bigArray(elapsed,logicSystems);
 	}
 	window.update();
 }
@@ -216,8 +218,9 @@ void Game::render(float elapsed)
 	board->draw(&window);
 	for (std::shared_ptr<Entity> e : entities) {
 		dynamic_cast<GraphicsComponent*>(e->getComponent(ComponentID::GRAPHICS))->draw(&window);
-		dynamic_cast<ColliderComponent*>(e->getComponent(ComponentID::COLLIDER))->draw(&window);
+		//dynamic_cast<ColliderComponent*>(e->getComponent(ComponentID::COLLIDER))->draw(&window);
 	}
+	bigArray(elapsed, graphicsSystems);
 	window.drawGUI(*this);
 	window.endDraw();
 }
@@ -245,7 +248,7 @@ std::shared_ptr<Entity> Game::getEntity(unsigned int idx)
 	return entities[idx];
 }
 
-void Game::bigArray(float elapsedTime) {
+void Game::bigArray(float elapsedTime, std::vector<std::shared_ptr<System>> systems) {
 	auto it{ systems.begin() };
 	while (it != systems.end()) {
 		auto iterEntity{ entities.begin() };

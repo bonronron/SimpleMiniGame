@@ -154,12 +154,6 @@
     <ClCompile Include="..\source\core\PlayerCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\components\InputComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\components\VelocityComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\source\components\LogicComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -179,6 +173,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\source\systems\LogicSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\systems\ColliderSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\systems\PrintDebugSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

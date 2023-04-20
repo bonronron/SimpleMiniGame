@@ -16,9 +16,6 @@ public:
 		setBoundingBoxSize(size);
 		setBoundingBox(position);
 	}
-	void draw(Window* window) {
-		window->draw(boundingBox.getDrawableRect());
-	}
 	ComponentID getID() const { return ComponentID::COLLIDER; };
 private:
 	Rectangle boundingBox;

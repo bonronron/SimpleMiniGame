@@ -11,7 +11,6 @@ void adaptiveLoop(Game& game, float& lastTime, float updateTarget = 0)
 {
     float current = game.getElapsed().asSeconds();
     float elapsedSeconds = current - lastTime;
-    //game.handleInput();
     game.update(elapsedSeconds);
     game.render(elapsedSeconds);
 

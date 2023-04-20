@@ -27,23 +27,24 @@ void PlayerStateComponent::update(Entity* entity, Game* game, float elapsedTime)
 		game->addEntity(player->createFire());
 		wood = wood - shootingCost;
 	}
+	auto spriteSheet = graphicsComp->getSpriteSheet();
 
 	if (isAttacking()) 
-		graphicsComp->getSpriteSheet()->setAnimation("Attack", true, false);
+		spriteSheet->setAnimation("Attack", true, false);
 	else if (isShouting()) 
-		graphicsComp->getSpriteSheet()->setAnimation("Shout", true, false);
+		spriteSheet->setAnimation("Shout", true, false);
 	else if (velocityComp->getVelocity().x != 0 || velocityComp->getVelocity().y != 0)
-		graphicsComp->getSpriteSheet()->setAnimation("Walk", true, true);
+		spriteSheet->setAnimation("Walk", true, true);
 	else 
-		graphicsComp->getSpriteSheet()->setAnimation("Idle", true, true);
+		spriteSheet->setAnimation("Idle", true, true);
 	if (velocityComp->getVelocity().x > 0)
-		graphicsComp->getSpriteSheet()->setSpriteDirection(Direction::Right);
+		spriteSheet->setSpriteDirection(Direction::Right);
 	else if (velocityComp->getVelocity().x < 0)
-		graphicsComp->getSpriteSheet()->setSpriteDirection(Direction::Left);
+		spriteSheet->setSpriteDirection(Direction::Left);
 
 
-	if (!graphicsComp->getSpriteSheet()->getCurrentAnim()->isPlaying() && attacking) attacking = false;
-	if (!graphicsComp->getSpriteSheet()->getCurrentAnim()->isPlaying() && shouting) shouting = false;
+	if (!spriteSheet->getCurrentAnim()->isPlaying() && attacking) attacking = false;
+	if (!spriteSheet->getCurrentAnim()->isPlaying() && shouting) shouting = false;
 
 
 }
