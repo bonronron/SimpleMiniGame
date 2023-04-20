@@ -13,11 +13,16 @@ GraphicsSystem::GraphicsSystem() {
 }
 void GraphicsSystem::update(Game* game, Entity* entity, float elapsedTime) 
 {
-	if (entity->getGraphicsComp()->isSpriteSheet()) {
-		entity->getGraphicsComp()->getSpriteSheet()->getSprite().setPosition(entity->getPositionComp()->getPosition().x, entity->getPositionComp()->getPosition().y);
-		entity->getGraphicsComp()->getSpriteSheet()->update(elapsedTime);
+	auto graphicsComp = entity->getGraphicsComp();
+	if (graphicsComp == nullptr) throw std::exception("No graphics component found");
+	auto positionComp = entity->getPositionComp();
+	if (positionComp == nullptr) throw std::exception("No position component found");
+
+	if (graphicsComp->isSpriteSheet()) {
+		graphicsComp->getSpriteSheet()->getSprite().setPosition(positionComp->getPosition().x, positionComp->getPosition().y);
+		graphicsComp->getSpriteSheet()->update(elapsedTime);
 	}
 	else {
-		entity->getGraphicsComp()->getSprite()->setPosition(entity->getPositionComp()->getPosition().x, entity->getPositionComp()->getPosition().y);
+		graphicsComp->getSprite()->setPosition(positionComp->getPosition().x, positionComp->getPosition().y);
 	}
 }

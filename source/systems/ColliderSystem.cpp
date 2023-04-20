@@ -16,7 +16,8 @@ ColliderSystem::ColliderSystem() {
 void ColliderSystem::update(Game* game, Entity* entity, float elapsedTime) {
 	auto collider{ entity->getColliderComp() };
 	if (collider == nullptr) throw std::exception("No Collider component found");
-	collider->setBoundingBox(entity->getPositionComp()->getPosition());
-	while (false);
+	auto position{ entity->getPositionComp() };
+	if (position == nullptr) throw std::exception("No position component found");
+	collider->setBoundingBox(position->getPosition());
 }
 

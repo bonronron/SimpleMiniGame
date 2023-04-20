@@ -12,5 +12,6 @@ LogicSystem::LogicSystem() {
 void LogicSystem::update(Game* game, Entity* entity, float elapsedTime) {
 	auto logic{ entity->getLogicComp() };
 	if (logic == nullptr) throw std::exception("No Logic component found");
+
 	logic->update(entity,game,elapsedTime);
 }
