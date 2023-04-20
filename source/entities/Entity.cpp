@@ -10,21 +10,19 @@
 
 
 Entity::Entity() :
-	position(std::make_shared<PositionComponent>()),
 	id(0),
 	type(EntityType::UNDEFINED),
 	deleted(false)
 {
-	addComponent(position);
+	addComponent(std::make_shared<PositionComponent>());
 }
 
 Entity::Entity(EntityType et) : 
-	position(std::make_shared<PositionComponent>()),
 	id(0),
 	type (et),
 	deleted(false) 
 {
-	addComponent(position);
+	addComponent(std::make_shared<PositionComponent>());
 }
 
 Entity::~Entity()
@@ -36,15 +34,21 @@ void Entity::draw(Window* window)
 
 void Entity::init(const std::string& textureFile, std::shared_ptr<GraphicsComponent> gc)
 {
-	graphics = gc;
-	addComponent(graphics);
+	addComponent(gc);
 	gc->loadSprite(textureFile);
 }
 
+Component* Entity::getComponent(ComponentID id)
+{
+	if (components.count(id)==1)
+		return components.at(id).get();
+	else return nullptr;
+}
 
 void Entity::addComponent(std::shared_ptr<Component> component) {
 	ComponentID ID{ component->getID() };
 	componentSet.turnOnBit(static_cast<unsigned int>(ID));
+	components.insert({ ID, component });
 };
 
 bool Entity::hasComponent(Bitmask mask) const{

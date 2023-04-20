@@ -41,7 +41,7 @@ std::shared_ptr<T> Game::buildEntityAt(const std::string& filename, int col, int
 	float y = row * spriteWH * tileScale;
 	float cntrFactor = (tileScale - itemScale) * spriteWH * 0.5f;
 
-	ent->getPositionComp()->setPosition(x + cntrFactor, y + cntrFactor);
+	dynamic_cast<PositionComponent*>(ent->getComponent(ComponentID::POSITION))->setPosition(x + cntrFactor, y + cntrFactor);
 	ent->init(filename, std::make_shared<SimpleSpriteGraphicsComponent>(itemScale));
 	
 	return ent;
@@ -61,15 +61,15 @@ void Game::initWindow(size_t width, size_t height)
 }
 
 void Game::positionSprite(Entity& entity, int row, int col, int spriteWH, float tileScale) {
-	sf::Vector2f scaleV2f = entity.getGraphicsComp()->getSpriteScale();
-	sf::Vector2i textureSize = entity.getGraphicsComp()->getTextureSize();
+	sf::Vector2f scaleV2f = dynamic_cast<GraphicsComponent*>(entity.getComponent(ComponentID::GRAPHICS))->getSpriteScale();
+	sf::Vector2i textureSize = dynamic_cast<GraphicsComponent*>(entity.getComponent(ComponentID::GRAPHICS))->getTextureSize();
 
 	float x = col * spriteWH * tileScale;
 	float y = (row)*spriteWH * tileScale;
 	float spriteSizeY = scaleV2f.y * textureSize.y;
 	float cntrFactorY = ((spriteWH * tileScale) - spriteSizeY);	// to align to lower side of the tile.
 	float cntrFactorX = cntrFactorY * 0.5f;						//to center horizontally
-	entity.getPositionComp()->setPosition(x + cntrFactorX, y + cntrFactorY);
+	dynamic_cast<PositionComponent*>(entity.getComponent(ComponentID::POSITION))->setPosition(x + cntrFactorX, y + cntrFactorY);
 }
 
 void Game::init(std::vector<std::string> lines)
@@ -134,7 +134,7 @@ void Game::init(std::vector<std::string> lines)
 				player = std::make_shared<Player>();
 				player->init("../img/DwarfSpriteSheet_data.txt",std::make_shared<SpriteSheetGraphicsComponent>());
 				positionSprite(*player, row, col, spriteWH, tileScale);
-				player->getVelocityComp()->setVelocity(0.f, 0.f);
+				dynamic_cast<VelocityComponent*>(player->getComponent(ComponentID::VELOCITY))->setVelocity(0.f, 0.f);
 				addEntity(player);
 				board->addTile(col, row, tileScale, TileType::CORRIDOR);
 				break;
@@ -168,7 +168,7 @@ void Game::update(float elapsed)
 	if (!paused) {
 		auto it = entities.begin();
 		while (it != entities.end()) {
-			if ((*it)->getColliderComp() == nullptr) {
+			if (dynamic_cast<ColliderComponent*>((*it)->getComponent(ComponentID::COLLIDER)) == nullptr) {
 				it++; 
 				continue;
 			}
@@ -178,9 +178,9 @@ void Game::update(float elapsed)
 				case EntityType::POTION:
 					{
 						Potion* potion = dynamic_cast<Potion*>((*it).get());
-						player->getHealthComp()->changeHealth(potion->getHealth());
+						dynamic_cast<HealthComponent*>(player->getComponent(ComponentID::HEALTH))->changeHealth(potion->getHealth());
 						std::cout << " Collide with potion " << std::endl;
-						std::cout << " Player health : " << player->getHealthComp()->getHealth() << "\tHealth restored : " << potion->getHealth() << std::endl;
+						std::cout << " Player health : " << dynamic_cast<HealthComponent*>(player->getComponent(ComponentID::HEALTH))->getHealth() << "\tHealth restored : " << potion->getHealth() << std::endl;
 						potion->deleteEntity();
 						break; 
 					}
@@ -188,8 +188,8 @@ void Game::update(float elapsed)
 					{
 						Log* log = dynamic_cast<Log*>((*it).get());
 						std::cout << " Collide with log " << std::endl;
-						auto playerGraphics = std::dynamic_pointer_cast<SpriteSheetGraphicsComponent>(player->getGraphicsComp());
-						auto playerLogic = dynamic_cast<PlayerStateComponent*>(player->getLogicComp().get());
+						auto playerGraphics = dynamic_cast<SpriteSheetGraphicsComponent*>(dynamic_cast<GraphicsComponent*>(player->getComponent(ComponentID::GRAPHICS)));
+						auto playerLogic = dynamic_cast<PlayerStateComponent*>(player->getComponent(ComponentID::LOGIC));
 						if( playerGraphics->getSpriteSheet()->getCurrentAnim()->isInAction()
 							&& playerGraphics->getSpriteSheet()->getCurrentAnim()->getName() == "Attack") 
 						{
@@ -224,7 +224,7 @@ void Game::render(float elapsed)
 	window.beginDraw();
 	board->draw(&window);
 	for (std::shared_ptr<Entity> e : entities) {
-		e->getGraphicsComp()->draw(&window);
+		dynamic_cast<GraphicsComponent*>(e->getComponent(ComponentID::GRAPHICS))->draw(&window);
 		e->draw(&window);
 	}
 	window.drawGUI(*this);

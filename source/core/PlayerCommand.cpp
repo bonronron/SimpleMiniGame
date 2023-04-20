@@ -9,25 +9,25 @@
 #include "../../include/components/LogicComponent.h"
 
 void MoveRightCommand::execute(Game& game) {
-	game.getPlayer()->getVelocityComp()->setVelocityX(1.0f);
+	dynamic_cast<VelocityComponent*>(game.getPlayer()->getComponent(ComponentID::VELOCITY))->setVelocityX(1.0f);
 }
 void MoveLeftCommand::execute(Game& game) {
-	game.getPlayer()->getVelocityComp()->setVelocityX(-1.0f);
+	dynamic_cast<VelocityComponent*>(game.getPlayer()->getComponent(ComponentID::VELOCITY))->setVelocityX(-1.0f);
 }
 void MoveUpCommand::execute(Game& game) {
-	game.getPlayer()->getVelocityComp()->setVelocityY(-1.0f);
+	dynamic_cast<VelocityComponent*>(game.getPlayer()->getComponent(ComponentID::VELOCITY))->setVelocityY(-1.0f);
 }
 void MoveDownCommand::execute(Game& game) {
-	game.getPlayer()->getVelocityComp()->setVelocityY(1.0f);
+	dynamic_cast<VelocityComponent*>(game.getPlayer()->getComponent(ComponentID::VELOCITY))->setVelocityY(1.0f);
 }
 void AttackCommand::execute(Game& game) {
-	auto playerLogic = dynamic_cast<PlayerStateComponent*>(game.getPlayer()->getLogicComp().get());
+	auto playerLogic = dynamic_cast<PlayerStateComponent*>(game.getPlayer()->getComponent(ComponentID::LOGIC));
 	if (!playerLogic->isAttacking()) {
 		playerLogic->setAttacking(true);
 	}
 }
 void ShoutCommand::execute(Game& game) {
-	auto playerLogic = dynamic_cast<PlayerStateComponent*>(game.getPlayer()->getLogicComp().get());
+	auto playerLogic = dynamic_cast<PlayerStateComponent*>(game.getPlayer()->getComponent(ComponentID::LOGIC));
 	if (!playerLogic->isShouting()) {
 		playerLogic->setShouting(true);
 	}

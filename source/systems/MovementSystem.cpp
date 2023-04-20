@@ -13,11 +13,11 @@ MovementSystem::MovementSystem() {
 }
 
 void MovementSystem::update(Game* game, Entity* entity, float elapsedTime) {
-	auto velocity{ entity->getVelocityComp()};
+	auto velocity{ dynamic_cast<VelocityComponent*>(entity->getComponent(ComponentID::VELOCITY))};
 	if (velocity == nullptr) throw std::exception("No velocity component found");
-	auto position{ entity->getPositionComp() };
+	auto position{ dynamic_cast<PositionComponent*>(entity->getComponent(ComponentID::POSITION))};
 	if (position == nullptr) throw std::exception("No position component found");
 
-	entity->getPositionComp()->setPosition(position->getPosition().x + (velocity->getVelocity().x * elapsedTime * velocity->getSpeed()),
+	position->setPosition(position->getPosition().x + (velocity->getVelocity().x * elapsedTime * velocity->getSpeed()),
 		position->getPosition().y + (velocity->getVelocity().y * elapsedTime * velocity->getSpeed()));
 }

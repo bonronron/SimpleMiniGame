@@ -41,14 +41,8 @@ public:
 	EntityID getID() const { return id; }
 	EntityType getEntityType() const { return type; }
 
-	virtual std::shared_ptr<ColliderComponent> getColliderComp() { return nullptr; };
-	std::shared_ptr<GraphicsComponent> getGraphicsComp() { return graphics; }
-	virtual std::shared_ptr<TTLComponent> getTTLComp() { return nullptr; };
-	virtual std::shared_ptr<PositionComponent> getPositionComp() { return position; };
-	virtual std::shared_ptr<VelocityComponent> getVelocityComp() { return nullptr; };
-	virtual std::shared_ptr<InputComponent> getInputComp() { return nullptr; };
+	Component* getComponent(ComponentID id);
 
-	virtual std::shared_ptr<LogicComponent> getLogicComp() { return nullptr; };
 	Bitmask getComponentSet() { return componentSet; }
 	void addComponent(std::shared_ptr<Component> component);
 	bool hasComponent(Bitmask mask) const;
@@ -62,8 +56,8 @@ protected:
 	EntityType type;
 	EntityID id;
 	Bitmask componentSet;
-	std::shared_ptr<PositionComponent> position;
-	std::shared_ptr<GraphicsComponent> graphics;
 	bool deleted;
+
+	std::map<ComponentID, std::shared_ptr<Component>> components;
 
 };

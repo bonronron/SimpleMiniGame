@@ -14,9 +14,9 @@ InputSystem::InputSystem() {
 	componentMask.turnOnBit(static_cast<int>(ComponentID::VELOCITY));
 }
 void InputSystem::update(Game* game, Entity* entity, float elapsedTime) {
-	auto velocity{ entity->getVelocityComp() };
+	auto velocity{ dynamic_cast<VelocityComponent*>(entity->getComponent(ComponentID::VELOCITY)) };
 	if (velocity == nullptr) throw std::exception("No velocity component found");
-	auto input{ entity->getInputComp() };
+	auto input{ dynamic_cast<InputComponent*>(entity->getComponent(ComponentID::INPUT)) };
 	if (input == nullptr) throw std::exception("No input component found");
 
 	velocity->setVelocity(0.f, 0.f);

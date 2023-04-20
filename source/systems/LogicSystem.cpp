@@ -10,7 +10,7 @@ LogicSystem::LogicSystem() {
 	componentMask.turnOnBit(static_cast<int>(ComponentID::LOGIC));
 }
 void LogicSystem::update(Game* game, Entity* entity, float elapsedTime) {
-	auto logic{ entity->getLogicComp() };
+	auto logic{ dynamic_cast<LogicComponent*>(entity->getComponent(ComponentID::LOGIC)) };
 	if (logic == nullptr) throw std::exception("No Logic component found");
 
 	logic->update(entity,game,elapsedTime);

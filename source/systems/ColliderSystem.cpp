@@ -14,9 +14,9 @@ ColliderSystem::ColliderSystem() {
 }
 
 void ColliderSystem::update(Game* game, Entity* entity, float elapsedTime) {
-	auto collider{ entity->getColliderComp() };
+	auto collider{ dynamic_cast<ColliderComponent*>(entity->getComponent(ComponentID::COLLIDER)) };
 	if (collider == nullptr) throw std::exception("No Collider component found");
-	auto position{ entity->getPositionComp() };
+	auto position{ dynamic_cast<PositionComponent*>(entity->getComponent(ComponentID::POSITION)) };
 	if (position == nullptr) throw std::exception("No position component found");
 	collider->setBoundingBox(position->getPosition());
 }

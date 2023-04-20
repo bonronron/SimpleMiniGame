@@ -13,9 +13,9 @@ GraphicsSystem::GraphicsSystem() {
 }
 void GraphicsSystem::update(Game* game, Entity* entity, float elapsedTime) 
 {
-	auto graphicsComp = entity->getGraphicsComp();
+	auto graphicsComp = dynamic_cast<GraphicsComponent*>(entity->getComponent(ComponentID::GRAPHICS));
 	if (graphicsComp == nullptr) throw std::exception("No graphics component found");
-	auto positionComp = entity->getPositionComp();
+	auto positionComp = dynamic_cast<PositionComponent*>(entity->getComponent(ComponentID::POSITION));
 	if (positionComp == nullptr) throw std::exception("No position component found");
 
 	if (graphicsComp->isSpriteSheet()) {

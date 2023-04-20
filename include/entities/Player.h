@@ -25,24 +25,7 @@ public:
 
 	void init(const std::string& textureFile, std::shared_ptr<GraphicsComponent> gc) override;
 	void draw(Window* window) override;
-
-	//void handleInput(Game& game);
-
-	std::shared_ptr<HealthComponent> getHealthComp() { return healthComponent; }
-	std::shared_ptr<VelocityComponent> getVelocityComp() { return velocityComponent; }
-	std::shared_ptr<ColliderComponent> getColliderComp() override { return colliderComponent; };
-	std::shared_ptr<InputComponent> getInputComp() override { return input; };
-	std::shared_ptr<LogicComponent> getLogicComp() { return playerStateComponent; }
 	bool collidesWith(Entity& other);
-
-
 	std::shared_ptr<Fire> createFire() const;
-private:
-
-	std::shared_ptr<HealthComponent> healthComponent;
-	std::shared_ptr<VelocityComponent> velocityComponent;
-	std::shared_ptr<ColliderComponent> colliderComponent;
-	std::shared_ptr<LogicComponent> playerStateComponent;
-	std::shared_ptr<InputComponent> input;
 };
 

@@ -7,12 +7,12 @@
 #include "../../include/entities/Fire.h"
 #include <iostream>
 
-Fire::Fire() : Entity(EntityType::FIRE), 
-ttl{ std::make_shared<TTLComponent>(startTimeToLive) },
-velocity{ std::make_shared<VelocityComponent>() }
+Fire::Fire() : Entity(EntityType::FIRE) 
+//ttl{ std::make_shared<TTLComponent>(startTimeToLive) },
+//velocity{ std::make_shared<VelocityComponent>() }
 {
-	addComponent(ttl);
-	addComponent(velocity);
+	addComponent(std::make_shared<TTLComponent>(startTimeToLive));
+	addComponent(std::make_shared<VelocityComponent>());
 }
 
 Fire::~Fire()
