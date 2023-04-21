@@ -45,6 +45,7 @@ private:
 	bool paused;
 	sf::Clock gameClock;
 	sf::Time elapsed;
+	bool debugInfo;
 
 	std::unique_ptr<Board> board;
 	std::vector<std::shared_ptr<Entity>> entities;

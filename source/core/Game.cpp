@@ -19,7 +19,7 @@
 #include "../../include/entities/Fire.h"
 #include "../../include/entities/StaticEntities.h"
 
-Game::Game() : paused(false),entityID(0), inputHandler{ std::make_unique<InputHandler>() }
+Game::Game() : paused(false), entityID(0), inputHandler{ std::make_unique<InputHandler>() }, debugInfo{ true }
 {
 	logicSystems.push_back(std::make_shared<TTLSystem>());
 	logicSystems.push_back(std::make_shared<MovementSystem>());
@@ -28,12 +28,12 @@ Game::Game() : paused(false),entityID(0), inputHandler{ std::make_unique<InputHa
 	logicSystems.push_back(std::make_shared<LogicSystem>());
 
 	graphicsSystems.push_back(std::make_shared<GraphicsSystem>());
-	graphicsSystems.push_back(std::make_shared<PrintDebugSystem>());
+	if (debugInfo) {
+		graphicsSystems.push_back(std::make_shared<PrintDebugSystem>());
+	}
 }
 
-Game::~Game()
-{
-}
+Game::~Game(){}
 
 template <typename T>
 std::shared_ptr<T> Game::buildEntityAt(const std::string& filename, int col, int row)
