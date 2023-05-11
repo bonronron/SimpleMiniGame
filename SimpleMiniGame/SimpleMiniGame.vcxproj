@@ -110,7 +110,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\sfml64\sfml-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;opengl32.lib;winmm.lib;gdi32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;opengl32.lib;winmm.lib;gdi32.lib;freetype.lib;openal32.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;flac.lib;sfml-audio-s-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -129,7 +129,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\sfml64\sfml-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-system-s.lib;opengl32.lib;winmm.lib;gdi32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-system-s.lib;opengl32.lib;winmm.lib;gdi32.lib;freetype.lib;openal32.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;flac.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -156,6 +156,8 @@
     <ClInclude Include="..\include\graphics\SpriteSheet.h" />
     <ClInclude Include="..\include\graphics\Window.h" />
     <ClInclude Include="..\include\systems\Systems.h" />
+    <ClInclude Include="..\include\utils\AudioLocator.h" />
+    <ClInclude Include="..\include\utils\AudioService.h" />
     <ClInclude Include="..\include\utils\Bitmask.h" />
     <ClInclude Include="..\include\utils\Rectangle.h" />
     <ClInclude Include="..\include\utils\Vector2.h" />
@@ -190,6 +192,8 @@
     <ClCompile Include="..\source\systems\LogicSystem.cpp" />
     <ClCompile Include="..\source\systems\PrintDebugSystem.cpp" />
     <ClCompile Include="..\source\systems\TTLSystem.cpp" />
+    <ClCompile Include="..\source\utils\AudioLocator.cpp" />
+    <ClCompile Include="..\source\utils\AudioService.cpp" />
     <ClCompile Include="..\source\utils\Rectangle.cpp" />
   </ItemGroup>
   <ItemGroup>

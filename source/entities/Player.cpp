@@ -17,6 +17,8 @@
 #include "../../include/core/Command.h"
 #include "../../include/entities/Fire.h"
 #include "../../include/entities/Player.h"
+#include "../../include/utils/AudioService.h"
+#include "../../include/utils/AudioLocator.h"
 
 
 Player::Player() : Entity(EntityType::PLAYER)
@@ -48,7 +50,7 @@ std::shared_ptr<Fire> Player::createFire() const
 	Vector2f vel(fireSpeed, 0.f);
 	if (dynamic_cast<GraphicsComponent*>(components.at(ComponentID::GRAPHICS).get())->getSpriteSheet()->getSpriteDirection() == Direction::Left) vel.x = vel.x * -1.0f;
 	dynamic_cast<VelocityComponent*>(fireEntity->getComponent(ComponentID::VELOCITY))->setVelocity(vel.x, vel.y);
-
+	AudioLocator::getAudioManager().playSound("fireShot");
 	return fireEntity;
 }
 

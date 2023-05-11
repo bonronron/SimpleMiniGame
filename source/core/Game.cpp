@@ -18,9 +18,12 @@
 #include "../../include/components/TTLComponent.h"
 #include "../../include/entities/Fire.h"
 #include "../../include/entities/StaticEntities.h"
+#include "../../include/utils/AudioLocator.h"
+#include "../../include/utils/AudioService.h"
 
 Game::Game() : paused(false), entityID(0), inputHandler{ std::make_unique<InputHandler>() }, debugInfo{ true }
 {
+
 	logicSystems.push_back(std::make_shared<TTLSystem>());
 	logicSystems.push_back(std::make_shared<MovementSystem>());
 	logicSystems.push_back(std::make_shared<InputSystem>());
@@ -31,6 +34,9 @@ Game::Game() : paused(false), entityID(0), inputHandler{ std::make_unique<InputH
 	if (debugInfo) {
 		graphicsSystems.push_back(std::make_shared<PrintDebugSystem>());
 	}
+
+	AudioManager* audio = new AudioService();
+	AudioLocator::provide(audio);
 }
 
 Game::~Game(){}
@@ -174,6 +180,7 @@ void Game::update(float elapsed)
 						dynamic_cast<HealthComponent*>(player->getComponent(ComponentID::HEALTH))->changeHealth(potion->getHealth());
 						std::cout << " Collide with potion " << std::endl;
 						std::cout << " Player health : " << dynamic_cast<HealthComponent*>(player->getComponent(ComponentID::HEALTH))->getHealth() << "\tHealth restored : " << potion->getHealth() << std::endl;
+						AudioLocator::getAudioManager().playSound("potionPickup");
 						potion->deleteEntity();
 						break; 
 					}
