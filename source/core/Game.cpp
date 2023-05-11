@@ -147,6 +147,10 @@ void Game::init(std::vector<std::string> lines)
 		}
 		row++; it++;
 	}
+	std::function<void(Entity&, bool)> potionCallback = std::bind(&Player::collidesPotionCallback, player, std::placeholders::_1, std::placeholders::_2);
+	std::function<void(Entity&, bool)> logCallback = std::bind(&Player::collidesLogCallback, player, std::placeholders::_1, std::placeholders::_2);
+	collisionCallbacks.emplace(EntityType::POTION, potionCallback);
+	collisionCallbacks.emplace(EntityType::LOG, logCallback);
 }
 
 void Game::addEntity(std::shared_ptr<Entity> newEntity)
@@ -160,6 +164,7 @@ void Game::update(float elapsed)
 {
 	if (!paused) {
 		auto it = entities.begin();
+		//Collision
 		while (it != entities.end()) {
 			if (dynamic_cast<ColliderComponent*>((*it)->getComponent(ComponentID::COLLIDER)) == nullptr) {
 				it++; 
@@ -167,38 +172,13 @@ void Game::update(float elapsed)
 			}
 			auto player = getPlayer();
 			if (player->collidesWith(*(*it).get())) {
-				switch ((*it)->getEntityType()) {
-				case EntityType::POTION:
-					{
-						Potion* potion = dynamic_cast<Potion*>((*it).get());
-						dynamic_cast<HealthComponent*>(player->getComponent(ComponentID::HEALTH))->changeHealth(potion->getHealth());
-						std::cout << " Collide with potion " << std::endl;
-						std::cout << " Player health : " << dynamic_cast<HealthComponent*>(player->getComponent(ComponentID::HEALTH))->getHealth() << "\tHealth restored : " << potion->getHealth() << std::endl;
-						potion->deleteEntity();
-						break; 
-					}
-				case EntityType::LOG:
-					{
-						Log* log = dynamic_cast<Log*>((*it).get());
-						std::cout << " Collide with log " << std::endl;
-						auto playerGraphics = dynamic_cast<SpriteSheetGraphicsComponent*>(dynamic_cast<GraphicsComponent*>(player->getComponent(ComponentID::GRAPHICS)));
-						auto playerLogic = dynamic_cast<PlayerStateComponent*>(player->getComponent(ComponentID::LOGIC));
-						if( playerGraphics->getSpriteSheet()->getCurrentAnim()->isInAction()
-							&& playerGraphics->getSpriteSheet()->getCurrentAnim()->getName() == "Attack") 
-						{
-							playerLogic->addWood(log->getWood());
-							std::cout << " Logs : " <<playerLogic->getWood() << "\tLogs collected : " << log->getWood() << std::endl;
-							log->deleteEntity();
-						}
-						break;
-					}
-
-				}
+				if (collisionCallbacks.find((*it)->getEntityType()) != collisionCallbacks.end())
+					collisionCallbacks.at((*it)->getEntityType())(*(*it).get(),debugInfo);
 			}
 			it++;
 		}
 
-
+		//Deletion
 		it = entities.begin();
 		while (it != entities.end()) {
 			if ((*it)->isDeleted()) {

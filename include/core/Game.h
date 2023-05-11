@@ -1,5 +1,6 @@
 #include "../graphics/Window.h"
 #include "../core/Board.h"
+#include <functional>
 
 class InputHandler;
 class Player;
@@ -55,5 +56,7 @@ private:
 
 	std::vector<std::shared_ptr<System>> logicSystems;
 	std::vector<std::shared_ptr<System>> graphicsSystems;
+	std::map<EntityType, std::function<void(Entity&,bool)>> collisionCallbacks;
+
 };
 
