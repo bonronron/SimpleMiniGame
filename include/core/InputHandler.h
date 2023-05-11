@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include <vector>
+#include <string>
 class Command;
 class InputHandler {
 public:
@@ -10,11 +11,18 @@ private:
 	std::shared_ptr<Command> pauseCommand;
 };
 
+
+enum class InputMode {
+	ASDW,
+	CURSOR
+};
+
 class PlayerInputHandler {
 public:
 	PlayerInputHandler();
 	std::vector<std::shared_ptr<Command>>& handleInput();
 private:
+	void swapInputModes();
 	std::vector<std::shared_ptr<Command>> simultaneousCommands;
 	std::shared_ptr<Command> moveRightCommand;
 	std::shared_ptr<Command> moveLeftCommand;
@@ -22,4 +30,6 @@ private:
 	std::shared_ptr<Command> moveDownCommand;
 	std::shared_ptr<Command> shoutCommand;
 	std::shared_ptr<Command> attackCommand;
+	std::map<std::string,sf::Keyboard::Key> boundCommands;
+	InputMode inputMode;
 };
