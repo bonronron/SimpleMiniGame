@@ -1,5 +1,7 @@
 #include <iostream>
 #include "../../include/utils/Bitmask.h"
+#include "../../include/utils/Observer.h"
+#include "../../include/utils/Subject.h"
 #include "../../include/components/Components.h"
 #include "../../include/entities/Entity.h"
 #include "../../include/systems/Systems.h"
@@ -7,7 +9,6 @@
 #include "../../include/graphics/SpriteSheet.h"
 #include "../../include/entities/Player.h"
 #include "../../include/core/InputHandler.h"
-#include "../../include/core/Game.h"
 #include "../../include/core/Command.h"
 #include "../../include/components/HealthComponent.h"
 #include "../../include/components/PositionComponent.h"
@@ -18,8 +19,10 @@
 #include "../../include/components/TTLComponent.h"
 #include "../../include/entities/Fire.h"
 #include "../../include/entities/StaticEntities.h"
+#include "../../include/core/Game.h"
 
-Game::Game() : paused(false), entityID(0), inputHandler{ std::make_unique<InputHandler>() }, debugInfo{ true }
+Game::Game() : paused(false), entityID(0), inputHandler{ std::make_unique<InputHandler>() }, 
+debugInfo{ false }, achievementsManager {new AchievementManager()}
 {
 	logicSystems.push_back(std::make_shared<TTLSystem>());
 	logicSystems.push_back(std::make_shared<MovementSystem>());
@@ -147,6 +150,11 @@ void Game::init(std::vector<std::string> lines)
 		}
 		row++; it++;
 	}
+	int allPotions{ 0 };
+	for (std::shared_ptr<Entity> ent : entities) {
+		if (ent->getEntityType() == EntityType::POTION) allPotions++;
+	}
+	achievementsManager->init(*this,allPotions,5);
 }
 
 void Game::addEntity(std::shared_ptr<Entity> newEntity)
@@ -175,6 +183,7 @@ void Game::update(float elapsed)
 						std::cout << " Collide with potion " << std::endl;
 						std::cout << " Player health : " << dynamic_cast<HealthComponent*>(player->getComponent(ComponentID::HEALTH))->getHealth() << "\tHealth restored : " << potion->getHealth() << std::endl;
 						potion->deleteEntity();
+						player->getPickPotionSubject().notify(*player, Events::PotionPickup); //TODO: REMEMBER TO SWITCH THIS INSIDE PLAYER WHEN MERGING WITH COLLISION MANAGER
 						break; 
 					}
 				case EntityType::LOG:

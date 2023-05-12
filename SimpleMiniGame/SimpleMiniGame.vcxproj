@@ -157,7 +157,9 @@
     <ClInclude Include="..\include\graphics\Window.h" />
     <ClInclude Include="..\include\systems\Systems.h" />
     <ClInclude Include="..\include\utils\Bitmask.h" />
+    <ClInclude Include="..\include\utils\Observer.h" />
     <ClInclude Include="..\include\utils\Rectangle.h" />
+    <ClInclude Include="..\include\utils\Subject.h" />
     <ClInclude Include="..\include\utils\Vector2.h" />
   </ItemGroup>
   <ItemGroup>
@@ -190,7 +192,9 @@
     <ClCompile Include="..\source\systems\LogicSystem.cpp" />
     <ClCompile Include="..\source\systems\PrintDebugSystem.cpp" />
     <ClCompile Include="..\source\systems\TTLSystem.cpp" />
+    <ClCompile Include="..\source\utils\Observer.cpp" />
     <ClCompile Include="..\source\utils\Rectangle.cpp" />
+    <ClCompile Include="..\source\utils\Subject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\img\DwarfSpriteSheet.png" />

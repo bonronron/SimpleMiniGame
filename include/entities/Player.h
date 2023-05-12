@@ -1,5 +1,6 @@
 #pragma once
 class Fire;
+class Subject;
 class Player :  public Entity
 {
 public:
@@ -18,5 +19,12 @@ public:
 	void init(const std::string& textureFile, std::shared_ptr<GraphicsComponent> gc) override;
 	bool collidesWith(Entity& other);
 	std::shared_ptr<Fire> createFire() const;
+
+	Subject& getPickPotionSubject() { return pickPotion; };
+	Subject& getShoutsSubject() { return shout; };
+
+private:
+	Subject pickPotion;
+	Subject shout;
 };
 

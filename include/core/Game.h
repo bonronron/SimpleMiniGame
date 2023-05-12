@@ -3,6 +3,10 @@
 
 class InputHandler;
 class Player;
+class System;
+using EntityID = unsigned int;
+class AchievementManager;
+
 class Game
 {
 public:
@@ -55,5 +59,8 @@ private:
 
 	std::vector<std::shared_ptr<System>> logicSystems;
 	std::vector<std::shared_ptr<System>> graphicsSystems;
+
+	AchievementManager* achievementsManager;
+
 };
 

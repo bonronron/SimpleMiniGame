@@ -1,6 +1,7 @@
 #include "../../include/core/Command.h"
 #include "../../include/components/Components.h"
 #include "../../include/entities/Entity.h"
+#include "../../include/utils/Subject.h"
 #include "../../include/entities/Player.h"
 #include "../../include/systems/Systems.h"
 #include "../../include/core/Game.h"

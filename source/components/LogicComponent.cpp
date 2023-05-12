@@ -1,9 +1,11 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "../../include/utils/Bitmask.h"
+#include "../../include/utils/Observer.h"
 #include "../../include/components/Components.h"
 #include "../../include/entities/Entity.h"
 #include "../../include/systems/Systems.h"
+#include "../../include/utils/Subject.h"
 #include "../../include/entities/Player.h"
 #include "../../include/core/Game.h"
 #include "../../include/graphics/SpriteSheet.h"
@@ -26,6 +28,7 @@ void PlayerStateComponent::update(Entity* entity, Game* game, float elapsedTime)
 		shootCooldown = shootCooldownTime;
 		game->addEntity(player->createFire());
 		wood = wood - shootingCost;
+		player->getShoutsSubject().notify(*player,Events::Shout);
 	}
 	auto spriteSheet = graphicsComp->getSpriteSheet();
 
