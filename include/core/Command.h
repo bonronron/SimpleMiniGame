@@ -29,3 +29,6 @@ class AttackCommand :public Command {
 class ShoutCommand :public Command {
 	void execute(Game& game) override;
 };
+class SwapControlsCommand :public Command {
+	void execute(Game& game) override;
+};

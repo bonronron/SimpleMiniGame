@@ -17,7 +17,8 @@ std::shared_ptr<Command> InputHandler::handleInput() {
 PlayerInputHandler::PlayerInputHandler() : moveRightCommand{ std::make_shared<MoveRightCommand>() },
 	moveLeftCommand{ std::make_shared<MoveLeftCommand>() }, moveUpCommand{ std::make_shared<MoveUpCommand>() },
 	moveDownCommand{ std::make_shared<MoveDownCommand>() }, shoutCommand{ std::make_shared<ShoutCommand>() },
-	attackCommand{ std::make_shared<AttackCommand>() }, inputMode{InputMode::CURSOR}
+	attackCommand{ std::make_shared<AttackCommand>() }, swapControlsCommand{std::make_shared<SwapControlsCommand>()},
+	inputMode {InputMode::CURSOR}
 {
 	if (inputMode == InputMode::ASDW) {
 		boundCommands.insert({ "moveRight",sf::Keyboard::D });
@@ -75,7 +76,7 @@ std::vector<std::shared_ptr<Command>>& PlayerInputHandler::handleInput() {
 		simultaneousCommands.push_back(shoutCommand);
 	}
 	if (sf::Keyboard::isKeyPressed(boundCommands.at("swapInputModes"))) {
-		swapInputModes();
+		simultaneousCommands.push_back(swapControlsCommand);
 	}
 
 	return simultaneousCommands;
