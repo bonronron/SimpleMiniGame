@@ -2,6 +2,7 @@
 #include "../../include/components/Components.h"
 #include "../../include/entities/Entity.h"
 #include "../../include/systems/Systems.h"
+#include "../../include/utils/Rectangle.h"
 #include "../../include/graphics/SpriteSheet.h"
 #include "../../include/entities/Player.h"
 #include "../../include/core/InputHandler.h"
@@ -17,7 +18,7 @@
 #include "../../include/entities/Fire.h"
 #include "../../include/entities/StaticEntities.h"
 
-BigArrayECS::BigArrayECS(std::shared_ptr<Game> game) : ECSArchitecture(game) {
+BigArrayECS::BigArrayECS(Game* game) : ECSArchitecture(game) {
 
 	logicSystems.push_back(std::make_shared<TTLSystem>());
 	logicSystems.push_back(std::make_shared<MovementSystem>());
@@ -96,10 +97,18 @@ void BigArrayECS::bigArray(float elapsedTime, std::vector<std::shared_ptr<System
 		auto iterEntity{ entities.begin() };
 		while (iterEntity != entities.end()) {
 			if ((!(*iterEntity)->isDeleted()) && (*it)->validate((*iterEntity).get())) {
-				(*it)->update(game.get(), (*iterEntity).get(), elapsedTime);
+				(*it)->update(game, (*iterEntity).get(), elapsedTime);
 			}
 			iterEntity++;
 		}
 		it++;
 	}
+}
+std::shared_ptr<Entity> BigArrayECS::getEntity(unsigned int idx)
+{
+	if (idx > entities.size() - 1) {
+		throw std::runtime_error("ID OUT OF RANGE OF ENTITIES VECTOR");
+		return nullptr;
+	}
+	return entities[idx];
 }

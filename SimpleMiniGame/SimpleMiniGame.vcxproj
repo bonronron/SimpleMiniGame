@@ -144,6 +144,7 @@
     <ClInclude Include="..\include\components\VelocityComponent.h" />
     <ClInclude Include="..\include\core\Board.h" />
     <ClInclude Include="..\include\core\Command.h" />
+    <ClInclude Include="..\include\core\ECSArchitecture.h" />
     <ClInclude Include="..\include\core\Game.h" />
     <ClInclude Include="..\include\core\InputHandler.h" />
     <ClInclude Include="..\include\core\Tile.h" />
@@ -170,7 +171,9 @@
     <ClCompile Include="..\main.cpp" />
     <ClCompile Include="..\source\components\GraphicsComponent.cpp" />
     <ClCompile Include="..\source\components\LogicComponent.cpp" />
+    <ClCompile Include="..\source\core\BigArrayECS.cpp" />
     <ClCompile Include="..\source\core\Board.cpp" />
+    <ClCompile Include="..\source\core\ECSArchitecture.cpp" />
     <ClCompile Include="..\source\core\Game.cpp" />
     <ClCompile Include="..\source\core\GameCommand.cpp" />
     <ClCompile Include="..\source\core\InputHandler.cpp" />

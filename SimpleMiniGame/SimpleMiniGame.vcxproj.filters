@@ -93,6 +93,9 @@
     <ClInclude Include="..\include\systems\Systems.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\core\ECSArchitecture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\levels\lvl0.txt">
@@ -179,6 +182,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\source\systems\PrintDebugSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\core\ECSArchitecture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\core\BigArrayECS.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

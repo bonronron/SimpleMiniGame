@@ -18,19 +18,11 @@
 #include "../../include/components/TTLComponent.h"
 #include "../../include/entities/Fire.h"
 #include "../../include/entities/StaticEntities.h"
+#include "../../include/core/ECSArchitecture.h" //
 
-Game::Game() : paused(false), entityID(0), inputHandler{ std::make_unique<InputHandler>() }, debugInfo{ true }
+Game::Game() : paused(false)
 {
-	logicSystems.push_back(std::make_shared<TTLSystem>());
-	logicSystems.push_back(std::make_shared<MovementSystem>());
-	logicSystems.push_back(std::make_shared<InputSystem>());
-	logicSystems.push_back(std::make_shared<ColliderSystem>());
-	logicSystems.push_back(std::make_shared<LogicSystem>());
-
-	graphicsSystems.push_back(std::make_shared<GraphicsSystem>());
-	if (debugInfo) {
-		graphicsSystems.push_back(std::make_shared<PrintDebugSystem>());
-	}
+	ECS = std::make_unique<BigArrayECS>(this);
 }
 
 Game::~Game(){}
@@ -45,7 +37,7 @@ std::shared_ptr<T> Game::buildEntityAt(const std::string& filename, int col, int
 
 	dynamic_cast<PositionComponent*>(ent->getComponent(ComponentID::POSITION))->setPosition(x + cntrFactor, y + cntrFactor);
 	ent->init(filename, std::make_shared<SimpleSpriteGraphicsComponent>(itemScale));
-	
+
 	return ent;
 }
 
@@ -62,17 +54,17 @@ void Game::initWindow(size_t width, size_t height)
 	window.redraw();
 }
 
-void Game::positionSprite(Entity& entity, int row, int col, int spriteWH, float tileScale) {
-	sf::Vector2f scaleV2f = dynamic_cast<GraphicsComponent*>(entity.getComponent(ComponentID::GRAPHICS))->getSpriteScale();
-	sf::Vector2i textureSize = dynamic_cast<GraphicsComponent*>(entity.getComponent(ComponentID::GRAPHICS))->getTextureSize();
-
-	float x = col * spriteWH * tileScale;
-	float y = (row)*spriteWH * tileScale;
-	float spriteSizeY = scaleV2f.y * textureSize.y;
-	float cntrFactorY = ((spriteWH * tileScale) - spriteSizeY);	// to align to lower side of the tile.
-	float cntrFactorX = cntrFactorY * 0.5f;						//to center horizontally
-	dynamic_cast<PositionComponent*>(entity.getComponent(ComponentID::POSITION))->setPosition(x + cntrFactorX, y + cntrFactorY);
-}
+//void Game::positionSprite(Entity& entity, int row, int col, int spriteWH, float tileScale) {
+//	sf::Vector2f scaleV2f = dynamic_cast<GraphicsComponent*>(entity.getComponent(ComponentID::GRAPHICS))->getSpriteScale();
+//	sf::Vector2i textureSize = dynamic_cast<GraphicsComponent*>(entity.getComponent(ComponentID::GRAPHICS))->getTextureSize();
+//
+//	float x = col * spriteWH * tileScale;
+//	float y = (row)*spriteWH * tileScale;
+//	float spriteSizeY = scaleV2f.y * textureSize.y;
+//	float cntrFactorY = ((spriteWH * tileScale) - spriteSizeY);	// to align to lower side of the tile.
+//	float cntrFactorX = cntrFactorY * 0.5f;						//to center horizontally
+//	dynamic_cast<PositionComponent*>(entity.getComponent(ComponentID::POSITION))->setPosition(x + cntrFactorX, y + cntrFactorY);
+//}
 
 void Game::init(std::vector<std::string> lines)
 {
@@ -117,7 +109,7 @@ void Game::init(std::vector<std::string> lines)
 			{
 				
 				auto ent = buildEntityAt<Log>("../img/log.png", col, row);
-				addEntity(ent);		
+				ECS->addEntity(ent);
 				board->addTile(col, row, tileScale, TileType::CORRIDOR);
 
 				break;
@@ -127,17 +119,18 @@ void Game::init(std::vector<std::string> lines)
 				
 				auto ent = buildEntityAt<Potion>("../img/potion.png", col, row);
 
-				addEntity(ent);	
+				ECS->addEntity(ent);	
 				board->addTile(col, row, tileScale, TileType::CORRIDOR);
 				break;
 			}
 			case '*':
 				{
-				player = std::make_shared<Player>();
-				player->init("../img/DwarfSpriteSheet_data.txt",std::make_shared<SpriteSheetGraphicsComponent>());
-				positionSprite(*player, row, col, spriteWH, tileScale);
-				dynamic_cast<VelocityComponent*>(player->getComponent(ComponentID::VELOCITY))->setVelocity(0.f, 0.f);
-				addEntity(player);
+				ECS->initPlayer(row, col, spriteWH, tileScale);
+				//player = std::make_shared<Player>();
+				//player->init("../img/DwarfSpriteSheet_data.txt",std::make_shared<SpriteSheetGraphicsComponent>());
+				//positionSprite(*player, row, col, spriteWH, tileScale);
+				//dynamic_cast<VelocityComponent*>(player->getComponent(ComponentID::VELOCITY))->setVelocity(0.f, 0.f);
+				//addEntity(player);
 				board->addTile(col, row, tileScale, TileType::CORRIDOR);
 				break;
 				}
@@ -149,65 +142,11 @@ void Game::init(std::vector<std::string> lines)
 	}
 }
 
-void Game::addEntity(std::shared_ptr<Entity> newEntity)
-{
-	++entityID;
-	newEntity->setID(entityID);
-	entities.push_back(newEntity);
-}
 
 void Game::update(float elapsed)
 {
 	if (!paused) {
-		auto it = entities.begin();
-		while (it != entities.end()) {
-			if (dynamic_cast<ColliderComponent*>((*it)->getComponent(ComponentID::COLLIDER)) == nullptr) {
-				it++; 
-				continue;
-			}
-			auto player = getPlayer();
-			if (player->collidesWith(*(*it).get())) {
-				switch ((*it)->getEntityType()) {
-				case EntityType::POTION:
-					{
-						Potion* potion = dynamic_cast<Potion*>((*it).get());
-						dynamic_cast<HealthComponent*>(player->getComponent(ComponentID::HEALTH))->changeHealth(potion->getHealth());
-						std::cout << " Collide with potion " << std::endl;
-						std::cout << " Player health : " << dynamic_cast<HealthComponent*>(player->getComponent(ComponentID::HEALTH))->getHealth() << "\tHealth restored : " << potion->getHealth() << std::endl;
-						potion->deleteEntity();
-						break; 
-					}
-				case EntityType::LOG:
-					{
-						Log* log = dynamic_cast<Log*>((*it).get());
-						std::cout << " Collide with log " << std::endl;
-						auto playerGraphics = dynamic_cast<SpriteSheetGraphicsComponent*>(dynamic_cast<GraphicsComponent*>(player->getComponent(ComponentID::GRAPHICS)));
-						auto playerLogic = dynamic_cast<PlayerStateComponent*>(player->getComponent(ComponentID::LOGIC));
-						if( playerGraphics->getSpriteSheet()->getCurrentAnim()->isInAction()
-							&& playerGraphics->getSpriteSheet()->getCurrentAnim()->getName() == "Attack") 
-						{
-							playerLogic->addWood(log->getWood());
-							std::cout << " Logs : " <<playerLogic->getWood() << "\tLogs collected : " << log->getWood() << std::endl;
-							log->deleteEntity();
-						}
-						break;
-					}
-
-				}
-			}
-			it++;
-		}
-
-
-		it = entities.begin();
-		while (it != entities.end()) {
-			if ((*it)->isDeleted()) {
-				it = entities.erase(it);
-			}
-			else
-				it++;
-		}
-		bigArray(elapsed,logicSystems);
+		ECS->update(elapsed);
 	}
 	window.update();
 }
@@ -216,11 +155,7 @@ void Game::render(float elapsed)
 {
 	window.beginDraw();
 	board->draw(&window);
-	for (std::shared_ptr<Entity> e : entities) {
-		//dynamic_cast<GraphicsComponent*>(e->getComponent(ComponentID::GRAPHICS))->draw(&window);
-		//dynamic_cast<ColliderComponent*>(e->getComponent(ComponentID::COLLIDER))->draw(&window);
-	}
-	bigArray(elapsed, graphicsSystems);
+	ECS->render(elapsed);
 	window.drawGUI(*this);
 	window.endDraw();
 }
@@ -233,31 +168,4 @@ void Game::setFPS(int FPS)
 {
 	std::string text("FPS: " + std::to_string(FPS));
 	window.getFPSText().setString(text);
-}
-EntityID Game::getIDCounter()
-{
-	return entityID;  
-}
-
-std::shared_ptr<Entity> Game::getEntity(unsigned int idx)
-{
-	if (idx > entities.size() - 1) {
-		throw std::runtime_error("ID OUT OF RANGE OF ENTITIES VECTOR");
-		return nullptr;
-	}
-	return entities[idx];
-}
-
-void Game::bigArray(float elapsedTime, std::vector<std::shared_ptr<System>> systems) {
-	auto it{ systems.begin() };
-	while (it != systems.end()) {
-		auto iterEntity{ entities.begin() };
-		while (iterEntity != entities.end()) {
-			if ((!(*iterEntity)->isDeleted()) && (*it)->validate((*iterEntity).get())) {
-				(*it)->update(this, (*iterEntity).get(), elapsedTime);
-			}
-			iterEntity++;
-		}
-		it++;
-	}
 }
