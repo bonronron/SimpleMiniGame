@@ -190,6 +190,9 @@
     <ClCompile Include="..\source\core\BigArrayECS.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\core\ArchetypeECS.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\img\DwarfSpriteSheet.png">

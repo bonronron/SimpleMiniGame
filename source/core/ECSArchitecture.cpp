@@ -19,21 +19,30 @@
 #include "../../include/entities/Fire.h"
 #include "../../include/entities/StaticEntities.h"
 
-ECSArchitecture::ECSArchitecture(Game* gamePointer) : game{gamePointer}, entityID(0), inputHandler{ std::make_unique<InputHandler>() }, debugInfo{ true } {}
+ECSArchitecture::ECSArchitecture(Game* gamePointer) : game{ gamePointer }, entityID(0), inputHandler{ std::make_unique<InputHandler>() }, debugInfo{ true } {
+	graphicsSystems.push_back(std::make_shared<GraphicsSystem>());
+	if (debugInfo) {
+		graphicsSystems.push_back(std::make_shared<PrintDebugSystem>());
+	}
+}
 
-//template <typename T>
-//std::shared_ptr<T> ECSArchitecture::buildEntityAt(const std::string& filename, int col, int row)
-//{
-//	auto ent = std::make_shared<T>();
-//	float x = col * spriteWH * tileScale;
-//	float y = row * spriteWH * tileScale;
-//	float cntrFactor = (tileScale - itemScale) * spriteWH * 0.5f;
-//
-//	dynamic_cast<PositionComponent*>(ent->getComponent(ComponentID::POSITION))->setPosition(x + cntrFactor, y + cntrFactor);
-//	ent->init(filename, std::make_shared<SimpleSpriteGraphicsComponent>(itemScale));
-//
-//	return ent;
-//}
+void ECSArchitecture::updateSystemsForEntities(float elapsedTime, std::vector<std::shared_ptr<System>> systems, std::vector<std::shared_ptr<Entity>> entities) {
+	auto it{ systems.begin() };
+	while (it != systems.end()) {
+		auto iterEntity{ entities.begin() };
+		while (iterEntity != entities.end()) {
+			if ((!(*iterEntity)->isDeleted()) && (*it)->validate((*iterEntity).get())) {
+				(*it)->update(game, (*iterEntity).get(), elapsedTime);
+			}
+			iterEntity++;
+		}
+		it++;
+	}
+}
+
+void ECSArchitecture::render(float elapsed) {
+	updateSystemsForEntities(elapsed, graphicsSystems, entities);
+}
 
 void ECSArchitecture::positionSprite(Entity& entity, int row, int col, int spriteWH, float tileScale) {
 	sf::Vector2f scaleV2f = dynamic_cast<GraphicsComponent*>(entity.getComponent(ComponentID::GRAPHICS))->getSpriteScale();

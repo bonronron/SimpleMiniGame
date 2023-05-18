@@ -18,11 +18,11 @@
 #include "../../include/components/TTLComponent.h"
 #include "../../include/entities/Fire.h"
 #include "../../include/entities/StaticEntities.h"
-#include "../../include/core/ECSArchitecture.h" //
+#include "../../include/core/ECSArchitecture.h"
 
 Game::Game() : paused(false)
 {
-	ECS = std::make_unique<BigArrayECS>(this);
+	ECS = std::make_unique<ArchetypeECS>(this);
 }
 
 Game::~Game(){}
@@ -53,18 +53,6 @@ void Game::initWindow(size_t width, size_t height)
 	window.setSize(sf::Vector2u(wdt, hgt));
 	window.redraw();
 }
-
-//void Game::positionSprite(Entity& entity, int row, int col, int spriteWH, float tileScale) {
-//	sf::Vector2f scaleV2f = dynamic_cast<GraphicsComponent*>(entity.getComponent(ComponentID::GRAPHICS))->getSpriteScale();
-//	sf::Vector2i textureSize = dynamic_cast<GraphicsComponent*>(entity.getComponent(ComponentID::GRAPHICS))->getTextureSize();
-//
-//	float x = col * spriteWH * tileScale;
-//	float y = (row)*spriteWH * tileScale;
-//	float spriteSizeY = scaleV2f.y * textureSize.y;
-//	float cntrFactorY = ((spriteWH * tileScale) - spriteSizeY);	// to align to lower side of the tile.
-//	float cntrFactorX = cntrFactorY * 0.5f;						//to center horizontally
-//	dynamic_cast<PositionComponent*>(entity.getComponent(ComponentID::POSITION))->setPosition(x + cntrFactorX, y + cntrFactorY);
-//}
 
 void Game::init(std::vector<std::string> lines)
 {
@@ -110,6 +98,7 @@ void Game::init(std::vector<std::string> lines)
 				
 				auto ent = buildEntityAt<Log>("../img/log.png", col, row);
 				ECS->addEntity(ent);
+				std::cout << "AddedEntity";
 				board->addTile(col, row, tileScale, TileType::CORRIDOR);
 
 				break;
@@ -120,17 +109,14 @@ void Game::init(std::vector<std::string> lines)
 				auto ent = buildEntityAt<Potion>("../img/potion.png", col, row);
 
 				ECS->addEntity(ent);	
+				std::cout << "AddedEntity";
 				board->addTile(col, row, tileScale, TileType::CORRIDOR);
 				break;
 			}
 			case '*':
 				{
 				ECS->initPlayer(row, col, spriteWH, tileScale);
-				//player = std::make_shared<Player>();
-				//player->init("../img/DwarfSpriteSheet_data.txt",std::make_shared<SpriteSheetGraphicsComponent>());
-				//positionSprite(*player, row, col, spriteWH, tileScale);
-				//dynamic_cast<VelocityComponent*>(player->getComponent(ComponentID::VELOCITY))->setVelocity(0.f, 0.f);
-				//addEntity(player);
+				std::cout << "AddedEntity";
 				board->addTile(col, row, tileScale, TileType::CORRIDOR);
 				break;
 				}
