@@ -5,7 +5,7 @@
 #include "../../include/entities/Entity.h"
 #include "../../include/systems/Systems.h"
 #include "../../include/entities/Player.h"
-#include "../../include/core/ECSArchitecture.h"
+#include "../../include/ECSArchitecture/ECSArchitecture.h"
 #include "../../include/core/Game.h"
 #include "../../include/graphics/SpriteSheet.h"
 #include "../../include/components/TTLComponent.h"

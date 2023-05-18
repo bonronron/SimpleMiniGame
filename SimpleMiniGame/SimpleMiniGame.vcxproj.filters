@@ -93,10 +93,10 @@
     <ClInclude Include="..\include\systems\Systems.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\core\ECSArchitecture.h">
+    <ClInclude Include="..\include\ECSArchitecture\Archetype.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\ECSArchitecture\Archetype.h">
+    <ClInclude Include="..\include\ECSArchitecture\ECSArchitecture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -187,16 +187,16 @@
     <ClCompile Include="..\source\systems\PrintDebugSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\core\ECSArchitecture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\core\BigArrayECS.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\core\ArchetypeECS.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\source\ECSArchitecture\Archetype.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\ECSArchitecture\ArchetypeECS.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\ECSArchitecture\BigArrayECS.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\ECSArchitecture\ECSArchitecture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -18,7 +18,7 @@
 #include "../../include/components/TTLComponent.h"
 #include "../../include/entities/Fire.h"
 #include "../../include/entities/StaticEntities.h"
-#include "../../include/core/ECSArchitecture.h"
+#include "../../include/ECSArchitecture/ECSArchitecture.h"
 
 Game::Game() : paused(false)
 {

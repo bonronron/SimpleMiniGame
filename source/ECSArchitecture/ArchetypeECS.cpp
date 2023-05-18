@@ -10,7 +10,7 @@
 #include "../../include/graphics/SpriteSheet.h"
 #include "../../include/entities/Player.h"
 #include "../../include/core/InputHandler.h"
-#include "../../include/core/ECSArchitecture.h"
+#include "../../include/ECSArchitecture/ECSArchitecture.h"
 #include "../../include/core/Command.h"
 #include "../../include/components/HealthComponent.h"
 #include "../../include/components/PositionComponent.h"
