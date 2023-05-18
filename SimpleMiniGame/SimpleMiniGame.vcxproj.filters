@@ -96,6 +96,9 @@
     <ClInclude Include="..\include\core\ECSArchitecture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\ECSArchitecture\Archetype.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\levels\lvl0.txt">
@@ -191,6 +194,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\source\core\ArchetypeECS.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\ECSArchitecture\Archetype.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

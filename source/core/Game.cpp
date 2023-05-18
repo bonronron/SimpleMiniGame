@@ -24,7 +24,6 @@ Game::Game() : paused(false)
 {
 	ECS = std::make_unique<ArchetypeECS>(this);
 }
-
 Game::~Game(){}
 
 template <typename T>

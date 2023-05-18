@@ -20,13 +20,19 @@
 #include "../../include/entities/StaticEntities.h"
 
 ECSArchitecture::ECSArchitecture(Game* gamePointer) : game{ gamePointer }, entityID(0), inputHandler{ std::make_unique<InputHandler>() }, debugInfo{ true } {
+	logicSystems.push_back(std::make_shared<TTLSystem>());
+	logicSystems.push_back(std::make_shared<InputSystem>());
+	logicSystems.push_back(std::make_shared<MovementSystem>());
+	logicSystems.push_back(std::make_shared<ColliderSystem>());
+	logicSystems.push_back(std::make_shared<LogicSystem>());
+
 	graphicsSystems.push_back(std::make_shared<GraphicsSystem>());
 	if (debugInfo) {
 		graphicsSystems.push_back(std::make_shared<PrintDebugSystem>());
 	}
 }
 
-void ECSArchitecture::updateSystemsForEntities(float elapsedTime, std::vector<std::shared_ptr<System>> systems, std::vector<std::shared_ptr<Entity>> entities) {
+void ECSArchitecture::updateSystems(float elapsedTime, std::vector<std::shared_ptr<System>> systems, std::vector<std::shared_ptr<Entity>> entities) {
 	auto it{ systems.begin() };
 	while (it != systems.end()) {
 		auto iterEntity{ entities.begin() };
@@ -41,7 +47,7 @@ void ECSArchitecture::updateSystemsForEntities(float elapsedTime, std::vector<st
 }
 
 void ECSArchitecture::render(float elapsed) {
-	updateSystemsForEntities(elapsed, graphicsSystems, entities);
+	updateSystems(elapsed, graphicsSystems, entities);
 }
 
 void ECSArchitecture::positionSprite(Entity& entity, int row, int col, int spriteWH, float tileScale) {
@@ -62,4 +68,13 @@ void ECSArchitecture::initPlayer(int row, int col, int spriteWH, float tileScale
 	positionSprite(*player, row, col, spriteWH, tileScale);
 	dynamic_cast<VelocityComponent*>(player->getComponent(ComponentID::VELOCITY))->setVelocity(0.f, 0.f);
 	addEntity(player);
+}
+
+std::shared_ptr<Entity> ECSArchitecture::getEntity(unsigned int idx)
+{
+	if (idx > entities.size() - 1) {
+		throw std::runtime_error("ID OUT OF RANGE OF ENTITIES VECTOR");
+		return nullptr;
+	}
+	return entities[idx];
 }

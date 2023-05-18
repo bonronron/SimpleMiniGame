@@ -19,12 +19,6 @@
 #include "../../include/entities/StaticEntities.h"
 
 BigArrayECS::BigArrayECS(Game* game) : ECSArchitecture(game) {
-
-	logicSystems.push_back(std::make_shared<TTLSystem>());
-	logicSystems.push_back(std::make_shared<MovementSystem>());
-	logicSystems.push_back(std::make_shared<InputSystem>());
-	logicSystems.push_back(std::make_shared<ColliderSystem>());
-	logicSystems.push_back(std::make_shared<LogicSystem>());
 }
 
 void BigArrayECS::addEntity(std::shared_ptr<Entity> newEntity) {
@@ -35,8 +29,10 @@ void BigArrayECS::addEntity(std::shared_ptr<Entity> newEntity) {
 
 void BigArrayECS::update(float elapsed) {
 
-	updateSystemsForEntities(elapsed, logicSystems, entities);
+	// Updating logic
+	updateSystems(elapsed, logicSystems, entities);
 
+	// Colliders
 	auto it = entities.begin();
 	while (it != entities.end()) {
 		if (dynamic_cast<ColliderComponent*>((*it)->getComponent(ComponentID::COLLIDER)) == nullptr) {
@@ -72,6 +68,7 @@ void BigArrayECS::update(float elapsed) {
 		it++;
 	}
 
+	// Deleting entities to be deleted
 	it = entities.begin();
 	while (it != entities.end()) {
 		if ((*it)->isDeleted()) {
@@ -80,13 +77,4 @@ void BigArrayECS::update(float elapsed) {
 		else
 			it++;
 	}
-}
-
-std::shared_ptr<Entity> BigArrayECS::getEntity(unsigned int idx)
-{
-	if (idx > entities.size() - 1) {
-		throw std::runtime_error("ID OUT OF RANGE OF ENTITIES VECTOR");
-		return nullptr;
-	}
-	return entities[idx];
 }

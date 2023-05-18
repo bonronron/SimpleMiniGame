@@ -5,6 +5,7 @@
 #include "../../include/components/Components.h"
 #include "../../include/entities/Entity.h"
 #include "../../include/systems/Systems.h"
+#include "../../include/ECSArchitecture/Archetype.h"
 #include "../../include/utils/Rectangle.h"
 #include "../../include/graphics/SpriteSheet.h"
 #include "../../include/entities/Player.h"
@@ -21,66 +22,42 @@
 #include "../../include/entities/Fire.h"
 #include "../../include/entities/StaticEntities.h"
 
-ArchetypeECS::ArchetypeECS(Game* game) : ECSArchitecture(game) {
-
-}
+ArchetypeECS::ArchetypeECS(Game* game) : ECSArchitecture(game) {}
 
 void ArchetypeECS::addEntity(std::shared_ptr<Entity> newEntity) {
+	// Adding entity to base class
 	++entityID;
 	newEntity->setID(entityID);
 	entities.push_back(newEntity);
-
-	int bitmask = bitmask2Int(newEntity->getComponentSet());
-
-	if (archetypes.count(bitmask)) {
-		archetypes[bitmask].push_back(newEntity);
+	// Checking with existing archetypes
+	// How to break out of for loop
+	bool isAdded = false;
+	auto it = archetypes.begin();
+	while (it != archetypes.end()) {
+		if ((*it)->isEntityOfArchetype(*newEntity)) {
+			(*it)->addEntity2Archetype(newEntity);
+			isAdded = true;
+		}
+		it++;
 	}
-	else {
-		std::vector<std::shared_ptr<Entity>> newArchetype;
-		newArchetype.push_back(newEntity);
-		archetypes.insert({ bitmask, newArchetype });
-
-		std::vector<std::shared_ptr<System>> newArchetypeLogicSystems = systems4Archetype(newEntity->getComponentSet());
-		archetypeLogicSystems.insert({ bitmask,newArchetypeLogicSystems });
+	// if failed creating new archetype
+	if (!isAdded) {
+		std::shared_ptr<Archetype> newArchetype = std::make_shared<Archetype>(newEntity, &logicSystems);
+		archetypes.push_back(newArchetype);
 	}
 }
 
-int ArchetypeECS::bitmask2Int(Bitmask bitmask) {
-	int intValue = 0;
-	for (int i = 0; i < 8; i++) {
-		if (bitmask.getBit(i))
-			intValue = intValue + (int)pow(2,i);
-	}
-	return intValue;
-}
-std::vector<std::shared_ptr<System>> ArchetypeECS::systems4Archetype(Bitmask bitmask) {
-	std::vector<std::shared_ptr<System>> archetypeLogicSystems;
-	if(bitmask[])
-	archetypeLogicSystems.push_back(std::make_shared<TTLSystem>());
-	archetypeLogicSystems.push_back(std::make_shared<MovementSystem>());
-	archetypeLogicSystems.push_back(std::make_shared<InputSystem>());
-	archetypeLogicSystems.push_back(std::make_shared<ColliderSystem>());
-	archetypeLogicSystems.push_back(std::make_shared<LogicSystem>());
-
-	return archetypeLogicSystems;
-}
-
-//UNDEFINED = -1,
-//INPUT = 0,
-//POSITION = 1,
-//VELOCITY = 2,
-//HEALTH = 3,
-//GRAPHICS = 4,
-//LOGIC = 5,
-//TTL = 6,
-//COLLIDER = 7
 
 void ArchetypeECS::update(float elapsed) {
-	auto mapIt = archetypes.begin();
-	while (mapIt != archetypes.end()) {
-		updateSystemsForEntities(elapsed, archetypeLogicSystems.at((*mapIt).first), (*mapIt).second);
-		mapIt++;
+
+	// Updating logic for archetypes
+	auto archetypeIt = archetypes.begin();
+	while (archetypeIt != archetypes.end()) {
+		updateSystems(elapsed, (*archetypeIt)->getLogicSystems(), (*archetypeIt)->getEntities());
+		archetypeIt++;
 	}
+
+	// Colliders
 	auto it = entities.begin();
 	while (it != entities.end()) {
 		if (dynamic_cast<ColliderComponent*>((*it)->getComponent(ComponentID::COLLIDER)) == nullptr) {
@@ -116,6 +93,7 @@ void ArchetypeECS::update(float elapsed) {
 		it++;
 	}
 
+	// Deleting entities to be deleted
 	it = entities.begin();
 	while (it != entities.end()) {
 		if ((*it)->isDeleted()) {
@@ -124,13 +102,4 @@ void ArchetypeECS::update(float elapsed) {
 		else
 			it++;
 	}
-}
-
-std::shared_ptr<Entity> ArchetypeECS::getEntity(unsigned int idx)
-{
-	if (idx > entities.size() - 1) {
-		throw std::runtime_error("ID OUT OF RANGE OF ENTITIES VECTOR");
-		return nullptr;
-	}
-	return entities[idx];
 }

@@ -52,5 +52,4 @@ protected:
 	bool deleted;
 
 	std::map<ComponentID, std::shared_ptr<Component>> components;
-
 };
