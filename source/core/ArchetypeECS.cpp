@@ -26,9 +26,7 @@ ArchetypeECS::ArchetypeECS(Game* game) : ECSArchitecture(game) {}
 
 void ArchetypeECS::addEntity(std::shared_ptr<Entity> newEntity) {
 	// Adding entity to base class
-	++entityID;
-	newEntity->setID(entityID);
-	entities.push_back(newEntity);
+	addToBase(newEntity);
 	// Checking with existing archetypes
 	bool isAdded = false;
 	auto it = archetypes.begin();
@@ -56,56 +54,24 @@ void ArchetypeECS::update(float elapsed) {
 		auto archetypeIt = archetypes.begin();
 		while (archetypeIt != archetypes.end()) {
 			if ((*archetypeIt)->validateSystem(*systemIt))
-				updateSystem(elapsed, (*systemIt), entities);
+				updateSystem(elapsed, (*systemIt), (*archetypeIt)->getEntities());
 			archetypeIt++;
 		}
 		systemIt++;
 	}
+	colliderAndDeleteBase();
 
-	// Colliders
-	auto it = entities.begin();
-	while (it != entities.end()) {
-		if (dynamic_cast<ColliderComponent*>((*it)->getComponent(ComponentID::COLLIDER)) == nullptr) {
-			it++;
-			continue;
-		}
-		auto player = getPlayer();
-		if (player->collidesWith(*(*it).get())) {
-			switch ((*it)->getEntityType()) {
-			case EntityType::POTION:
-			{
-				Potion* potion = dynamic_cast<Potion*>((*it).get());
-				dynamic_cast<HealthComponent*>(player->getComponent(ComponentID::HEALTH))->changeHealth(potion->getHealth());
-				potion->deleteEntity();
-				break;
+	auto archetypeIt = archetypes.begin();
+	while (archetypeIt != archetypes.end()) {
+		auto tempEntities = ((*archetypeIt)->getEntities());
+		auto entityIt = tempEntities.begin();
+		while (entityIt != tempEntities.end()) {
+			if ((*entityIt)->isDeleted()) {
+				entityIt = entities.erase(entityIt);
 			}
-			case EntityType::LOG:
-			{
-				Log* log = dynamic_cast<Log*>((*it).get());
-				auto playerGraphics = dynamic_cast<SpriteSheetGraphicsComponent*>(dynamic_cast<GraphicsComponent*>(player->getComponent(ComponentID::GRAPHICS)));
-				auto playerLogic = dynamic_cast<PlayerStateComponent*>(player->getComponent(ComponentID::LOGIC));
-				if (playerGraphics->getSpriteSheet()->getCurrentAnim()->isInAction()
-					&& playerGraphics->getSpriteSheet()->getCurrentAnim()->getName() == "Attack")
-				{
-					playerLogic->addWood(log->getWood());
-					log->deleteEntity();
-				}
-				break;
-			}
-
-			}
+			else
+				entityIt++;
 		}
-		it++;
-	}
-	// Moving entities if needed
-	
-	// Deleting entities to be deleted
-	it = entities.begin();
-	while (it != entities.end()) {
-		if ((*it)->isDeleted()) {
-			it = entities.erase(it);
-		}
-		else
-			it++;
+		archetypeIt++;
 	}
 }

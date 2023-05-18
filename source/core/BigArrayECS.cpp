@@ -22,59 +22,11 @@ BigArrayECS::BigArrayECS(Game* game) : ECSArchitecture(game) {
 }
 
 void BigArrayECS::addEntity(std::shared_ptr<Entity> newEntity) {
-	++entityID;
-	newEntity->setID(entityID);
-	entities.push_back(newEntity);
+	addToBase(newEntity);
 }
 
 void BigArrayECS::update(float elapsed) {
-
 	// Updating logic
 	updateSystems(elapsed, logicSystems, entities);
-
-	// Colliders
-	auto it = entities.begin();
-	while (it != entities.end()) {
-		if (dynamic_cast<ColliderComponent*>((*it)->getComponent(ComponentID::COLLIDER)) == nullptr) {
-			it++;
-			continue;
-		}
-		auto player = getPlayer();
-		if (player->collidesWith(*(*it).get())) {
-			switch ((*it)->getEntityType()) {
-			case EntityType::POTION:
-			{
-				Potion* potion = dynamic_cast<Potion*>((*it).get());
-				dynamic_cast<HealthComponent*>(player->getComponent(ComponentID::HEALTH))->changeHealth(potion->getHealth());
-				potion->deleteEntity();
-				break;
-			}
-			case EntityType::LOG:
-			{
-				Log* log = dynamic_cast<Log*>((*it).get());
-				auto playerGraphics = dynamic_cast<SpriteSheetGraphicsComponent*>(dynamic_cast<GraphicsComponent*>(player->getComponent(ComponentID::GRAPHICS)));
-				auto playerLogic = dynamic_cast<PlayerStateComponent*>(player->getComponent(ComponentID::LOGIC));
-				if (playerGraphics->getSpriteSheet()->getCurrentAnim()->isInAction()
-					&& playerGraphics->getSpriteSheet()->getCurrentAnim()->getName() == "Attack")
-				{
-					playerLogic->addWood(log->getWood());
-					log->deleteEntity();
-				}
-				break;
-			}
-
-			}
-		}
-		it++;
-	}
-
-	// Deleting entities to be deleted
-	it = entities.begin();
-	while (it != entities.end()) {
-		if ((*it)->isDeleted()) {
-			it = entities.erase(it);
-		}
-		else
-			it++;
-	}
+	colliderAndDeleteBase();
 }

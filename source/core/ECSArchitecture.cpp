@@ -49,6 +49,11 @@ void ECSArchitecture::updateSystem(float elapsedTime, std::shared_ptr<System> sy
 	}
 
 }
+void ECSArchitecture::addToBase(std::shared_ptr<Entity> newEntity) {
+	++entityID;
+	newEntity->setID(entityID);
+	entities.push_back(newEntity);
+}
 void ECSArchitecture::render(float elapsed) {
 	updateSystems(elapsed, graphicsSystems, entities);
 }
@@ -80,4 +85,52 @@ std::shared_ptr<Entity> ECSArchitecture::getEntity(unsigned int idx)
 		return nullptr;
 	}
 	return entities[idx];
+}
+
+void ECSArchitecture::colliderAndDeleteBase() {
+	// Colliders
+	auto it = entities.begin();
+	while (it != entities.end()) {
+		if (dynamic_cast<ColliderComponent*>((*it)->getComponent(ComponentID::COLLIDER)) == nullptr) {
+			it++;
+			continue;
+		}
+		auto player = getPlayer();
+		if (player->collidesWith(*(*it).get())) {
+			switch ((*it)->getEntityType()) {
+			case EntityType::POTION:
+			{
+				Potion* potion = dynamic_cast<Potion*>((*it).get());
+				dynamic_cast<HealthComponent*>(player->getComponent(ComponentID::HEALTH))->changeHealth(potion->getHealth());
+				potion->deleteEntity();
+				break;
+			}
+			case EntityType::LOG:
+			{
+				Log* log = dynamic_cast<Log*>((*it).get());
+				auto playerGraphics = dynamic_cast<SpriteSheetGraphicsComponent*>(dynamic_cast<GraphicsComponent*>(player->getComponent(ComponentID::GRAPHICS)));
+				auto playerLogic = dynamic_cast<PlayerStateComponent*>(player->getComponent(ComponentID::LOGIC));
+				if (playerGraphics->getSpriteSheet()->getCurrentAnim()->isInAction()
+					&& playerGraphics->getSpriteSheet()->getCurrentAnim()->getName() == "Attack")
+				{
+					playerLogic->addWood(log->getWood());
+					log->deleteEntity();
+				}
+				break;
+			}
+
+			}
+		}
+		it++;
+	}
+
+	// Deleting entities to be deleted
+	it = entities.begin();
+	while (it != entities.end()) {
+		if ((*it)->isDeleted()) {
+			it = entities.erase(it);
+		}
+		else
+			it++;
+	}
 }
