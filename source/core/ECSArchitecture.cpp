@@ -35,17 +35,20 @@ ECSArchitecture::ECSArchitecture(Game* gamePointer) : game{ gamePointer }, entit
 void ECSArchitecture::updateSystems(float elapsedTime, std::vector<std::shared_ptr<System>> systems, std::vector<std::shared_ptr<Entity>> entities) {
 	auto it{ systems.begin() };
 	while (it != systems.end()) {
-		auto iterEntity{ entities.begin() };
-		while (iterEntity != entities.end()) {
-			if ((!(*iterEntity)->isDeleted()) && (*it)->validate((*iterEntity).get())) {
-				(*it)->update(game, (*iterEntity).get(), elapsedTime);
-			}
-			iterEntity++;
-		}
+		updateSystem(elapsedTime, (*it), entities);
 		it++;
 	}
 }
+void ECSArchitecture::updateSystem(float elapsedTime, std::shared_ptr<System> system, std::vector<std::shared_ptr<Entity>> entities) {
+	auto iterEntity{ entities.begin() };
+	while (iterEntity != entities.end()) {
+		if ((!(*iterEntity)->isDeleted()) && system->validate((*iterEntity).get())) {
+			system->update(game, (*iterEntity).get(), elapsedTime);
+		}
+		iterEntity++;
+	}
 
+}
 void ECSArchitecture::render(float elapsed) {
 	updateSystems(elapsed, graphicsSystems, entities);
 }

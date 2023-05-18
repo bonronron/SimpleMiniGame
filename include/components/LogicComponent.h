@@ -28,7 +28,7 @@ private:
 	int wood;
 	float shootCooldown;
 public:
-	PlayerStateComponent() :attacking{ false }, shouting{ false }, wood{ 0 }, shootCooldown{ 0 } {};
+	PlayerStateComponent() :attacking{ false }, shouting{ false }, wood{ 40 }, shootCooldown{ 0 } {};
 	void update(Entity* entity, Game* game, float elapsedTime) override;
 	void addWood(int w);
 	int getWood() const { return wood; }

@@ -30,19 +30,19 @@ void ArchetypeECS::addEntity(std::shared_ptr<Entity> newEntity) {
 	newEntity->setID(entityID);
 	entities.push_back(newEntity);
 	// Checking with existing archetypes
-	// How to break out of for loop
 	bool isAdded = false;
 	auto it = archetypes.begin();
 	while (it != archetypes.end()) {
 		if ((*it)->isEntityOfArchetype(*newEntity)) {
 			(*it)->addEntity2Archetype(newEntity);
 			isAdded = true;
+			break;
 		}
 		it++;
 	}
 	// if failed creating new archetype
 	if (!isAdded) {
-		std::shared_ptr<Archetype> newArchetype = std::make_shared<Archetype>(newEntity, &logicSystems);
+		std::shared_ptr<Archetype> newArchetype = std::make_shared<Archetype>(newEntity);
 		archetypes.push_back(newArchetype);
 	}
 }
@@ -51,10 +51,15 @@ void ArchetypeECS::addEntity(std::shared_ptr<Entity> newEntity) {
 void ArchetypeECS::update(float elapsed) {
 
 	// Updating logic for archetypes
-	auto archetypeIt = archetypes.begin();
-	while (archetypeIt != archetypes.end()) {
-		updateSystems(elapsed, (*archetypeIt)->getLogicSystems(), (*archetypeIt)->getEntities());
-		archetypeIt++;
+	auto systemIt = logicSystems.begin();
+	while (systemIt != logicSystems.end()) {
+		auto archetypeIt = archetypes.begin();
+		while (archetypeIt != archetypes.end()) {
+			if ((*archetypeIt)->validateSystem(*systemIt))
+				updateSystem(elapsed, (*systemIt), entities);
+			archetypeIt++;
+		}
+		systemIt++;
 	}
 
 	// Colliders
@@ -92,7 +97,8 @@ void ArchetypeECS::update(float elapsed) {
 		}
 		it++;
 	}
-
+	// Moving entities if needed
+	
 	// Deleting entities to be deleted
 	it = entities.begin();
 	while (it != entities.end()) {

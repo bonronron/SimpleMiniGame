@@ -1,5 +1,4 @@
 #include "../graphics/Window.h"
-#include<map>
 class InputHandler;
 class Player;
 class Archetype;
@@ -8,11 +7,11 @@ class Archetype;
 class ECSArchitecture {
 protected:
 	std::vector<std::shared_ptr<Entity>> entities;
-	std::vector<std::shared_ptr<System>> logicSystems;
 	Game* game;
 	std::shared_ptr<Player> player;
 	std::unique_ptr<InputHandler> inputHandler;
 	EntityID entityID;
+	std::vector<std::shared_ptr<System>> logicSystems;
 	std::vector<std::shared_ptr<System>> graphicsSystems;
 	bool debugInfo;
 public:
@@ -30,6 +29,7 @@ public:
 
 	// This is similar to execute for BigArray but is placed in base ECS so that ArchetypeECS can use this for updating systems without code duplication
 	void updateSystems(float elapsedTime, std::vector<std::shared_ptr<System>> systems, std::vector<std::shared_ptr<Entity>> entities);
+	void updateSystem(float elapsedTime, std::shared_ptr<System> systems, std::vector<std::shared_ptr<Entity>> entities);
 };
 class BigArrayECS : public ECSArchitecture {
 private:
@@ -46,4 +46,5 @@ public:
 	ArchetypeECS(Game* game);
 	void update(float elapsed) override;
 	void addEntity(std::shared_ptr<Entity> newEntity) override;
+	void moveEntity();
 };

@@ -22,7 +22,7 @@
 
 Game::Game() : paused(false)
 {
-	ECS = std::make_unique<ArchetypeECS>(this);
+	ECS = std::make_unique<BigArrayECS>(this);
 }
 Game::~Game(){}
 
