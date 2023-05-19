@@ -64,6 +64,11 @@ void ArchetypeECS::update(float elapsed) {
 	auto archetypeIt = archetypes.begin();
 	while (archetypeIt != archetypes.end()) {
 		(*archetypeIt)->deleteEntities();
-		archetypeIt++;
+		if ((*archetypeIt)->getEntities().size() == 0) {
+			archetypeIt = archetypes.erase(archetypeIt);
+		}
+		else {
+			archetypeIt++;
+		}
 	}
 }

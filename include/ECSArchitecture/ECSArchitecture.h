@@ -1,4 +1,5 @@
 #include "../graphics/Window.h"
+#include <list>
 class InputHandler;
 class Player;
 class Archetype;
@@ -43,7 +44,7 @@ public:
 
 class ArchetypeECS : public ECSArchitecture {
 private:
-	std::vector<std::shared_ptr<Archetype>> archetypes;
+	std::list<std::shared_ptr<Archetype>> archetypes;
 public:
 	ArchetypeECS(Game* game);
 	void update(float elapsed) override;
