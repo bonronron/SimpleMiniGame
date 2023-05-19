@@ -84,7 +84,6 @@ void Game::init(std::vector<std::string> lines)
 			case '.':
 			{
 				board->addTile(col, row, tileScale,TileType::CORRIDOR);
-
 				break;
 			}
 			case 'w':
@@ -94,33 +93,25 @@ void Game::init(std::vector<std::string> lines)
 			}
 			case 'x':
 			{
-				
 				auto ent = buildEntityAt<Log>("../img/log.png", col, row);
 				ECS->addEntity(ent);
-				std::cout << "AddedEntity";
 				board->addTile(col, row, tileScale, TileType::CORRIDOR);
-
 				break;
 			}
 			case 'p':
 			{
-				
 				auto ent = buildEntityAt<Potion>("../img/potion.png", col, row);
-
 				ECS->addEntity(ent);	
-				std::cout << "AddedEntity";
 				board->addTile(col, row, tileScale, TileType::CORRIDOR);
 				break;
 			}
 			case '*':
 				{
 				ECS->initPlayer(row, col, spriteWH, tileScale);
-				std::cout << "AddedEntity";
 				board->addTile(col, row, tileScale, TileType::CORRIDOR);
 				break;
 				}
 			}
-
 			col++; is++;
 		}
 		row++; it++;

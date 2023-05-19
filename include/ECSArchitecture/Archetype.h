@@ -13,4 +13,5 @@ public:
 	void addEntity2Archetype(std::shared_ptr<Entity> newEntity);
 	bool isEntityOfArchetype(Entity entity);
 	bool validateSystem(std::shared_ptr<System> system);
+	void deleteEntities();
 };

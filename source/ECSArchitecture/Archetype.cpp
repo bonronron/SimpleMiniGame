@@ -19,3 +19,13 @@ bool Archetype::isEntityOfArchetype(Entity entity) {
 bool Archetype::validateSystem(std::shared_ptr<System> system) {
 	return system->validate((*entities.begin()).get());
 }
+void Archetype::deleteEntities() {
+	auto entityIt = entities.begin();
+	while (entityIt != entities.end()) {
+		if ((*entityIt)->isDeleted()) {
+			entityIt = entities.erase(entityIt);
+		}
+		else
+			entityIt++;
+	}
+}

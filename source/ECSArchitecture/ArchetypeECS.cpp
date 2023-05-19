@@ -63,15 +63,7 @@ void ArchetypeECS::update(float elapsed) {
 
 	auto archetypeIt = archetypes.begin();
 	while (archetypeIt != archetypes.end()) {
-		auto tempEntities = ((*archetypeIt)->getEntities());
-		auto entityIt = tempEntities.begin();
-		while (entityIt != tempEntities.end()) {
-			if ((*entityIt)->isDeleted()) {
-				entityIt = entities.erase(entityIt);
-			}
-			else
-				entityIt++;
-		}
+		(*archetypeIt)->deleteEntities();
 		archetypeIt++;
 	}
 }
