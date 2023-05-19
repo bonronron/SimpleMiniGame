@@ -5,6 +5,7 @@
 #include "../../include/entities/Entity.h"
 #include "../../include/systems/Systems.h"
 #include "../../include/entities/Player.h"
+#include "../../include/ECSArchitecture/ECSArchitecture.h"
 #include "../../include/core/Game.h"
 #include "../../include/graphics/SpriteSheet.h"
 #include "../../include/components/TTLComponent.h"
@@ -24,7 +25,7 @@ void PlayerStateComponent::update(Entity* entity, Game* game, float elapsedTime)
 	auto velocityComp = dynamic_cast<VelocityComponent*>(player->getComponent(ComponentID::VELOCITY));
 	if (graphicsComp->getSpriteSheet()->getCurrentAnim()->getName() == "Shout" && graphicsComp->getSpriteSheet()->getCurrentAnim()->isInAction() && wood >= shootingCost && shootCooldown <= 0) {
 		shootCooldown = shootCooldownTime;
-		game->addEntity(player->createFire());
+		game->getECS()->addEntity(player->createFire());
 		wood = wood - shootingCost;
 	}
 	auto spriteSheet = graphicsComp->getSpriteSheet();
