@@ -6,6 +6,8 @@
 class Board
 {
 private:
+	std::shared_ptr<TileIntrinsic> wallData;
+	std::shared_ptr<TileIntrinsic> columnData;
 	size_t width;
 	size_t height;
 	std::vector<Tile*> grid;

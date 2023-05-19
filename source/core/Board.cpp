@@ -9,6 +9,8 @@ Board::Board(size_t newWidth, size_t newHeight) :
 	width(newWidth), 
 	height(newHeight)
 {
+	wallData = std::make_shared<TileIntrinsic>(TileType::WALL);
+	columnData = std::make_shared<TileIntrinsic>(TileType::CORRIDOR);
 }
 
 Board::~Board()
@@ -48,9 +50,13 @@ void Board::addTile(int x, int y, float scale, TileType tt, const std::string& f
 {
 	if(!inBounds(x, y))
 		throw std::runtime_error("Out of bounds of the board.");
+	Tile* newTile;
+	if (tt == TileType::WALL)
+		newTile = new Tile(wallData);
+	else
+		newTile = new Tile(columnData);
 
-	Tile* newTile = new Tile(tt);
-	newTile->loadTile(x, y, scale, filename);
+	newTile->loadTile(x, y, scale);
 	grid.emplace_back(newTile);
 }
 

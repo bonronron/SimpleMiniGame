@@ -6,30 +6,35 @@ enum class TileType {
 	CORRIDOR,
 	WALL
 };
+class TileIntrinsic {
+private:
+	void loadDefaultTexture();
+public:
+	sf::Texture texture;
+	TileType type;
 
+	TileIntrinsic(TileType tt, const std::string& textureFilename = "");
+};
 class Tile
 {
 
 private:
-
-	TileType type;
 	sf::Vector2i position; // Position in the grid (not in screen pixels, for that sprite.getPosition())
-	sf::Texture texture;
+	std::shared_ptr<TileIntrinsic> tileData;
 	sf::Sprite sprite;
 
-	void loadDefaultTexture();
 	void place(int x, int y, float sc);
 
 public:
 
-	Tile(TileType tt) : position(0, 0), type(tt) {}
-	void loadTile(int x, int yy, float sc, const std::string& textureFilename = "");
+	Tile(std::shared_ptr<TileIntrinsic> td) : position(0, 0), tileData(td) {}
+	void loadTile(int x, int y, float sc);
 
 	//void setPosition(int x, int y);
 	inline int x() const { return position.x; }
 	inline int y() const { return position.y; }
 	inline const sf::Vector2f& getScale() const { return sprite.getScale(); }
-	inline TileType getType() const { return type; }
+	inline TileType getType() const { return tileData->type; }
 	inline float getSpriteXpos() const { return sprite.getPosition().x; }
 	inline float getSpriteYpos() const { return sprite.getPosition().y; }
 	void draw(Window* window);

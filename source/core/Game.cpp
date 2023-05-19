@@ -104,13 +104,13 @@ void Game::init(std::vector<std::string> lines)
 			{
 			case '.':
 			{
-				board->addTile(col, row, tileScale,TileType::CORRIDOR);
+				board->addTile(col, row, tileScale, TileType::CORRIDOR);
 
 				break;
 			}
 			case 'w':
 			{
-				board->addTile(col, row, tileScale,TileType::WALL); 
+				board->addTile(col, row, tileScale, TileType::WALL); 
 				break;
 			}
 			case 'x':

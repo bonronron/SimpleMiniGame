@@ -2,29 +2,15 @@
 #include <sstream>
 
 
-void Tile::loadTile(int x, int y, float sc, const std::string& textureFilename)
+void Tile::loadTile(int x, int y, float sc)
 {
-	//load texture (default or by string).
-	if (textureFilename.size() > 0)
-	{
-		if (!texture.loadFromFile(textureFilename))
-		{
-			std::stringstream sss;
-			sss << "Texture file not found: " << textureFilename;
-			throw std::exception(sss.str().c_str());
-		}
-	}
-	else {
-		loadDefaultTexture();
-	}
-
-	//Place tile on the screen.
 	place(x, y, sc);
 }
 
 
 void Tile::place(int x, int y, float sc)
 {
+	sprite.setTexture(tileData->texture);
 	//Position in grid:
 	position.x = x;
 	position.y = y;
@@ -33,14 +19,14 @@ void Tile::place(int x, int y, float sc)
 	sprite.setScale(sc, sc);
 
 	//Position on screen:
-	sf::Vector2u textSize = texture.getSize();
+	sf::Vector2u textSize = tileData->texture.getSize();
 	float pixels_x = static_cast<float>(x * (textSize.x * sc));
 	float pixels_y = static_cast<float>(y * (textSize.y * sc));
 	sprite.setPosition(pixels_x, pixels_y);
 }
 
 
-void Tile::loadDefaultTexture()
+void TileIntrinsic::loadDefaultTexture()
 {
 	switch (type)
 	{
@@ -59,12 +45,26 @@ void Tile::loadDefaultTexture()
 			throw std::exception("mushroom50-50.png image not found");
 		break;
 	}
-
-	sprite.setTexture(texture);
 }
 
 
 void Tile::draw(Window* window)
 {
 	window->draw(sprite);
+}
+
+TileIntrinsic::TileIntrinsic(TileType tt, const std::string& textureFilename): type(tt) {
+	//load texture (default or by string).
+	if (textureFilename.size() > 0)
+	{
+		if (!texture.loadFromFile(textureFilename))
+		{
+			std::stringstream sss;
+			sss << "Texture file not found: " << textureFilename;
+			throw std::exception(sss.str().c_str());
+		}
+	}
+	else {
+		loadDefaultTexture();
+	}
 }
