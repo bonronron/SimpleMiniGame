@@ -1,6 +1,7 @@
 #include "../../include/utils/Bitmask.h"
 #include "../../include/components/Components.h"
 #include "../../include/entities/Entity.h"
+#include "../../include/entities/EntityPool.h"
 #include "../../include/systems/Systems.h"
 #include "../../include/utils/Rectangle.h"
 #include "../../include/graphics/SpriteSheet.h"

@@ -1,14 +1,14 @@
-
 #include "../../include/utils/Bitmask.h"
 #include "../../include/components/Components.h"
 #include "../../include/entities/Entity.h"
+#include "../../include/entities/EntityPool.h"
 #include "../../include/systems/Systems.h"
 #include "../../include/utils/Rectangle.h"
 #include "../../include/graphics/SpriteSheet.h"
 #include "../../include/entities/Player.h"
 #include "../../include/core/InputHandler.h"
+#include "../../include/core/Game.h"
 #include "../../include/ECSArchitecture/ECSArchitecture.h"
-#include "../../include/core/Command.h"
 #include "../../include/components/HealthComponent.h"
 #include "../../include/components/PositionComponent.h"
 #include "../../include/components/VelocityComponent.h"
@@ -19,7 +19,8 @@
 #include "../../include/entities/Fire.h"
 #include "../../include/entities/StaticEntities.h"
 
-ECSArchitecture::ECSArchitecture(Game* gamePointer) : game{ gamePointer }, entityID(0), inputHandler{ std::make_unique<InputHandler>() }, debugInfo{ true } {
+ECSArchitecture::ECSArchitecture(Game* gamePointer) : game{ gamePointer }, entityID(0), inputHandler{ std::make_unique<InputHandler>() }, debugInfo{ true },
+logPool{ EntityPool(EntityType::LOG) }, potionPool{ EntityPool(EntityType::POTION) }, firePool{ EntityPool(EntityType::FIRE) } {
 	logicSystems.push_back(std::make_shared<TTLSystem>());
 	logicSystems.push_back(std::make_shared<InputSystem>());
 	logicSystems.push_back(std::make_shared<MovementSystem>());

@@ -1,7 +1,6 @@
 #pragma once
 
 class Entity;
-class VelocityComponent;
 class Fire : public Entity
 {
 public:
@@ -9,16 +8,6 @@ public:
 
 	Fire();
 	~Fire();
-
-
-	//std::shared_ptr<TTLComponent> getTTLComp() override { return ttl; }
-	//int getTTL() const { return ttl->getTTL(); }
-	//std::shared_ptr<VelocityComponent> getVelocityComp() override { return velocity; }
-
-private:
-
-	//std::shared_ptr<TTLComponent> ttl;
-	//std::shared_ptr<VelocityComponent> velocity;
 
 };
 

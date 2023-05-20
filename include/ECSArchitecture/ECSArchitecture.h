@@ -3,6 +3,7 @@
 class InputHandler;
 class Player;
 class Archetype;
+class EntityPool;
 // Base ECSArchitecture class
 // We have chosen to store a complete list of pointers to entities for rendering and to return entityID
 class ECSArchitecture {
@@ -15,6 +16,10 @@ protected:
 	std::vector<std::shared_ptr<System>> graphicsSystems;
 	std::vector<std::shared_ptr<Entity>> entities;
 	bool debugInfo;
+
+	EntityPool logPool;
+	EntityPool potionPool;
+	EntityPool firePool;
 public:
 	ECSArchitecture(Game* game);
 	virtual void update(float elapsed) = 0;

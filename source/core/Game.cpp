@@ -2,13 +2,13 @@
 #include "../../include/utils/Bitmask.h"
 #include "../../include/components/Components.h"
 #include "../../include/entities/Entity.h"
+#include "../../include/entities/EntityPool.h"
 #include "../../include/systems/Systems.h"
 #include "../../include/utils/Rectangle.h"
 #include "../../include/graphics/SpriteSheet.h"
-//#include "../../include/entities/Player.h"
 #include "../../include/core/InputHandler.h"
 #include "../../include/core/Game.h"
-//#include "../../include/core/Command.h"
+#include "../../include/ECSArchitecture/ECSArchitecture.h"
 #include "../../include/components/HealthComponent.h"
 #include "../../include/components/PositionComponent.h"
 #include "../../include/components/VelocityComponent.h"
@@ -16,9 +16,7 @@
 #include "../../include/components/LogicComponent.h"
 #include "../../include/components/GraphicsComponent.h"
 #include "../../include/components/TTLComponent.h"
-//#include "../../include/entities/Fire.h"
 #include "../../include/entities/StaticEntities.h"
-#include "../../include/ECSArchitecture/ECSArchitecture.h"
 
 Game::Game() : paused(false)
 {
