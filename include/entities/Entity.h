@@ -43,6 +43,11 @@ public:
 	bool isDeleted() const { return deleted; }
 	void deleteEntity() { deleted = true; }
 
+	// EntityPool functions
+	bool isInUse() const { return inUse; }
+	bool setInUse(bool setUse) { inUse = setUse; }
+	std::shared_ptr<Entity> getNext() { return next; }
+	void setNext(std::shared_ptr<Entity> nextEnt) { next = nextEnt; }
 
 protected:
 
@@ -50,6 +55,9 @@ protected:
 	EntityID id;
 	Bitmask componentSet;
 	bool deleted;
+	bool inUse;
+
+	std::shared_ptr<Entity> next;
 
 	std::map<ComponentID, std::shared_ptr<Component>> components;
 };

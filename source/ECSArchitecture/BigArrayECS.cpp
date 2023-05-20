@@ -18,9 +18,7 @@
 #include "../../include/entities/Fire.h"
 #include "../../include/entities/StaticEntities.h"
 
-BigArrayECS::BigArrayECS(Game* game) : ECSArchitecture(game) {
-
-}
+BigArrayECS::BigArrayECS(Game* game) : ECSArchitecture(game) {}
 
 void BigArrayECS::addEntity(std::shared_ptr<Entity> newEntity) {
 	addToBase(newEntity);

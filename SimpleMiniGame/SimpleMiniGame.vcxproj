@@ -150,6 +150,7 @@
     <ClInclude Include="..\include\ECSArchitecture\Archetype.h" />
     <ClInclude Include="..\include\ECSArchitecture\ECSArchitecture.h" />
     <ClInclude Include="..\include\entities\Entity.h" />
+    <ClInclude Include="..\include\entities\EntityPool.h" />
     <ClInclude Include="..\include\entities\Fire.h" />
     <ClInclude Include="..\include\entities\Player.h" />
     <ClInclude Include="..\include\entities\StaticEntities.h" />
@@ -169,6 +170,7 @@
     <Text Include="..\levels\lvl0.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\include\entities\EntityPool.cpp" />
     <ClCompile Include="..\main.cpp" />
     <ClCompile Include="..\source\components\GraphicsComponent.cpp" />
     <ClCompile Include="..\source\components\LogicComponent.cpp" />
