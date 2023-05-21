@@ -3,7 +3,6 @@
 class InputHandler;
 class Player;
 class Archetype;
-class EntityPool;
 // Base ECSArchitecture class
 // We have chosen to store a complete list of pointers to entities for rendering and to return entityID
 class ECSArchitecture {
@@ -17,9 +16,9 @@ protected:
 	std::vector<std::shared_ptr<Entity>> entities;
 	bool debugInfo;
 
-	EntityPool logPool;
-	EntityPool potionPool;
-	EntityPool firePool;
+	EntityPool<Log> logPool;
+	EntityPool<Potion> potionPool;
+	//EntityPool<Fire> firePool;
 public:
 	ECSArchitecture(Game* game);
 	virtual void update(float elapsed) = 0;
@@ -34,6 +33,10 @@ public:
 	void addToBase(std::shared_ptr<Entity> newEntity);
 	std::shared_ptr<Player> getPlayer() { return player; }
 	EntityID getIDCounter() { return entityID; };
+
+	EntityPool<Potion>* getPotionPool() { return &potionPool; }
+	EntityPool<Log>* getLogPool() { return &logPool; }
+	//EntityPool<Fire>* getFirePool() { return &firePool; }
 
 	// This is similar to execute for BigArray but is placed in base ECS so that ArchetypeECS can use this for updating systems without code duplication
 	void updateSystems(float elapsedTime, std::vector<std::shared_ptr<System>> systems, std::vector<std::shared_ptr<Entity>> entities);

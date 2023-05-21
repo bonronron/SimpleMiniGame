@@ -42,11 +42,11 @@ public:
 	bool hasComponent(Bitmask mask) const;
 
 	bool isDeleted() const { return deleted; }
-	void deleteEntity() { deleted = true; }
+	void deleteEntity() { deleted = true; inUse = false; }
 
 	// EntityPool functions
 	bool isInUse() const { return inUse; }
-	bool setInUse(bool setUse) { inUse = setUse; }
+	void setInUse(bool setUse) { inUse = setUse; }
 	std::shared_ptr<Entity> getNext() { return next; }
 	void setNext(std::shared_ptr<Entity> nextEnt) { next = nextEnt; }
 
