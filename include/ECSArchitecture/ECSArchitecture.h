@@ -18,7 +18,7 @@ protected:
 
 	EntityPool<Log> logPool;
 	EntityPool<Potion> potionPool;
-	//EntityPool<Fire> firePool;
+	EntityPool<Fire> firePool;
 public:
 	ECSArchitecture(Game* game);
 	virtual void update(float elapsed) = 0;
@@ -36,7 +36,7 @@ public:
 
 	EntityPool<Potion>* getPotionPool() { return &potionPool; }
 	EntityPool<Log>* getLogPool() { return &logPool; }
-	//EntityPool<Fire>* getFirePool() { return &firePool; }
+	EntityPool<Fire>* getFirePool() { return &firePool; }
 
 	// This is similar to execute for BigArray but is placed in base ECS so that ArchetypeECS can use this for updating systems without code duplication
 	void updateSystems(float elapsedTime, std::vector<std::shared_ptr<System>> systems, std::vector<std::shared_ptr<Entity>> entities);

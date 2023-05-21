@@ -20,7 +20,7 @@
 #include "../../include/ECSArchitecture/ECSArchitecture.h"
 
 ECSArchitecture::ECSArchitecture(Game* gamePointer) : game{ gamePointer }, entityID(0), inputHandler{ std::make_unique<InputHandler>() }, debugInfo{ true },
-logPool{ EntityPool<Log>("../img/log.png") }, potionPool{ EntityPool<Potion>("../img/potion.png") }/*, firePool{ EntityPool<Fire>("../img/potion.png") }*/ {
+logPool{ EntityPool<Log>("../img/log.png") }, potionPool{ EntityPool<Potion>("../img/potion.png") }, firePool{ EntityPool<Fire>("../img/potion.png") } {
 	logicSystems.push_back(std::make_shared<TTLSystem>());
 	logicSystems.push_back(std::make_shared<InputSystem>());
 	logicSystems.push_back(std::make_shared<MovementSystem>());
@@ -125,10 +125,24 @@ void ECSArchitecture::colliderAndDeleteBase() {
 		it++;
 	}
 
-	// Deleting entities from active entities
+	// Removing entities from active entities and adding back to entity pool
 	it = entities.begin();
 	while (it != entities.end()) {
 		if ((*it)->isDeleted()) {
+			auto type = (*it)->getEntityType();
+			switch (type) {
+			case EntityType::LOG:
+				logPool.deleteEntity(std::dynamic_pointer_cast<Log>(*it));
+				break;
+			case EntityType::POTION:
+				potionPool.deleteEntity(std::dynamic_pointer_cast<Potion>(*it));
+				break;
+			case EntityType::FIRE:
+				firePool.deleteEntity(std::dynamic_pointer_cast<Fire>(*it));
+				break;
+			default:
+				break;
+			}
 			it = entities.erase(it);
 		}
 		else
