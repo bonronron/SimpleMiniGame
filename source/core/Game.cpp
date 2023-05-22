@@ -39,6 +39,14 @@ Game::~Game(){}
 //	return ent;
 //}
 
+Vector2f Game::buildEntityCoord(int col, int row) {
+	float x = col * spriteWH * tileScale;
+	float y = row * spriteWH * tileScale;
+	float cntrFactor = (tileScale - itemScale) * spriteWH * 0.5f;
+
+	return Vector2f(x + cntrFactor, y + cntrFactor);
+}
+
 void Game::buildBoard(size_t width, size_t height)
 {
 	board = std::make_unique<Board>(width, height);
@@ -92,14 +100,14 @@ void Game::init(std::vector<std::string> lines)
 			}
 			case 'x':
 			{
-				auto ent = ECS->getLogPool()->buildEntityAt(col, row, spriteWH, tileScale, itemScale);
+				auto ent = ECS->getLogPool()->buildEntityAt(buildEntityCoord(col, row));
 				ECS->addEntity(ent);
 				board->addTile(col, row, tileScale, TileType::CORRIDOR);
 				break;
 			}
 			case 'p':
 			{
-				auto ent = ECS->getPotionPool()->buildEntityAt(col, row, spriteWH, tileScale, itemScale);
+				auto ent = ECS->getPotionPool()->buildEntityAt(buildEntityCoord(col, row));
 				//auto ent = buildEntityAt<Potion>("../img/potion.png", col, row);
 				ECS->addEntity(ent);	
 				board->addTile(col, row, tileScale, TileType::CORRIDOR);

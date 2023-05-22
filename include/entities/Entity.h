@@ -46,7 +46,7 @@ public:
 
 	// EntityPool functions
 	bool isInUse() const { return inUse; }
-	void setInUse(bool setUse) { inUse = setUse; }
+	virtual void reuseEntity() { inUse = true; deleted = false; }
 	std::shared_ptr<Entity> getNext() { return next; }
 	void setNext(std::shared_ptr<Entity> nextEnt) { next = nextEnt; }
 

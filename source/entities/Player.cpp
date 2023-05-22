@@ -17,6 +17,9 @@
 #include "../../include/core/Command.h"
 #include "../../include/entities/Fire.h"
 #include "../../include/entities/Player.h"
+#include "../../include/entities/StaticEntities.h"
+#include "../../include/entities/EntityPool.h"
+#include "../../include/ECSArchitecture/ECSArchitecture.h"
 
 
 Player::Player() : Entity(EntityType::PLAYER)
@@ -37,15 +40,17 @@ void Player::init(const std::string& textureFile, std::shared_ptr<GraphicsCompon
 	dynamic_cast<ColliderComponent*>(getComponent(ComponentID::COLLIDER))->init(size, dynamic_cast<PositionComponent*>(getComponent(ComponentID::POSITION))->getPosition());
 }
 
-std::shared_ptr<Fire> Player::createFire() const
+std::shared_ptr<Fire> Player::createFire(Game* game) const
 {
-	auto fireEntity = std::make_shared<Fire>();		
 	auto playerPosition = dynamic_cast<PositionComponent*>(components.at(ComponentID::POSITION).get())->getPosition();
 	auto playerGraphics = dynamic_cast<GraphicsComponent*>(components.at(ComponentID::GRAPHICS).get());
 	Vector2f pos{ playerPosition.x + playerGraphics->getTextureSize().x * 0.5f,
 		playerPosition.y + playerGraphics->getTextureSize().y * 0.5f };
-	fireEntity->init("../img/fire.png", std::make_shared<SimpleSpriteGraphicsComponent>(1.f));
-	dynamic_cast<PositionComponent*>(fireEntity->getComponent(ComponentID::POSITION))->setPosition(pos.x, pos.y);
+
+	auto fireEntity = game->getECS()->getFirePool()->buildEntityAt(pos);
+
+	//dynamic_cast<PositionComponent*>(fireEntity->getComponent(ComponentID::POSITION))->setPosition(pos.x, pos.y);
+
 	Vector2f vel(fireSpeed, 0.f);
 	if (playerGraphics->getSpriteSheet()->getSpriteDirection() == Direction::Left) vel.x = vel.x * -1.0f;
 	dynamic_cast<VelocityComponent*>(fireEntity->getComponent(ComponentID::VELOCITY))->setVelocity(vel.x, vel.y);

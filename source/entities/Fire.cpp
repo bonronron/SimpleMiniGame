@@ -13,3 +13,8 @@ Fire::Fire() : Entity(EntityType::FIRE)
 Fire::~Fire()
 {}
 
+void Fire::reuseEntity() {
+	inUse = true;
+	deleted = false;
+	dynamic_cast<TTLComponent*>(getComponent(ComponentID::TTL))->setTTL(startTimeToLive);
+}

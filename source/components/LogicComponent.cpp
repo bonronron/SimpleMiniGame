@@ -31,7 +31,7 @@ void PlayerStateComponent::update(Entity* entity, Game* game, float elapsedTime)
 	auto velocityComp = dynamic_cast<VelocityComponent*>(player->getComponent(ComponentID::VELOCITY));
 	if (graphicsComp->getSpriteSheet()->getCurrentAnim()->getName() == "Shout" && graphicsComp->getSpriteSheet()->getCurrentAnim()->isInAction() && wood >= shootingCost && shootCooldown <= 0) {
 		shootCooldown = shootCooldownTime;
-		game->getECS()->addEntity(player->createFire());
+		game->getECS()->addEntity(player->createFire(game));
 		wood = wood - shootingCost;
 	}
 	auto spriteSheet = graphicsComp->getSpriteSheet();

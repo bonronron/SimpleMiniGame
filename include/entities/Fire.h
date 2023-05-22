@@ -8,6 +8,6 @@ public:
 
 	Fire();
 	~Fire();
-
+	void reuseEntity() override;
 };
 

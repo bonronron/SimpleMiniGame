@@ -1,3 +1,4 @@
+#include<iostream>
 #include "../../include/utils/Bitmask.h"
 #include "../../include/components/Components.h"
 #include "../../include/entities/Entity.h"
@@ -20,7 +21,7 @@
 #include "../../include/ECSArchitecture/ECSArchitecture.h"
 
 ECSArchitecture::ECSArchitecture(Game* gamePointer) : game{ gamePointer }, entityID(0), inputHandler{ std::make_unique<InputHandler>() }, debugInfo{ true },
-logPool{ EntityPool<Log>("../img/log.png") }, potionPool{ EntityPool<Potion>("../img/potion.png") }, firePool{ EntityPool<Fire>("../img/potion.png") } {
+logPool{ EntityPool<Log>("../img/log.png") }, potionPool{ EntityPool<Potion>("../img/potion.png") }, firePool{ EntityPool<Fire>("../img/fire.png") } {
 	logicSystems.push_back(std::make_shared<TTLSystem>());
 	logicSystems.push_back(std::make_shared<InputSystem>());
 	logicSystems.push_back(std::make_shared<MovementSystem>());
@@ -141,6 +142,7 @@ void ECSArchitecture::colliderAndDeleteBase() {
 				firePool.deleteEntity(std::dynamic_pointer_cast<Fire>(*it));
 				break;
 			default:
+				std::cout <<"Failed delete"<<std::endl;
 				break;
 			}
 			it = entities.erase(it);

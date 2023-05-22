@@ -20,16 +20,12 @@ public:
 		firstAvailable.reset(&entityPool[0]);
 	}
 
-	std::shared_ptr<T> buildEntityAt(int row,int col, int spriteWH, float tileScale, float itemScale) {
+	std::shared_ptr<T> buildEntityAt(Vector2f pos) {
 		auto retEntity = firstAvailable;
-		retEntity->setInUse(true);
-		//auto ent = std::make_shared<T>();
-		float x = col * spriteWH * tileScale;
-		float y = row * spriteWH * tileScale;
-		float cntrFactor = (tileScale - itemScale) * spriteWH * 0.5f;
-		
-		dynamic_cast<PositionComponent*>(retEntity->getComponent(ComponentID::POSITION))->setPosition(x + cntrFactor, y + cntrFactor);
+		retEntity->reuseEntity();
+		dynamic_cast<PositionComponent*>(retEntity->getComponent(ComponentID::POSITION))->setPosition(pos.x, pos.y);
 		firstAvailable = std::dynamic_pointer_cast<T>(firstAvailable->getNext());
+		retEntity->setNext(nullptr);
 		return retEntity;
 	}
 	void deleteEntity(std::shared_ptr<T> entity) {

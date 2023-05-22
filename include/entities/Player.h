@@ -17,6 +17,6 @@ public:
 
 	void init(const std::string& textureFile, std::shared_ptr<GraphicsComponent> gc) override;
 	bool collidesWith(Entity& other);
-	std::shared_ptr<Fire> createFire() const;
+	std::shared_ptr<Fire> createFire(Game* game) const;
 };
 
