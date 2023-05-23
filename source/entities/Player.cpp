@@ -19,6 +19,7 @@
 #include "../../include/entities/Fire.h"
 #include "../../include/entities/Player.h"
 #include "../../include/entities/StaticEntities.h"
+#include "../../include/utils/Observer.h"
 
 
 
@@ -68,6 +69,7 @@ void Player::collidesPotionCallback(Entity& entity,bool debugInfo) {
 		std::cout << " Collide with potion " << std::endl;
 		std::cout << " Player health : " << dynamic_cast<HealthComponent*>(getComponent(ComponentID::HEALTH))->getHealth() << "\tHealth restored : " << potion.getHealth() << std::endl;
 	}
+	getPickPotionSubject().notify(*this, Events::PotionPickup);
 	potion.deleteEntity();
 }
 

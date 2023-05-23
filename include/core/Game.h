@@ -5,6 +5,7 @@
 class InputHandler;
 class Player;
 class System;
+enum class EntityType;
 using EntityID = unsigned int;
 class AchievementManager;
 

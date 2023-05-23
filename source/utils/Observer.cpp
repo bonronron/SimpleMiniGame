@@ -19,14 +19,14 @@ bool AchievementManager::onNotify(const Entity& entity, Events event) {
     switch(event) {
         case (Events::PotionPickup) : {
             potionsCollected++;
-            if (potionsCollected == thresholdPotions)
+            if (potionsCollected >= thresholdPotions)
                 unlockAchievement(Achievements::POTIONMASTER);
             return true;
             break;
         }
         case (Events::Shout): {
             shouts++;
-            if (potionsCollected == thresholdShouts)
+            if (shouts >= thresholdShouts)
                 unlockAchievement(Achievements::FIREBREATHER);
             return true;
             break;
