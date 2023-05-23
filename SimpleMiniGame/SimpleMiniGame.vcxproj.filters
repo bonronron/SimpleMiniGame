@@ -99,7 +99,13 @@
     <ClInclude Include="..\include\ECSArchitecture\ECSArchitecture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\entities\EntityPool.h">
+    <ClInclude Include="..\include\entities\EntityPool.h">   
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\utils\AudioService.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\utils\AudioLocator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -203,6 +209,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\include\entities\EntityPool.cpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClCompile Include="..\source\utils\AudioService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\utils\AudioLocator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

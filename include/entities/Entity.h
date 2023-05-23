@@ -6,6 +6,8 @@ using EntityID = unsigned int;
 
 class GraphicsComponent;
 class PositionComponent;
+class Component;
+enum class ComponentID;
 
 enum class EntityType
 {

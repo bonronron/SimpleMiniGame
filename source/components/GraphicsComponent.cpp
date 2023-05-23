@@ -3,7 +3,6 @@
 #include "../../include/graphics/SpriteSheet.h"
 #include "../../include/components/Components.h"
 #include "../../include/entities/Entity.h"
-#include "../../include/entities/Player.h"
 #include "../../include/utils/Rectangle.h"
 #include "../../include/components/LogicComponent.h"
 #include "../../include/components/VelocityComponent.h"

@@ -1,4 +1,3 @@
-class Game;
 class PlayerInputHandler; 
 class InputComponent :public Component {
 public:

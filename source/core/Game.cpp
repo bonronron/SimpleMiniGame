@@ -1,12 +1,14 @@
 #include <iostream>
 #include "../../include/utils/Bitmask.h"
+#include "../../include/utils/Observer.h"
+#include "../../include/utils/Subject.h"
 #include "../../include/components/Components.h"
 #include "../../include/entities/Entity.h"
 #include "../../include/systems/Systems.h"
 #include "../../include/utils/Rectangle.h"
 #include "../../include/graphics/SpriteSheet.h"
 #include "../../include/core/InputHandler.h"
-#include "../../include/core/Game.h"
+#include "../../include/core/Command.h"
 #include "../../include/components/HealthComponent.h"
 #include "../../include/components/PositionComponent.h"
 #include "../../include/components/VelocityComponent.h"
@@ -15,10 +17,13 @@
 #include "../../include/components/GraphicsComponent.h"
 #include "../../include/components/TTLComponent.h"
 #include "../../include/entities/Fire.h"
+#include "../../include/entities/Player.h"
 #include "../../include/entities/StaticEntities.h"
 #include "../../include/entities/EntityPool.h"
 #include "../../include/ECSArchitecture/ECSArchitecture.h"
-
+#include "../../include/utils/AudioLocator.h"
+#include "../../include/utils/AudioService.h"
+#include "../../include/core/Game.h"
 Game::Game() : paused(false)
 {
 	ECS = std::make_unique<ArchetypeECS>(this);
@@ -124,6 +129,14 @@ void Game::init(std::vector<std::string> lines)
 		}
 		row++; it++;
 	}
+
+	//COLLISION CALLBACKS
+	std::function<void(Entity&, bool)> potionCallback = std::bind(&Player::collidesPotionCallback, ECS->getPlayer(), std::placeholders::_1, std::placeholders::_2);
+	std::function<void(Entity&, bool)> logCallback = std::bind(&Player::collidesLogCallback, ECS->getPlayer(), std::placeholders::_1, std::placeholders::_2);
+	getECS()->collisionCallbacks.emplace(EntityType::POTION, potionCallback);
+	getECS()->collisionCallbacks.emplace(EntityType::LOG, logCallback);
+
+	getECS()->achievementsManager->init(*this,6,5);
 }
 
 

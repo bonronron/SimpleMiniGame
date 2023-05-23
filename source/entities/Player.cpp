@@ -1,5 +1,6 @@
 #include <iostream>
 #include "../../include/utils/Rectangle.h"
+#include "../../include/utils/Subject.h"
 #include "../../include/graphics/SpriteSheet.h"
 #include "../../include/components/Components.h"
 #include "../../include/entities/Entity.h"
@@ -16,6 +17,10 @@
 #include "../../include/core/InputHandler.h"
 #include "../../include/core/Command.h"
 #include "../../include/entities/Fire.h"
+#include "../../include/entities/StaticEntities.h"
+#include "../../include/utils/Observer.h"
+#include "../../include/utils/AudioService.h"
+#include "../../include/utils/AudioLocator.h"
 #include "../../include/entities/Player.h"
 #include "../../include/entities/StaticEntities.h"
 #include "../../include/entities/EntityPool.h"
@@ -54,7 +59,7 @@ std::shared_ptr<Fire> Player::createFire(Game* game) const
 	Vector2f vel(fireSpeed, 0.f);
 	if (playerGraphics->getSpriteSheet()->getSpriteDirection() == Direction::Left) vel.x = vel.x * -1.0f;
 	dynamic_cast<VelocityComponent*>(fireEntity->getComponent(ComponentID::VELOCITY))->setVelocity(vel.x, vel.y);
-
+	AudioLocator::getAudioManager().playSound("fireShot");
 	return fireEntity;
 }
 
@@ -62,4 +67,31 @@ std::shared_ptr<Fire> Player::createFire(Game* game) const
 bool Player::collidesWith(Entity& other)
 {
 	return dynamic_cast<ColliderComponent*>(getComponent(ComponentID::COLLIDER))->getBoundingBox().intersects(dynamic_cast<ColliderComponent*>(other.getComponent(ComponentID::COLLIDER))->getBoundingBox());
+}
+
+
+void Player::collidesPotionCallback(Entity& entity,bool debugInfo) {
+	Potion& potion = dynamic_cast<Potion&>(entity);
+	dynamic_cast<HealthComponent*>(getComponent(ComponentID::HEALTH))->changeHealth(potion.getHealth());
+	if (debugInfo) {
+		std::cout << " Collide with potion " << std::endl;
+		std::cout << " Player health : " << dynamic_cast<HealthComponent*>(getComponent(ComponentID::HEALTH))->getHealth() << "\tHealth restored : " << potion.getHealth() << std::endl;
+	}
+	getPickPotionSubject().notify(*this, Events::PotionPickup);
+	AudioLocator::getAudioManager().playSound("potionPickup");
+	potion.deleteEntity();
+}
+
+void Player::collidesLogCallback(Entity& entity,bool debugInfo) {
+	Log& log = dynamic_cast<Log&>(entity);
+	if (debugInfo) 	std::cout << " Collide with log " << std::endl;
+	auto playerGraphics = dynamic_cast<SpriteSheetGraphicsComponent*>(dynamic_cast<GraphicsComponent*>(getComponent(ComponentID::GRAPHICS)));
+	auto playerLogic = dynamic_cast<PlayerStateComponent*>(getComponent(ComponentID::LOGIC));
+	if (playerGraphics->getSpriteSheet()->getCurrentAnim()->isInAction()
+		&& playerGraphics->getSpriteSheet()->getCurrentAnim()->getName() == "Attack")
+	{
+		playerLogic->addWood(log.getWood());
+		if(debugInfo) std::cout << " Logs : " << playerLogic->getWood() << "\tLogs collected : " << log.getWood() << std::endl;
+		log.deleteEntity();
+	}
 }

@@ -1,9 +1,12 @@
 #include "../graphics/Window.h"
 #include "../core/Board.h"
+#include <functional>
 
 class InputHandler;
 class Player;
 class ECSArchitecture;
+class AchievementManager;
+
 class Game
 {
 public:
