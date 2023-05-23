@@ -7,6 +7,8 @@
 #include "../../include/utils/Vector2.h"
 #include "../../include/components/VelocityComponent.h"
 #include "../../include/components/LogicComponent.h"
+#include "../../include/components/InputComponent.h"
+#include "../../include/core/InputHandler.h"
 
 void MoveRightCommand::execute(Game& game) {
 	dynamic_cast<VelocityComponent*>(game.getPlayer()->getComponent(ComponentID::VELOCITY))->setVelocityX(1.0f);
@@ -31,4 +33,9 @@ void ShoutCommand::execute(Game& game) {
 	if (!playerLogic->isShouting()) {
 		playerLogic->setShouting(true);
 	}
+}
+
+void SwapControlsCommand::execute(Game& game) {
+	auto inputComponent = dynamic_cast<InputComponent*>(game.getPlayer()->getComponent(ComponentID::INPUT));
+	inputComponent->getInputHandler()->swapInputModes();
 }
