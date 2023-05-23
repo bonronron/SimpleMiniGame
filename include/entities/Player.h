@@ -1,5 +1,6 @@
 #pragma once
 class Fire;
+class Subject;
 class Player :  public Entity
 {
 public:
@@ -20,5 +21,12 @@ public:
 	void collidesPotionCallback(Entity& entity,bool debugInfo);
 	void collidesLogCallback(Entity& entity, bool debugInfo);
 	std::shared_ptr<Fire> createFire() const;
+
+	Subject& getPickPotionSubject() { return pickPotion; };
+	Subject& getShoutsSubject() { return shout; };
+
+private:
+	Subject pickPotion;
+	Subject shout;
 };
 

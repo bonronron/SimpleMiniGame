@@ -1,5 +1,6 @@
 #include <iostream>
 #include "../../include/utils/Rectangle.h"
+#include "../../include/utils/Subject.h"
 #include "../../include/graphics/SpriteSheet.h"
 #include "../../include/components/Components.h"
 #include "../../include/entities/Entity.h"
