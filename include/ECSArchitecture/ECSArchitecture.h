@@ -1,8 +1,17 @@
 #include "../graphics/Window.h"
 #include <list>
+#include <functional>
 class InputHandler;
 class Player;
 class Archetype;
+class System;
+class Log;
+class Potion;
+class Fire;
+template<class>
+class EntityPool;
+using EntityID = unsigned int;
+class AchievementManager;
 // Base ECSArchitecture class
 // We have chosen to store a complete list of pointers to entities for rendering and to return entityID
 class ECSArchitecture {
@@ -37,6 +46,9 @@ public:
 	EntityPool<Potion>* getPotionPool() { return &potionPool; }
 	EntityPool<Log>* getLogPool() { return &logPool; }
 	EntityPool<Fire>* getFirePool() { return &firePool; }
+
+	std::map<EntityType, std::function<void(Entity&, bool)>> collisionCallbacks;
+	AchievementManager* achievementsManager;
 
 	// This is similar to execute for BigArray but is placed in base ECS so that ArchetypeECS can use this for updating systems without code duplication
 	void updateSystems(float elapsedTime, std::vector<std::shared_ptr<System>> systems, std::vector<std::shared_ptr<Entity>> entities);

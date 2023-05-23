@@ -4,7 +4,9 @@
 #include "../../include/entities/Entity.h"
 #include "../../include/systems/Systems.h"
 #include "../../include/utils/Rectangle.h"
+#include "../../include/utils/Observer.h"
 #include "../../include/graphics/SpriteSheet.h"
+#include "../../include/utils/Subject.h"
 #include "../../include/entities/Player.h"
 #include "../../include/core/InputHandler.h"
 #include "../../include/core/Game.h"
@@ -19,9 +21,12 @@
 #include "../../include/entities/StaticEntities.h"
 #include "../../include/entities/EntityPool.h"
 #include "../../include/ECSArchitecture/ECSArchitecture.h"
+#include "../../include/utils/AudioLocator.h"
+#include "../../include/utils/AudioService.h"
 
 ECSArchitecture::ECSArchitecture(Game* gamePointer) : game{ gamePointer }, entityID(0), inputHandler{ std::make_unique<InputHandler>() }, debugInfo{ true },
-logPool{ EntityPool<Log>("../img/log.png") }, potionPool{ EntityPool<Potion>("../img/potion.png") }, firePool{ EntityPool<Fire>("../img/fire.png") } {
+logPool{ EntityPool<Log>("../img/log.png") }, potionPool{ EntityPool<Potion>("../img/potion.png") }, firePool{ EntityPool<Fire>("../img/fire.png") },
+achievementsManager{ new AchievementManager() } {
 	logicSystems.push_back(std::make_shared<TTLSystem>());
 	logicSystems.push_back(std::make_shared<InputSystem>());
 	logicSystems.push_back(std::make_shared<MovementSystem>());
@@ -32,6 +37,8 @@ logPool{ EntityPool<Log>("../img/log.png") }, potionPool{ EntityPool<Potion>("..
 	if (debugInfo) {
 		graphicsSystems.push_back(std::make_shared<PrintDebugSystem>());
 	}
+	AudioManager* audio = new AudioService();
+	AudioLocator::provide(audio);
 }
 
 void ECSArchitecture::updateSystems(float elapsedTime, std::vector<std::shared_ptr<System>> systems, std::vector<std::shared_ptr<Entity>> entities) {
@@ -90,7 +97,7 @@ std::shared_ptr<Entity> ECSArchitecture::getEntity(unsigned int idx)
 }
 
 void ECSArchitecture::colliderAndDeleteBase() {
-	// Colliders
+	//Collision
 	auto it = entities.begin();
 	while (it != entities.end()) {
 		if (dynamic_cast<ColliderComponent*>((*it)->getComponent(ComponentID::COLLIDER)) == nullptr) {
@@ -99,33 +106,11 @@ void ECSArchitecture::colliderAndDeleteBase() {
 		}
 		auto player = getPlayer();
 		if (player->collidesWith(*(*it).get())) {
-			switch ((*it)->getEntityType()) {
-			case EntityType::POTION:
-			{
-				Potion* potion = dynamic_cast<Potion*>((*it).get());
-				dynamic_cast<HealthComponent*>(player->getComponent(ComponentID::HEALTH))->changeHealth(potion->getHealth());
-				potion->deleteEntity();
-				break;
-			}
-			case EntityType::LOG:
-			{
-				Log* log = dynamic_cast<Log*>((*it).get());
-				auto playerGraphics = dynamic_cast<SpriteSheetGraphicsComponent*>(dynamic_cast<GraphicsComponent*>(player->getComponent(ComponentID::GRAPHICS)));
-				auto playerLogic = dynamic_cast<PlayerStateComponent*>(player->getComponent(ComponentID::LOGIC));
-				if (playerGraphics->getSpriteSheet()->getCurrentAnim()->isInAction()
-					&& playerGraphics->getSpriteSheet()->getCurrentAnim()->getName() == "Attack")
-				{
-					playerLogic->addWood(log->getWood());
-					log->deleteEntity();
-				}
-				break;
-			}
-
-			}
+			if (collisionCallbacks.find((*it)->getEntityType()) != collisionCallbacks.end())
+				collisionCallbacks.at((*it)->getEntityType())(*(*it).get(), debugInfo);
 		}
 		it++;
 	}
-
 	// Removing entities from active entities and adding back to entity pool
 	it = entities.begin();
 	while (it != entities.end()) {

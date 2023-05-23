@@ -1,3 +1,10 @@
+#pragma once
+#include "../components/Components.h"
+#include "../utils/Rectangle.h"
+#include "../graphics/SpriteSheet.h"
+#include "../components/ColliderComponent.h"
+#include "../components/GraphicsComponent.h"
+#include "../components/PositionComponent.h"
 class Entity;
 class Potion : public Entity
 {

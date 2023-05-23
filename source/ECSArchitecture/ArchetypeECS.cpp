@@ -6,6 +6,7 @@
 #include "../../include/ECSArchitecture/Archetype.h"
 #include "../../include/utils/Rectangle.h"
 #include "../../include/graphics/SpriteSheet.h"
+#include "../../include/utils/Subject.h"
 #include "../../include/entities/Player.h"
 #include "../../include/core/InputHandler.h"
 #include "../../include/core/Command.h"

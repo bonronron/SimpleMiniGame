@@ -1,14 +1,18 @@
 #include "../../include/utils/Subject.h"
-#include "../../include/core/Game.h"
 #include "../../include/entities/Entity.h"
 #include "../../include/entities/Player.h"
+#include "../../include/entities/Fire.h"
 #include "../../include/utils/Observer.h"
+#include "../../include/entities/StaticEntities.h"
+#include "../../include/entities/EntityPool.h"
+#include "../../include/ECSArchitecture/ECSArchitecture.h"
+#include "../../include/core/Game.h"
 #include <iostream>
 
 
 void AchievementManager::init(Game& game,int thresholdPotions, int thresholdShouts) {
-    game.getPlayer()->getPickPotionSubject().addObserver(this);
-    game.getPlayer()->getShoutsSubject().addObserver(this);
+    game.getECS()->getPlayer()->getPickPotionSubject().addObserver(this);
+    game.getECS()->getPlayer()->getShoutsSubject().addObserver(this);
     this->thresholdPotions = thresholdPotions;
     this->thresholdShouts = thresholdShouts;
     unlockedAchievements.emplace(Achievements::FIREBREATHER, false);
