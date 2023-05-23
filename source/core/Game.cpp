@@ -19,11 +19,14 @@
 #include "../../include/components/TTLComponent.h"
 #include "../../include/entities/Fire.h"
 #include "../../include/entities/StaticEntities.h"
+#include "../../include/utils/AudioLocator.h"
+#include "../../include/utils/AudioService.h"
 #include "../../include/core/Game.h"
 
 Game::Game() : paused(false), entityID(0), inputHandler{ std::make_unique<InputHandler>() }, 
 debugInfo{ false }, achievementsManager {new AchievementManager()}
 {
+
 	logicSystems.push_back(std::make_shared<TTLSystem>());
 	logicSystems.push_back(std::make_shared<MovementSystem>());
 	logicSystems.push_back(std::make_shared<InputSystem>());
@@ -34,6 +37,9 @@ debugInfo{ false }, achievementsManager {new AchievementManager()}
 	if (debugInfo) {
 		graphicsSystems.push_back(std::make_shared<PrintDebugSystem>());
 	}
+
+	AudioManager* audio = new AudioService();
+	AudioLocator::provide(audio);
 }
 
 Game::~Game(){}

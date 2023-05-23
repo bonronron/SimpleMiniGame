@@ -93,6 +93,12 @@
     <ClInclude Include="..\include\systems\Systems.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\utils\AudioService.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\utils\AudioLocator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\levels\lvl0.txt">
@@ -179,6 +185,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\source\systems\PrintDebugSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\utils\AudioService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\utils\AudioLocator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

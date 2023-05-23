@@ -9,6 +9,10 @@
 #include "../../include/components/VelocityComponent.h"
 #include "../../include/components/LogicComponent.h"
 #include "../../include/components/InputComponent.h"
+#include "../../include/graphics/SpriteSheet.h"
+#include "../../include/components/GraphicsComponent.h"
+#include "../../include/utils/AudioService.h"
+#include "../../include/utils/AudioLocator.h"
 #include "../../include/core/InputHandler.h"
 
 void MoveRightCommand::execute(Game& game) {
@@ -25,8 +29,10 @@ void MoveDownCommand::execute(Game& game) {
 }
 void AttackCommand::execute(Game& game) {
 	auto playerLogic = dynamic_cast<PlayerStateComponent*>(game.getPlayer()->getComponent(ComponentID::LOGIC));
-	if (!playerLogic->isAttacking()) {
+	auto playerGraphics = dynamic_cast<SpriteSheetGraphicsComponent*>(game.getPlayer()->getComponent(ComponentID::GRAPHICS));
+	if (!playerLogic->isAttacking() && playerGraphics->getSpriteSheet()->getCurrentAnim()->isInAction()) {
 		playerLogic->setAttacking(true);
+		AudioLocator::getAudioManager().playSound("playerHitting");
 	}
 }
 void ShoutCommand::execute(Game& game) {

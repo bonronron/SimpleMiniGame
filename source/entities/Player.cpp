@@ -17,10 +17,11 @@
 #include "../../include/core/InputHandler.h"
 #include "../../include/core/Command.h"
 #include "../../include/entities/Fire.h"
-#include "../../include/entities/Player.h"
 #include "../../include/entities/StaticEntities.h"
 #include "../../include/utils/Observer.h"
-
+#include "../../include/utils/AudioService.h"
+#include "../../include/utils/AudioLocator.h"
+#include "../../include/entities/Player.h"
 
 
 Player::Player() : Entity(EntityType::PLAYER)
@@ -52,7 +53,7 @@ std::shared_ptr<Fire> Player::createFire() const
 	Vector2f vel(fireSpeed, 0.f);
 	if (dynamic_cast<GraphicsComponent*>(components.at(ComponentID::GRAPHICS).get())->getSpriteSheet()->getSpriteDirection() == Direction::Left) vel.x = vel.x * -1.0f;
 	dynamic_cast<VelocityComponent*>(fireEntity->getComponent(ComponentID::VELOCITY))->setVelocity(vel.x, vel.y);
-
+	AudioLocator::getAudioManager().playSound("fireShot");
 	return fireEntity;
 }
 
@@ -70,6 +71,7 @@ void Player::collidesPotionCallback(Entity& entity,bool debugInfo) {
 		std::cout << " Player health : " << dynamic_cast<HealthComponent*>(getComponent(ComponentID::HEALTH))->getHealth() << "\tHealth restored : " << potion.getHealth() << std::endl;
 	}
 	getPickPotionSubject().notify(*this, Events::PotionPickup);
+	AudioLocator::getAudioManager().playSound("potionPickup");
 	potion.deleteEntity();
 }
 
