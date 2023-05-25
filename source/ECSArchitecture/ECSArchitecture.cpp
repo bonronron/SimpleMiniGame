@@ -100,17 +100,18 @@ void ECSArchitecture::colliderAndDeleteBase() {
 	//Collision
 	auto it = entities.begin();
 	while (it != entities.end()) {
-		if (dynamic_cast<ColliderComponent*>((*it)->getComponent(ComponentID::COLLIDER)) == nullptr) {
+		if (dynamic_cast<ColliderComponent*>((*it)->getComponent(ComponentID::COLLIDER)) == nullptr || *it == player) {
 			it++;
 			continue;
 		}
-		auto player = getPlayer();
 		if (player->collidesWith(*(*it).get())) {
 			if (collisionCallbacks.find((*it)->getEntityType()) != collisionCallbacks.end())
 				collisionCallbacks.at((*it)->getEntityType())(*(*it).get(), debugInfo);
 		}
 		it++;
 	}
+
+	// Deletion
 	// Removing entities from active entities and adding back to entity pool
 	it = entities.begin();
 	while (it != entities.end()) {
