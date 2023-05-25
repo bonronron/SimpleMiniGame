@@ -26,23 +26,9 @@
 #include "../../include/core/Game.h"
 Game::Game() : paused(false)
 {
-	ECS = std::make_unique<ArchetypeECS>(this);
+	ECS = std::make_unique<ArchetypeECS>(this); //Change here between "ArchetypeECS" and "BigArrayECS"
 }
 Game::~Game(){}
-
-//template <typename T>
-//std::shared_ptr<T> Game::buildEntityAt(const std::string& filename, int col, int row)
-//{
-//	auto ent = std::make_shared<T>();
-//	float x = col * spriteWH * tileScale;
-//	float y = row * spriteWH * tileScale;
-//	float cntrFactor = (tileScale - itemScale) * spriteWH * 0.5f;
-//
-//	dynamic_cast<PositionComponent*>(ent->getComponent(ComponentID::POSITION))->setPosition(x + cntrFactor, y + cntrFactor);
-//	ent->init(filename, std::make_shared<SimpleSpriteGraphicsComponent>(itemScale));
-//
-//	return ent;
-//}
 
 Vector2f Game::buildEntityCoord(int col, int row) {
 	float x = col * spriteWH * tileScale;
@@ -113,7 +99,6 @@ void Game::init(std::vector<std::string> lines)
 			case 'p':
 			{
 				auto ent = ECS->getPotionPool()->buildEntityAt(buildEntityCoord(col, row));
-				//auto ent = buildEntityAt<Potion>("../img/potion.png", col, row);
 				ECS->addEntity(ent);	
 				board->addTile(col, row, tileScale, TileType::CORRIDOR);
 				break;

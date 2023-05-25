@@ -54,8 +54,6 @@ std::shared_ptr<Fire> Player::createFire(Game* game) const
 
 	auto fireEntity = game->getECS()->getFirePool()->buildEntityAt(pos);
 
-	//dynamic_cast<PositionComponent*>(fireEntity->getComponent(ComponentID::POSITION))->setPosition(pos.x, pos.y);
-
 	Vector2f vel(fireSpeed, 0.f);
 	if (playerGraphics->getSpriteSheet()->getSpriteDirection() == Direction::Left) vel.x = vel.x * -1.0f;
 	dynamic_cast<VelocityComponent*>(fireEntity->getComponent(ComponentID::VELOCITY))->setVelocity(vel.x, vel.y);

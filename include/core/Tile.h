@@ -30,7 +30,6 @@ public:
 	Tile(std::shared_ptr<TileIntrinsic> td) : position(0, 0), tileData(td) {}
 	void loadTile(int x, int y, float sc);
 
-	//void setPosition(int x, int y);
 	inline int x() const { return position.x; }
 	inline int y() const { return position.y; }
 	inline const sf::Vector2f& getScale() const { return sprite.getScale(); }

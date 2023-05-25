@@ -35,10 +35,7 @@ public:
 	std::shared_ptr<ECSArchitecture> getECS() { return ECS; }
 
 	Vector2f buildEntityCoord(int row, int col);
-	//void positionSprite(Entity& entity, int row, int col, int spriteWH, float tileScale)
-
-	//template <typename T>
-	//std::shared_ptr<T> buildEntityAt(const std::string& filename, int col, int row);
+	
 
 private:
 
