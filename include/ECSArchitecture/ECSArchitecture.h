@@ -30,19 +30,24 @@ protected:
 	EntityPool<Fire> firePool;
 public:
 	ECSArchitecture(Game* game);
+
+	// Functions to be declared in derived classes
 	virtual void update(float elapsed) = 0;
 	virtual void addEntity(std::shared_ptr<Entity> newEntity) = 0;
 
-	std::shared_ptr<Entity> getEntity(unsigned int idx);
-	void render(float elapsed);
+	// Initializing and setting up Game
 	void initPlayer(int row, int col, int spriteWH, float tileScale);
 	void positionSprite(Entity& entity, int row, int col, int spriteWH, float tileScale);
-
 	void colliderAndDeleteBase();
 	void addToBase(std::shared_ptr<Entity> newEntity);
+
+	void render(float elapsed);
+
+	std::shared_ptr<Entity> getEntity(unsigned int idx);
 	std::shared_ptr<Player> getPlayer() { return player; }
 	EntityID getIDCounter() { return entityID; };
 
+	// Get EntityPool
 	EntityPool<Potion>* getPotionPool() { return &potionPool; }
 	EntityPool<Log>* getLogPool() { return &logPool; }
 	EntityPool<Fire>* getFirePool() { return &firePool; }
@@ -50,7 +55,7 @@ public:
 	std::map<EntityType, std::function<void(Entity&, bool)>> collisionCallbacks;
 	AchievementManager* achievementsManager;
 
-	// This is similar to execute for BigArray but is placed in base ECS so that ArchetypeECS can use this for updating systems without code duplication
+	// Helper functions for updating systems
 	void updateSystems(float elapsedTime, std::vector<std::shared_ptr<System>> systems, std::vector<std::shared_ptr<Entity>> entities);
 	void updateSystem(float elapsedTime, std::shared_ptr<System> system, std::vector<std::shared_ptr<Entity>> entities);
 };

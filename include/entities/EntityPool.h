@@ -7,7 +7,6 @@ private:
 	T entityPool[POOLSIZE];
 	std::shared_ptr<T> firstAvailable;
 public:
-	//void buildEntityPool(const std::string& filename) 
 	EntityPool(const std::string& filename){
 		for (int i = 0; i < POOLSIZE; i++) {
 			entityPool[i].init(filename, std::make_shared<SimpleSpriteGraphicsComponent>(1.0f));
