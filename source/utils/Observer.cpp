@@ -10,9 +10,7 @@
 #include <iostream>
 
 
-void AchievementManager::init(Game& game,int thresholdPotions, int thresholdShouts) {
-    game.getECS()->getPlayer()->getPickPotionSubject().addObserver(this);
-    game.getECS()->getPlayer()->getShoutsSubject().addObserver(this);
+void AchievementManager::init(int thresholdPotions, int thresholdShouts) {
     this->thresholdPotions = thresholdPotions;
     this->thresholdShouts = thresholdShouts;
     unlockedAchievements.emplace(Achievements::FIREBREATHER, false);

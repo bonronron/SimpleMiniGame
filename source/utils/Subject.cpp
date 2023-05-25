@@ -7,5 +7,5 @@ void Subject::addObserver(Observer* ob ) {
 }
 
 void Subject::notify(const Entity& entity,Events event) {
-        observer->onNotify(entity, event);
+    if (observer != nullptr) observer->onNotify(entity, event);
 }

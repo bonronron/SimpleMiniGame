@@ -24,7 +24,7 @@ public:
 
 class AchievementManager : public Observer {
 public:
-	virtual void init(Game& game, int thresholdPotions, int thresholdShouts);
+	virtual void init(int thresholdPotions, int thresholdShouts);
     virtual bool onNotify(const Entity& entity, Events event);
 
 private:

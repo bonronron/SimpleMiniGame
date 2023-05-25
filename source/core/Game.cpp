@@ -136,7 +136,10 @@ void Game::init(std::vector<std::string> lines)
 	getECS()->collisionCallbacks.emplace(EntityType::POTION, potionCallback);
 	getECS()->collisionCallbacks.emplace(EntityType::LOG, logCallback);
 
-	getECS()->achievementsManager->init(*this,6,5);
+	//ACHIEVEMENTS MANAGER
+	getECS()->getPlayer()->getPickPotionSubject().addObserver(getECS()->achievementsManager);
+	getECS()->getPlayer()->getShoutsSubject().addObserver(getECS()->achievementsManager);
+	getECS()->achievementsManager->init(6,5);
 }
 
 
